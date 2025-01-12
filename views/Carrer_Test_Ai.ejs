@@ -1,0 +1,154 @@
+<head>
+
+<%- include('layouts/header'); -%>
+
+
+<style>
+    body {
+  background-color: black;
+}
+
+.card {
+  width: 400px;
+  height: 440px;
+  background: #07182E;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.card-title {
+  z-index: 1;
+  color: white;
+  font-size: 1em;
+}
+.card-text{
+    z-index: 2;
+  color: white;
+  font-size: 1em;
+}
+
+.card-body {
+  position: relative;
+  z-index: 3;
+  color: white;
+  font-size: 1em; /* This ensures the card body content appears on top of pseudo-elements */
+}
+.card::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(0, 183, 255)), to(rgb(255, 48, 255)));
+  background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+  height: 130%;
+  -webkit-animation: rotBGimg 3s linear infinite;
+  animation: rotBGimg 3s linear infinite;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+@-webkit-keyframes rotBGimg {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotBGimg {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.glow-button {
+  box-shadow: 0 0 30px #ff00ea;
+}
+
+ul{
+    color: azure;
+}
+h2 {
+    font-size: 3em;
+    color: #ff00ea;
+
+}
+.btn-lg {
+  margin: 1em;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  background: #07182E;
+  ;
+  inset: 5px;
+  border-radius: 15px;
+}
+
+/* .card:hover:before {
+  background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
+  animation: rotBGimg 3.5s linear infinite;
+} */
+</style>
+</head>
+
+<%- include('layouts/navbar'); -%>
+
+<div class="container mt-5" id="Career_Ai_Test">
+   
+  <fieldset>
+    <legend>
+  <h2>Your Career Suggestions:</h2>  </legend>
+    <div class="row">
+        <% if (Array.isArray(careerSuggestions) && careerSuggestions.length > 0) { %>
+            <% careerSuggestions.forEach(career => { %>
+                <div class="col-md-4 mb-4"> <!-- 3 cards per row on medium and larger screens -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= career.title %> (Score: <%= career.score %>)</h5>
+                            <p class="card-text"><%= career.description %> </p> <!-- Assuming description is a single string -->
+                            <h6>Key Points:</h6>
+                            <ul>
+                                <% if (Array.isArray(career.descriptions)) { %>
+                                    <% career.descriptions.forEach(desc => { %>
+                                        <li><%= desc %></li>
+                                    <% }) %>
+                                <% } %>
+                            </ul>
+                            <button type="button" class="btn btn-block btn-lg glow-button btn-primary"><a href="https://www.google.com/search?q=<%= career.title %>" target="_blank">Know More</a></button>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="alert alert-warning" role="alert">
+                No career suggestions available.
+            </div>
+        <% } %>
+    </div>
+
+    <h2>Next Steps:</h2>
+    <ul>
+        <% if (Array.isArray(nextSteps) && nextSteps.length > 0) { %>
+            <% nextSteps.forEach(step => { %>
+                <li><%= step %></li>
+            <% }) %>
+        <% } else { %>
+            <li>No next steps available.</li> <!-- Handle case when there are no next steps -->
+        <% } %>
+    </ul>
+</div>
+</fieldset>
+<%- include('layouts/footer'); -%>

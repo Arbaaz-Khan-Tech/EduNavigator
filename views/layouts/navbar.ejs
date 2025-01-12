@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg ml-auto fixed-top navbar-light ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="BootstrapBrain Logo" width="175" height="60"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  "  id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto ">
+
+          <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+
+            <div class="dropdown">
+              <button class="btn btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent;
+      border: none; color: rgb(143, 140, 140);">
+                Career
+              </button>
+              <ul class="dropdown-menu">
+                <li class="nav-item"><a class="nav-link" href="/career-counseling">Skills & Interest</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ai">AI Based</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Carrer_Trends">Trending Carrers</a></li>
+              </ul>
+            </div>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/exam_choice">College</a>
+        </li>
+
+        <li class="nav-item"></li>
+          <a class="nav-link" href="/scholarship">Scholarship</a>
+        </li>
+
+        <li class="nav-item"></li>
+        <a class="nav-link" href="/PBL_1">Labs</a>
+      </li>
+
+        <li class="nav-item"></li>
+        <a class="nav-link" href="/resume">Resume</a>
+      </li>
+        
+
+    
+
+
+
+        <% if (userId) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/apti">Aptitude</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+
+          <% } else { %>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+         
+        </li>
+        <% }  %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+

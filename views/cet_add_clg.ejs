@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Data Entry</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        label { display: block; margin: 10px 0 5px; }
+        input, select { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background-color: #007BFF; color: #fff; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .cutoff-group { margin-top: 20px; }
+        .cutoff-entry { margin-bottom: 15px; }
+        .cutoff-entry label { display: inline-block; width: 150px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter College Data</h1>
+        <form id="collegeForm">
+            <label for="name">College Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="university">University:</label>
+            <input type="text" id="university" name="university" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="branch">Branch:</label>
+            <input type="text" id="branch" name="branch" required>
+
+            <div id="cutoffContainer" class="cutoff-group">
+                <!-- Cutoff entries will be dynamically added here -->
+            </div>
+
+            <button type="button" onclick="addCutoff()">Add Cutoff Entry</button>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        let cutoffIndex = 0;
+
+        function addCutoff() {
+            const container = document.getElementById('cutoffContainer');
+            const cutoffEntry = document.createElement('div');
+            cutoffEntry.className = 'cutoff-entry';
+            cutoffEntry.id = 'cutoff' + cutoffIndex;
+
+            cutoffEntry.innerHTML = `
+                <h3>Cutoff Entry ${cutoffIndex + 1}</h3>
+                <label for="category${cutoffIndex}">Category:</label>
+                <input type="text" id="category${cutoffIndex}" name="cutoffs[${cutoffIndex}][category]" required>
+
+                <label for="cetScore${cutoffIndex}">CET Score:</label>
+                <input type="number" id="cetScore${cutoffIndex}" name="cutoffs[${cutoffIndex}][cetScore]" required>
+
+                <label for="round${cutoffIndex}">Round:</label>
+                <select id="round${cutoffIndex}" name="cutoffs[${cutoffIndex}][round]" required>
+                    <option value="1">Round 1</option>
+                    <option value="2">Round 2</option>
+                    <option value="3">Round 3</option>
+                </select>
+
+                <label for="year${cutoffIndex}">Year:</label>
+                <input type="number" id="year${cutoffIndex}" name="cutoffs[${cutoffIndex}][year]" required>
+            `;
+
+            container.appendChild(cutoffEntry);
+            cutoffIndex++;
+        }
+
+        document.getElementById('collegeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Collect form data and send it to the server
+    const formData = new FormData(this);
+
+    // Convert FormData to a JSON object
+    const data = {};
+    formData.forEach((value, key) => {
+        if (key.startsWith('cutoffs')) {
+            const [_, index, field] = key.match(/cutoffs\[(\d+)]\[(\w+)]/);
+            if (!data.cutoffs) data.cutoffs = [];
+            if (!data.cutoffs[index]) data.cutoffs[index] = {};
+            data.cutoffs[index][field] = value;
+        } else {
+            data[key] = value;
+        }
+    });
+
+    fetch('/add_cet_clg', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        alert('Data submitted successfully!');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred.');
+    });
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/header'); -%>
+<body style="background-image: url(/img/blob.svg) ; background-repeat: no-repeat; background-size: cover;">
+    
+    <!-- Navbar -->
+   
+    <%- include('layouts/navbar'); -%>
+<section class="cet_rec">
+    <h1 class="text-center mb-4">College Recommendation System</h1>
+
+    <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          
+          <a href="#"><img src="/img/spo1.png" class="d-block w-100" alt="..." style="height: 299px;"></a>
+        </div>
+        <div class="carousel-item">
+          <
+          <a href="#"><img src="/img/spo2.png"  class="d-block w-100" alt="..." style="height: 299px;" ></a>
+        </div>
+        <div class="carousel-item">
+          
+          <a href="#"><img src="/img/spo1.png"  class="d-block w-100" alt="..." style="height: 299px;"></a>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div> -->
+    
+    <h1 class="text-center mb-4">College Recommendation System</h1>
+
+<form action="/recommendcet" method="POST" class="container">
+  <!-- CET Score -->
+  <div class="mb-3">
+    <label for="cetScore" class="form-label">CET Score:</label>
+    <input type="number" id="cetScore" name="cetScore" class="form-control" step="0.01" required>
+  </div>
+  
+
+  <!-- University Selection -->
+  <div class="mb-3">
+    <label for="university" class="form-label">Select University:</label>
+    <select id="university" name="university" class="form-select" required>
+      <option value="Any">Any</option>
+      <% universities.forEach(uni => { %>
+        <option value="<%= uni %>"><%= uni %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <!-- Branch Selection -->
+  <div class="mb-3">
+    <label for="branch" class="form-label">Select Branch:</label>
+    <select id="branch" name="branch" class="form-select" required>
+      <% branches.forEach(br => { %>
+        <option value="<%= br %>"><%= br %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <!-- Category Selection -->
+  <div class="mb-3">
+    <label for="category" class="form-label">Select Category:</label>
+    <select id="category" name="category" class="form-select" required>
+      <% categories.forEach(cat => { %>
+        <option value="<%= cat %>"><%= cat %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary w-100">Get Recommendations</button>
+</form>
+
+</section>
+    <%- include('layouts/footer'); -%>
+
+    <script src="app.js"></script>
+
+
+</body>
+</html>

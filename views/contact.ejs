@@ -1,0 +1,51 @@
+<%- include('layouts/header'); -%>
+<body>
+  <%- include('layouts/navbar'); -%>
+
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Left Column: Image -->
+       <div class="col-md-6">
+        <img src="/img/contact1.jpg" alt="Success" class="img-fluid" style="height: 500px;">
+      </div>
+
+      <!-- Right Column: Contact Form -->
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <form action="/contact/submit" method="POST">
+          <!-- Name Input -->
+          <div class="form-group mb-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+
+          <!-- Email Input -->
+          <div class="form-group mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+
+          <!-- Subject Input -->
+          <div class="form-group mb-3">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+          </div>
+
+          <!-- Message Textarea -->
+          <div class="form-group mb-3">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <%- include('layouts/footer'); -%>
+</body>
+</html>

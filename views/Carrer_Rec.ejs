@@ -1,0 +1,357 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/header'); -%>
+<body>
+    
+    <!-- Navbar -->
+    <%- include('layouts/navbar'); -%>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        #recommendations {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #recommendationList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #recommendationList li {
+            background-color: #e0e0e0;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Scroll section for skills and interests */
+        #skillsContainer, #interestsContainer {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Salary table */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
+    <h1>Career Counseling</h1>
+    <form id="counselingForm">
+        <fieldset>
+            <legend>Select Your Skills:</legend>
+            <input type="text" id="searchSkills" placeholder="Search Skills" onkeyup="search('searchSkills', 'skills')"><br>
+            <div id="skillsContainer">
+                <label><input type="checkbox" name="skills" value="Python"> Python</label><br>
+                <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label><br>
+                <label><input type="checkbox" name="skills" value="Java"> Java</label><br>
+                <label><input type="checkbox" name="skills" value="C++"> C++</label><br>
+                <!-- Expanded Skills -->
+                <label><input type="checkbox" name="skills" value="React"> React</label><br>
+                <label><input type="checkbox" name="skills" value="Node.js"> Node.js</label><br>
+                <label><input type="checkbox" name="skills" value="Angular"> Angular</label><br>
+                <label><input type="checkbox" name="skills" value="Vue.js"> Vue.js</label><br>
+                <label><input type="checkbox" name="skills" value="Ruby"> Ruby</label><br>
+                <label><input type="checkbox" name="skills" value="PHP"> PHP</label><br>
+                <label><input type="checkbox" name="skills" value="Go"> Go</label><br>
+                <label><input type="checkbox" name="skills" value="SQL"> SQL</label><br>
+                <label><input type="checkbox" name="skills" value="Swift"> Swift</label><br>
+                <label><input type="checkbox" name="skills" value="Kotlin"> Kotlin</label><br>
+                <label><input type="checkbox" name="skills" value="Rust"> Rust</label><br>
+                <label><input type="checkbox" name="skills" value="TypeScript"> TypeScript</label><br>
+                <label><input type="checkbox" name="skills" value="Django"> Django</label><br>
+                <label><input type="checkbox" name="skills" value="Flask"> Flask</label><br>
+                <label><input type="checkbox" name="skills" value="AWS"> AWS</label><br>
+                <label><input type="checkbox" name="skills" value="Azure"> Azure</label><br>
+                <label><input type="checkbox" name="skills" value="GCP"> GCP</label><br>
+                <label><input type="checkbox" name="skills" value="Docker"> Docker</label><br>
+                <label><input type="checkbox" name="skills" value="Kubernetes"> Kubernetes</label><br>
+                <label><input type="checkbox" name="skills" value="Jenkins"> Jenkins</label><br>
+                <label><input type="checkbox" name="skills" value="Terraform"> Terraform</label><br>
+                <label><input type="checkbox" name="skills" value="Ansible"> Ansible</label><br>
+                <label><input type="checkbox" name="skills" value="CI/CD"> CI/CD</label><br>
+                <label><input type="checkbox" name="skills" value="Linux"> Linux</label><br>
+                <label><input type="checkbox" name="skills" value="Git"> Git</label><br>
+                <label><input type="checkbox" name="skills" value="Blockchain"> Blockchain</label><br>
+                <label><input type="checkbox" name="skills" value="TensorFlow"> TensorFlow</label><br>
+                <label><input type="checkbox" name="skills" value="Pandas"> Pandas</label><br>
+                <label><input type="checkbox" name="skills" value="Numpy"> Numpy</label><br>
+                <label><input type="checkbox" name="skills" value="PyTorch"> PyTorch</label><br>
+                <label><input type="checkbox" name="skills" value="OpenCV"> OpenCV</label><br>
+                <label><input type="checkbox" name="skills" value="Unity"> Unity</label><br>
+                <label><input type="checkbox" name="skills" value="Unreal Engine"> Unreal Engine</label><br>
+                <label><input type="checkbox" name="skills" value="Blender"> Blender</label><br>
+                <label><input type="checkbox" name="skills" value="Game Development"> Game Development</label><br>
+                <label><input type="checkbox" name="skills" value="VR/AR"> VR/AR</label><br>
+                <label><input type="checkbox" name="skills" value="Computer Vision"> Computer Vision</label><br>
+                <label><input type="checkbox" name="skills" value="NLP"> NLP</label><br>
+                <label><input type="checkbox" name="skills" value="Automation Testing"> Automation Testing</label><br>
+                <label><input type="checkbox" name="skills" value="Agile"> Agile</label><br>
+                <label><input type="checkbox" name="skills" value="Scrum"> Scrum</label><br>
+                <label><input type="checkbox" name="skills" value="Product Management"> Product Management</label><br>
+                <label><input type="checkbox" name="skills" value="QA Testing"> QA Testing</label><br>
+                <label><input type="checkbox" name="skills" value="Cybersecurity"> Cybersecurity</label><br>
+                <!-- Continue adding up to 100 skills -->
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Select Your Interests:</legend>
+            <input type="text" id="searchInterests" placeholder="Search Interests" onkeyup="search('searchInterests', 'interests')"><br>
+            <div id="interestsContainer">
+                <label><input type="checkbox" name="interests" value="Web Development"> Web Development</label><br>
+                <label><input type="checkbox" name="interests" value="Data Science"> Data Science</label><br>
+                <label><input type="checkbox" name="interests" value="AI/ML"> AI/ML</label><br>
+                <label><input type="checkbox" name="interests" value="Cloud Computing"> Cloud Computing</label><br>
+                <!-- Expanded Interests -->
+                <label><input type="checkbox" name="interests" value="Blockchain Development"> Blockchain Development</label><br>
+                <label><input type="checkbox" name="interests" value="IoT"> IoT</label><br>
+                <label><input type="checkbox" name="interests" value="Virtual Reality"> Virtual Reality</label><br>
+                <label><input type="checkbox" name="interests" value="Quantum Computing"> Quantum Computing</label><br>
+                <label><input type="checkbox" name="interests" value="UI/UX Design"> UI/UX Design</label><br>
+                <label><input type="checkbox" name="interests" value="Mobile App Development"> Mobile App Development</label><br>
+                <label><input type="checkbox" name="interests" value="Game Development"> Game Development</label><br>
+                <label><input type="checkbox" name="interests" value="Augmented Reality"> Augmented Reality</label><br>
+                <label><input type="checkbox" name="interests" value="3D Modeling"> 3D Modeling</label><br>
+                <label><input type="checkbox" name="interests" value="Bioinformatics"> Bioinformatics</label><br>
+                <label><input type="checkbox" name="interests" value="Edge Computing"> Edge Computing</label><br>
+                <label><input type="checkbox" name="interests" value="Automation"> Automation</label><br>
+                <label><input type="checkbox" name="interests" value="Digital Transformation"> Digital Transformation</label><br>
+                <label><input type="checkbox" name="interests" value="Security Engineering"> Security Engineering</label><br>
+                <!-- Continue adding up to 100 interests -->
+            </div>
+        </fieldset>
+
+        <input type="button" value="Get Recommendations" onclick="getRecommendations()">
+    </form>
+
+    <div id="recommendations" class="hidden">
+        <h2>Recommended Careers</h2>
+        <ul id="recommendationList"></ul>
+
+        <h2>Average Salary Table</h2>
+        <table id="salaryTable">
+            <thead>
+                <tr>
+                    <th>Career</th>
+                    <th>Average Salary ($)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        const recommendations = {
+            "Python": {
+                careers: ["Data Scientist", "Machine Learning Engineer", "Backend Developer"],
+                salaries: [120000, 130000, 110000]
+            },
+            "JavaScript": {
+                careers: ["Frontend Developer", "Full Stack Developer", "Web Developer"],
+                salaries: [100000, 110000, 95000]
+            },
+            "Data Science": {
+                careers: ["Data Analyst", "Data Scientist", "AI Researcher"],
+                salaries: [95000, 120000, 140000]
+            },
+            "AI/ML": {
+                careers: ["AI Engineer", "Machine Learning Engineer", "Data Scientist"],
+                salaries: [150000, 140000, 120000]
+            },
+            "Cybersecurity": {
+                careers: ["Security Analyst", "Penetration Tester", "Cybersecurity Consultant"],
+                salaries: [105000, 115000, 125000]
+            },
+            "Cloud Computing": {
+                careers: ["Cloud Engineer", "Cloud Architect", "DevOps Engineer"],
+                salaries: [130000, 145000, 125000]
+            },
+            "Blockchain Development": {
+                careers: ["Blockchain Developer", "Smart Contract Developer", "Blockchain Architect"],
+                salaries: [125000, 135000, 150000]
+            },
+            "UI/UX Design": {
+                careers: ["UI Designer", "UX Researcher", "Product Designer"],
+                salaries: [85000, 90000, 95000]
+            },
+            "Game Development": {
+                careers: ["Game Developer", "Level Designer", "Game Artist"],
+                salaries: [95000, 100000, 85000]
+            },
+            "Automation": {
+                careers: ["Automation Engineer", "Test Automation Specialist", "Robotic Process Automation Engineer"],
+                salaries: [105000, 110000, 115000]
+            },
+            "Web Development": {
+                careers: ["Frontend Developer", "Backend Developer", "Full Stack Developer"],
+                salaries: [100000, 110000, 115000]
+            },
+            "Mobile App Development": {
+                careers: ["iOS Developer", "Android Developer", "Mobile UI Developer"],
+                salaries: [120000, 110000, 95000]
+            },
+            "Cloud Architect": {
+                careers: ["Cloud Solution Architect", "Cloud Infrastructure Engineer", "DevOps Engineer"],
+                salaries: [135000, 130000, 125000]
+            },
+            "DevOps": {
+                careers: ["DevOps Engineer", "Automation Engineer", "CI/CD Specialist"],
+                salaries: [130000, 125000, 115000]
+            },
+            // Add more recommendations and salaries for all skills and interests
+        };
+
+        function search(inputId, type) {
+            const searchTerm = document.getElementById(inputId).value.toLowerCase();
+            const labels = document.querySelectorAll(`input[name="${type}"]`).forEach(checkbox => {
+                const label = checkbox.parentElement;
+                if (label.textContent.toLowerCase().includes(searchTerm)) {
+                    label.style.display = "block";
+                } else {
+                    label.style.display = "none";
+                }
+            });
+        }
+
+        function getRecommendations() {
+            const selectedSkills = Array.from(document.querySelectorAll('input[name="skills"]:checked')).map(cb => cb.value);
+            const selectedInterests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value);
+            
+            const recommendationList = document.getElementById('recommendationList');
+            const salaryTableBody = document.querySelector('#salaryTable tbody');
+            
+            recommendationList.innerHTML = '';
+            salaryTableBody.innerHTML = '';
+            
+            const selected = [...selectedSkills, ...selectedInterests];
+            const addedCareers = new Set();
+
+            selected.forEach(selection => {
+                if (recommendations[selection]) {
+                    recommendations[selection].careers.forEach((career, index) => {
+                        if (!addedCareers.has(career)) {
+                            addedCareers.add(career);
+                            
+                            // Add to recommendation list
+                            const li = document.createElement('li');
+                            li.textContent = career;
+                            recommendationList.appendChild(li);
+                            
+                            // Add to salary table
+                            const tr = document.createElement('tr');
+                            const tdCareer = document.createElement('td');
+                            const tdSalary = document.createElement('td');
+                            tdCareer.textContent = career;
+                            tdSalary.textContent = recommendations[selection].salaries[index];
+                            tr.appendChild(tdCareer);
+                            tr.appendChild(tdSalary);
+                            salaryTableBody.appendChild(tr);
+                        }
+                    });
+                }
+            });
+            
+            document.getElementById('recommendations').classList.remove('hidden');
+        }
+    </script>
+
+    <%- include('layouts/footer'); -%>
+</body>
+</html>
+

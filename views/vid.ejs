@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Video</title>
+</head>
+<body>
+    <video id="video" autoplay></video>
+    <script>
+        // Access user media and display it in the video element
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                document.getElementById('video').srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing media devices.', error);
+            });
+    </script>
+</body>
+</html>

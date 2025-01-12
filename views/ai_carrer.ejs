@@ -1,0 +1,307 @@
+<head>
+
+  <%- include('layouts/header'); -%>
+
+    <style>
+      body {
+        background-color: #502b55;
+        font-family: Arial, sans-serif;
+        color: white;
+        
+      }
+      .container{
+        backdrop-filter: contrast(1.5);
+      }
+      .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #a59d9d;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+       
+      }
+
+      .form-label {
+        font-weight: 600;
+      }
+
+      .form-control {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #fafafa;
+      }
+
+      .form-control:focus {
+        border-color: #5a9;
+        box-shadow: 0 0 5px rgba(0, 150, 150, 0.2);
+      }
+
+      button[type="submit"] {
+        background-color: #5a9;
+        border: none;
+        color: #fff;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #488b8f;
+      }
+
+      .form-heading {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: #444;
+        margin-bottom: 20px;
+      }
+    </style>
+</head>
+
+
+<body>
+  <%- include('layouts/navbar'); -%>
+
+
+
+
+
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">AI Assistant</h1>
+
+      <form id="" action="/Ai_Insights" method="post">
+        <div class="row">
+          <div class="mb-3  col-md-6">
+           
+              <label for="Education" class="form-label">What is your current educational background?</label>
+              <input list="education-options" class="form-control" id="Education" name="Education" required>
+              <datalist id="education-options">
+                <option value="High School Diploma">
+                <option value="Bachelor's Degree in Computer Science">
+                <option value="Bachelor's Degree in Business">
+                <option value="Master's Degree in Engineering">
+                <option value="PhD in Physics">
+              </datalist>
+           
+
+          </div>
+
+          <div class="mb-3 col-md-6">
+          
+              <label for="WorkExperience" class="form-label">What work experience do you have (if any)?</label>
+              <input list="workexperience-options" class="form-control" id="WorkExperience" name="WorkExperience"
+                required>
+              <datalist id="workexperience-options">
+                <option value="Internship">
+                <option value="Software Developer">
+                <option value="Project Manager">
+                <option value="Marketing Specialist">
+                <option value="No experience yet">
+              </datalist>
+           
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="Skills" class="form-label">What skills do you excel at?</label>
+            <input list="skills-options" class="form-control" id="Skills" name="Skills" required>
+            <datalist id="skills-options">
+              <option value="Programming">
+              <option value="Data Analysis">
+              <option value="Project Management">
+              <option value="Graphic Design">
+              <option value="Public Speaking">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="Subjects" class="form-label">What subjects or activities are you most interested in?</label>
+            <input list="subjects-options" class="form-control" id="Subjects" name="Subjects" required>
+            <datalist id="subjects-options">
+              <option value="Mathematics">
+              <option value="Physics">
+              <option value="History">
+              <option value="Art and Design">
+              <option value="Sports">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="WorkPreference" class="form-label">Do you prefer working independently or in a team?</label>
+            <input list="workpreference-options" class="form-control" id="WorkPreference" name="WorkPreference"
+              required>
+            <datalist id="workpreference-options">
+              <option value="Independently">
+              <option value="In a team">
+              <option value="Both, depending on the task">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="Hobbies" class="form-label">What hobbies do you enjoy in your free time?</label>
+            <input list="hobbies-options" class="form-control" id="Hobbies" name="Hobbies" required>
+            <datalist id="hobbies-options">
+              <option value="Reading">
+              <option value="Painting">
+              <option value="Hiking">
+              <option value="Cooking">
+              <option value="Gaming">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="LearningInterests" class="form-label">What topics do you often find yourself researching or
+              learning about?</label>
+            <input list="learninginterests-options" class="form-control" id="LearningInterests" name="LearningInterests"
+              required>
+            <datalist id="learninginterests-options">
+              <option value="Technology">
+              <option value="Environmental Science">
+              <option value="Personal Finance">
+              <option value="Health and Wellness">
+              <option value="History">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="CareerGoals" class="form-label">Where do you see yourself in 5–10 years?</label>
+            <input list="careergoals-options" class="form-control" id="CareerGoals" name="CareerGoals" required>
+            <datalist id="careergoals-options">
+              <option value="In a leadership role">
+              <option value="Running my own business">
+              <option value="Working internationally">
+              <option value="Advancing in my current field">
+              <option value="Continuing my education">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="WorkEnvironment" class="form-label">What kind of work environment do you thrive in?</label>
+            <input list="workenvironment-options" class="form-control" id="WorkEnvironment" name="WorkEnvironment"
+              required>
+            <datalist id="workenvironment-options">
+              <option value="Collaborative">
+              <option value="Fast-paced">
+              <option value="Flexible">
+              <option value="Structured and organized">
+              <option value="Supportive and growth-oriented">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="JobPreferences" class="form-label">What is more important to you: job security, career growth,
+              or work-life balance?</label>
+            <input list="jobpreferences-options" class="form-control" id="JobPreferences" name="JobPreferences"
+              required>
+            <datalist id="jobpreferences-options">
+              <option value="Job Security">
+              <option value="Career Growth">
+              <option value="Work-Life Balance">
+              <option value="A combination of all three">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="WorkImpact" class="form-label">What kind of impact do you want your work to have?</label>
+            <input list="workimpact-options" class="form-control" id="WorkImpact" name="WorkImpact" required>
+            <datalist id="workimpact-options">
+              <option value="Improving people's lives">
+              <option value="Contributing to technological advancement">
+              <option value="Environmental sustainability">
+              <option value="Making a difference in my community">
+              <option value="Building a legacy">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="WorkSchedule" class="form-label">Do you prefer a stable 9-to-5 job or a more flexible work
+              schedule?</label>
+            <input list="workschedule-options" class="form-control" id="WorkSchedule" name="WorkSchedule" required>
+            <datalist id="workschedule-options">
+              <option value="Stable 9-to-5">
+              <option value="Flexible schedule">
+              <option value="Depends on the job">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="SalaryImportance" class="form-label">How much importance do you place on salary when considering
+              a career?</label>
+            <input list="salaryimportance-options" class="form-control" id="SalaryImportance" name="SalaryImportance"
+              required>
+            <datalist id="salaryimportance-options">
+              <option value="Very important">
+              <option value="Somewhat important">
+              <option value="Not as important">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="StressManagement" class="form-label">How do you handle stress or high-pressure
+              situations?</label>
+            <input list="stressmanagement-options" class="form-control" id="StressManagement" name="StressManagement"
+              required>
+            <datalist id="stressmanagement-options">
+              <option value="Exercise regularly">
+              <option value="Take breaks when needed">
+              <option value="Prioritize tasks">
+              <option value="Seek support from others">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="WorkStyle" class="form-label">Are you more of a planner or someone who prefers to take things as
+              they come?</label>
+            <input list="workstyle-options" class="form-control" id="WorkStyle" name="WorkStyle" required>
+            <datalist id="workstyle-options">
+              <option value="Planner">
+              <option value="Go with the flow">
+              <option value="A mix of both">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="Feedback" class="form-label">What feedback have you received from peers or mentors about your
+              strengths or areas for improvement?</label>
+            <input list="feedback-options" class="form-control" id="Feedback" name="Feedback" required>
+            <datalist id="feedback-options">
+              <option value="Excellent communicator">
+              <option value="Great attention to detail">
+              <option value="Needs to improve time management">
+              <option value="Strong leadership skills">
+            </datalist>
+          </div>
+
+          <div class="mb-3 col-md-6">
+            <label for="FutureLearning" class="form-label">What new skills or knowledge are you eager to learn?</label>
+            <input list="futurelearning-options" class="form-control" id="FutureLearning" name="FutureLearning"
+              required>
+            <datalist id="futurelearning-options">
+              <option value="Machine Learning">
+              <option value="Data Science">
+              <option value="Public Speaking">
+              <option value="Financial Management">
+              <option value="Foreign Language">
+            </datalist>
+          </div>
+
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+
+
+      <!-- <div id="resumePreview" class="mt-5"></div> -->
+    </div>
+
+
+
+    <%- include('layouts/footer'); -%>
+
+</body>

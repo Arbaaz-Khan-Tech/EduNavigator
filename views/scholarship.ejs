@@ -1,0 +1,435 @@
+<%- include('layouts/header'); -%>
+<body style="background-image: url(/img//wave.svg) ; background-repeat: no-repeat; background-size: cover; z-index: 3;">
+<%- include('layouts/navbar'); -%>
+
+<div class="container mt-5" >
+<div class="card shadow-lg" style="padding-top: 70px;">
+    <div class="card-header bg-primary text-white text-center" >
+        <h1>Find Scholarships</h1>
+    </div>
+    <div class="card-body">
+        <form action="/scholarship_res" method="get" class="row g-3">
+            <!-- Caste Category -->
+            <div class="col-md-6">
+                <label for="casteCategory" class="form-label">Caste Category:</label>
+                <select name="casteCategory" id="casteCategory" class="form-select" required>
+                    <option value="">Select a caste</option>
+                    <option value="All">All</option>
+                    <option value="General">General</option>
+                    <option value="SC">Scheduled Caste (SC)</option>
+                    <option value="ST">Scheduled Tribe (ST)</option>
+                    <option value="OBC">Other Backward Classes (OBC)</option>
+                    <option value="EWS">Economically Weaker Sections (EWS)</option>
+                    <option value="VJNT">Vimukta Jati and Nomadic Tribes (VJNT)</option>
+                    <option value="NT">Nomadic Tribes (NT)</option>
+                    <option value="SEBC">Socially and Educationally Backward Classes (SEBC)</option>
+                    <option value="SBC">Special Backward Classes (SBC)</option>
+                    <option value="Minority">Minority Communities (Muslim, Sikh, Christian, Buddhist, Parsi, Jain)</option>
+                    <option value="PwD">Persons with Disabilities (PwD)</option>
+                </select>
+            </div>
+
+            <!-- Current Education -->
+            <div class="col-md-6">
+                <label for="currentEducation" class="form-label">Current Education:</label>
+                <select name="currentEducation" id="currentEducation" class="form-select" required>
+                    <option value="">Select Current Education</option>
+                    <option value="Primary School">Primary School</option>
+                    <option value="Middle School">Middle School</option>
+                    <option value="High School">High School</option>
+                    <option value="Higher Secondary">Higher Secondary (Class 11-12)</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Undergraduate">Undergraduate</option>
+                    <option value="Postgraduate">Postgraduate</option>
+                    <option value="Doctorate">Doctorate (PhD)</option>
+                    <option value="Post-Doctorate">Post-Doctorate</option>
+                    <option value="Vocational Training">Vocational Training</option>
+                    <option value="Professional Certification">Professional Certification</option>
+                </select>
+            </div>
+
+            <!-- Courses -->
+            <div class="col-md-6">
+                <label for="course" class="form-label">Courses:</label>
+                <select name="course" id="course" class="form-select" required>
+                    <option value="">Select a Course</option>
+                </select>
+            </div>
+
+            <!-- State -->
+            <div class="col-md-6">
+                <label for="state" class="form-label">Select State:</label>
+                <select name="state" id="state" class="form-select" required>
+                    <option value="">Select a State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+
+            <!-- University -->
+            <div class="col-md-6">
+                <label for="university" class="form-label">Select University:</label>
+                <select name="university" id="university" class="form-select" required>
+                    <option value="">Select a University</option>
+                </select>
+            </div>
+
+            <!-- Find Scholarship Button -->
+            <div class="col-md-12 text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">Find Scholarships</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+<%- include('layouts/footer'); -%>
+    
+    <script>
+        // Populate courses based on current education
+        const educationDropdown = document.getElementById('currentEducation');
+        const courseDropdown = document.getElementById('course');
+
+        educationDropdown.addEventListener('change', function() {
+            const education = this.value;
+            courseDropdown.innerHTML = ''; // Clear previous courses
+
+            let courses = [];
+                if (education === 'Primary School') {
+                    courses = ['General Studies'];
+                } else if (education === 'Middle School') {
+                    courses = ['General Studies'];
+                } else if (education === 'High School') {
+                    courses = ['Science', 'Commerce', 'Arts'];
+                } else if (education === 'Higher Secondary') {
+                    courses = ['Physics, Chemistry, Biology (PCB)', 'Physics, Chemistry, Mathematics (PCM)', 'Commerce', 'Humanities', 'Vocational Studies'];
+                } else if (education === 'Diploma') {
+                    courses = ['Diploma in Engineering', 'Diploma in Pharmacy', 'Diploma in Business Management', 'Diploma in Hotel Management', 'Diploma in Education'];
+                } else if (education === 'Undergraduate') {
+                    courses = ['B.Tech', 'B.Sc', 'B.Com', 'BA', 'BBA', 'BCA', 'LLB', 'MBBS', 'BDS', 'B.Arch', 'B.Pharm', 'B.Ed'];
+                } else if (education === 'Postgraduate') {
+                    courses = ['M.Tech', 'M.Sc', 'MBA', 'MA', 'M.Com', 'MCA', 'LLM', 'MD', 'MDS', 'M.Arch', 'M.Pharm', 'M.Ed'];
+                } else if (education === 'Doctorate') {
+                    courses = ['PhD in Engineering', 'PhD in Science', 'PhD in Humanities', 'PhD in Law', 'PhD in Management', 'PhD in Medicine'];
+                } else if (education === 'Post-Doctorate') {
+                    courses = ['Post-Doctoral Fellowship in Science', 'Post-Doctoral Fellowship in Engineering', 'Post-Doctoral Fellowship in Social Sciences', 'Post-Doctoral Fellowship in Medicine'];
+                } else if (education === 'Vocational Training') {
+                    courses = ['Automobile Engineering', 'Computer Hardware and Networking', 'Plumbing', 'Electrician', 'Beauty and Wellness', 'Culinary Arts'];
+                } else if (education === 'Professional Certification') {
+                    courses = ['Project Management', 'Data Science', 'Cybersecurity', 'Digital Marketing', 'Graphic Design', 'AI and Machine Learning'];
+                }
+
+            // Populate courses
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course;
+                option.textContent = course;
+                courseDropdown.appendChild(option);
+            });
+        });
+
+        // Populate universities based on state
+        const stateDropdown = document.getElementById('state');
+        const universityDropdown = document.getElementById('university');
+
+        stateDropdown.addEventListener('change', function() {
+            const state = this.value;
+            universityDropdown.innerHTML = ''; // Clear previous universities
+
+            let universities = [];
+if (state === 'Andhra Pradesh') {
+    universities = [
+        'Andhra University', 
+        'Sri Venkateswara University', 
+        'Jawaharlal Nehru Technological University', 
+        'Acharya Nagarjuna University', 
+        'Dr. B.R. Ambedkar University', 
+        'Sri Padmavati Mahila Visvavidyalayam'
+    ];
+} else if (state === 'Arunachal Pradesh') {
+    universities = [
+        'Rajiv Gandhi University', 
+        'North Eastern Regional Institute of Science and Technology', 
+        'Arunachal University of Studies', 
+        'Indira Gandhi Technological and Medical Sciences University', 
+        'Himalayan University', 
+        'Venkateshwara Open University'
+    ];
+} else if (state === 'Assam') {
+    universities = [
+        'Gauhati University', 
+        'Tezpur University', 
+        'Dibrugarh University', 
+        'Assam University', 
+        'Kaziranga University', 
+        'Cotton University'
+    ];
+} else if (state === 'Bihar') {
+    universities = [
+        'Patna University', 
+        'Nalanda University', 
+        'Magadh University', 
+        'Lalit Narayan Mithila University', 
+        'Babasaheb Bhimrao Ambedkar Bihar University', 
+        'Aryabhatta Knowledge University'
+    ];
+} else if (state === 'Chhattisgarh') {
+    universities = [
+        'Pandit Ravishankar Shukla University', 
+        'Guru Ghasidas Vishwavidyalaya', 
+        'Indira Gandhi Krishi Vishwavidyalaya', 
+        'Chhattisgarh Swami Vivekanand Technical University', 
+        'Kushabhau Thakre Patrakarita Avam Jansanchar Vishwavidyalaya', 
+        'Ayush and Health Sciences University'
+    ];
+} else if (state === 'Delhi') {
+    universities = [
+        'Delhi University'
+    ];
+} else if (state === 'Goa') {
+    universities = [
+        'Goa University', 
+        'BITS Pilani, Goa Campus', 
+        'Goa Institute of Management', 
+        'National Institute of Technology Goa', 
+        'Goa College of Engineering', 
+        'Don Bosco College, Goa'
+    ];
+} else if (state === 'Gujarat') {
+    universities = [
+        'Gujarat University', 
+        'Maharaja Sayajirao University of Baroda', 
+        'Sardar Vallabhbhai National Institute of Technology', 
+        'Nirma University', 
+        'Indian Institute of Technology Gandhinagar', 
+        'Gujarat Technological University'
+    ];
+} else if (state === 'Haryana') {
+    universities = [
+        'Kurukshetra University', 
+        'Maharshi Dayanand University', 
+        'Guru Jambheshwar University of Science and Technology', 
+        'Chaudhary Charan Singh Haryana Agricultural University', 
+        'Deenbandhu Chhotu Ram University of Science and Technology', 
+        'Lingaya\'s University'
+    ];
+} else if (state === 'Himachal Pradesh') {
+    universities = [
+        'Himachal Pradesh University', 
+        'Indian Institute of Technology Mandi', 
+        'Dr. Yashwant Singh Parmar University of Horticulture and Forestry', 
+        'National Institute of Technology Hamirpur', 
+        'Chaudhary Sarwan Kumar Himachal Pradesh Krishi Vishvavidyalaya', 
+        'Shoolini University'
+    ];
+} else if (state === 'Jharkhand') {
+    universities = [
+        'Ranchi University', 
+        'Birla Institute of Technology, Mesra', 
+        'Vinoba Bhave University', 
+        'Jharkhand Rai University', 
+        'Kolhan University', 
+        'National University of Study and Research in Law'
+    ];
+} else if (state === 'Karnataka') {
+    universities = [
+        'Bangalore University', 
+        'Visvesvaraya Technological University', 
+        'University of Mysore', 
+        'Karnataka State Open University', 
+        'National Institute of Technology Karnataka', 
+        'Manipal Academy of Higher Education'
+    ];
+} else if (state === 'Kerala') {
+    universities = [
+        'University of Kerala', 
+        'Cochin University of Science and Technology', 
+        'Mahatma Gandhi University', 
+        'Kerala Agricultural University', 
+        'National Institute of Technology Calicut', 
+        'Indian Institute of Space Science and Technology'
+    ];
+} else if (state === 'Madhya Pradesh') {
+    universities = [
+        'Devi Ahilya Vishwavidyalaya', 
+        'Rajiv Gandhi Proudyogiki Vishwavidyalaya', 
+        'Barkatullah University', 
+        'Jiwaji University', 
+        'Mahatma Gandhi Chitrakoot Gramodaya Vishwavidyalaya', 
+        'Dr. Harisingh Gour University'
+    ];
+} else if (state === 'Maharashtra') {
+    universities = [
+        'University of Mumbai', 
+        'Savitribai Phule Pune University', 
+        'Shivaji University', 
+        'Dr. Babasaheb Ambedkar Marathwada University', 
+        'Maharashtra University of Health Sciences', 
+        'Yashwantrao Chavan Maharashtra Open University'
+    ];
+} else if (state === 'Manipur') {
+    universities = [
+        'Manipur University', 
+        'Central Agricultural University', 
+        'National Institute of Technology Manipur', 
+        'Manipur Technical University', 
+        'Manipur International University', 
+        'Indira Gandhi National Tribal University, Manipur'
+    ];
+} else if (state === 'Meghalaya') {
+    universities = [
+        'North-Eastern Hill University', 
+        'Martin Luther Christian University', 
+        'Mahatma Gandhi University, Meghalaya', 
+        'CMJ University', 
+        'William Carey University', 
+        'University of Science and Technology, Meghalaya'
+    ];
+} else if (state === 'Mizoram') {
+    universities = [
+        'Mizoram University', 
+        'ICFAI University, Mizoram', 
+        'National Institute of Technology Mizoram', 
+        'College of Veterinary Sciences and Animal Husbandry, Selesih', 
+        'Central Agricultural University, Mizoram Campus', 
+        'Zoram Medical College'
+    ];
+} else if (state === 'Nagaland') {
+    universities = [
+        'Nagaland University', 
+        'St. Joseph University, Dimapur', 
+        'Global Open University', 
+        'National Institute of Technology Nagaland', 
+        'ICFAI University, Nagaland', 
+        'Patkai Christian College'
+    ];
+} else if (state === 'Odisha') {
+    universities = [
+        'Utkal University', 
+        'Sambalpur University', 
+        'Ravenshaw University', 
+        'Berhampur University', 
+        'Veer Surendra Sai University of Technology', 
+        'National Institute of Technology Rourkela'
+    ];
+} else if (state === 'Punjab') {
+    universities = [
+        'Panjab University', 
+        'Guru Nanak Dev University', 
+        'Punjab Agricultural University', 
+        'Lovely Professional University', 
+        'Chandigarh University', 
+        'Thapar Institute of Engineering and Technology'
+    ];
+} else if (state === 'Rajasthan') {
+    universities = [
+        'University of Rajasthan', 
+        'Malaviya National Institute of Technology', 
+        'Mohanlal Sukhadia University', 
+        'Birla Institute of Technology and Science Pilani', 
+        'Rajasthan Technical University', 
+        'Jaipur National University'
+    ];
+} else if (state === 'Sikkim') {
+    universities = [
+        'Sikkim University', 
+        'Sikkim Manipal University', 
+        'ICFAI University, Sikkim', 
+        'SRM University Sikkim', 
+        'Vinayaka Missions Sikkim University', 
+        'EIILM University'
+    ];
+} else if (state === 'Tamil Nadu') {
+    universities = [
+        'University of Madras', 
+        'Anna University', 
+        'Indian Institute of Technology Madras', 
+        'Madurai Kamaraj University', 
+        'Tamil Nadu Agricultural University', 
+        'Bharathiar University'
+    ];
+} else if (state === 'Telangana') {
+    universities = [
+        'Osmania University', 
+        'Jawaharlal Nehru Technological University', 
+        'University of Hyderabad', 
+        'Kakatiya University', 
+        'Dr. B.R. Ambedkar Open University', 
+        'Potti Sreeramulu Telugu University'
+    ];
+} else if (state === 'Tripura') {
+    universities = [
+        'Tripura University', 
+        'National Institute of Technology Agartala', 
+        'Maharaja Bir Bikram University', 
+        'ICFAI University, Tripura', 
+        'Holy Cross College', 
+        'Agartala Government Medical College'
+    ];
+} else if (state === 'Uttar Pradesh') {
+    universities = [
+        'University of Lucknow', 
+        'Banaras Hindu University', 
+        'Aligarh Muslim University', 
+        'Dr. Ram Manohar Lohia National Law University', 
+        'Chhatrapati Shahu Ji Maharaj University', 
+        'Indian Institute of Technology Kanpur'
+    ];
+} else if (state === 'Uttarakhand') {
+    universities = [
+        'Hemwati Nandan Bahuguna Garhwal University', 
+        'Gurukul Kangri Vishwavidyalaya', 
+        'Doon University', 
+        'Graphic Era University', 
+        'Uttarakhand Technical University', 
+        'Kumaun University'
+    ];
+} else if (state === 'West Bengal') {
+    universities = [
+        'University of Calcutta', 
+        'Jadavpur University', 
+        'Indian Institute of Technology Kharagpur', 
+        'Visva-Bharati University', 
+        'Presidency University', 
+        'Indian Statistical Institute'
+    ];
+}
+
+            // Populate universities
+            universities.forEach(university => {
+                const option = document.createElement('option');
+                option.value = university;
+                option.textContent = university;
+                universityDropdown.appendChild(option);
+            });
+        });
+    </script>
+</body>
+</html>

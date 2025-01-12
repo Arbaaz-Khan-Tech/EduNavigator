@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Recommendations</title>
+</head>
+<body>
+    <h1>Recommended Careers</h1>
+    <% if (careers.length > 0) { %>
+        <ul>
+            <% careers.forEach(career => { %>
+                <li><%= career %></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No recommendations available based on your selections.</p>
+    <% } %>
+</body>
+</html>

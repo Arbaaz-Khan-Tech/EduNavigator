@@ -1,0 +1,50 @@
+<%- include('layouts/header'); -%>
+<body>
+    <%- include('layouts/navbar'); -%>
+
+
+
+
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">AI Assistant</h1>
+    
+    <form id="" action="/project_ai" method="post">  
+        <div class="mb-3">
+          <label for="future_carrer" class="form-label">What do you want to become in the future?</label>
+          <textarea class="form-control" id="future_carrer" name="future_carrer" rows="3" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label for="tech_stack" class="form-label">"Which technologies or programming languages are you interested in?</label>
+          <textarea class="form-control" id="tech_stack" name="tech_stack" rows="3" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label for="exp_lvl" class="form-label">What is your current experience level with programming?</label>
+          <textarea class="form-control" id="exp_lvl" name="exp_lvl" rows="3" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label for="project" class="form-label">What type of projects are you most excited to work on?</label>
+          <textarea class="form-control" id="project" name="project" rows="3" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label for="Time_Dedicated" class="form-label">How much time can you dedicate each week ? (Hours)</label>
+          <textarea class="form-control" id="Time_Dedicated" name="Time_Dedicated" rows="3" required></textarea>
+        </div>
+  
+
+        <button type="submit">Submit </button>
+      </form>
+      
+    
+    <div id="resumePreview" class="mt-5"></div>
+  </div>
+
+
+
+    <%- include('layouts/footer'); -%>
+
+</body>
