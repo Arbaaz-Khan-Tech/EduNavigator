@@ -1,0 +1,192 @@
+#banner{
+    
+    
+  height: 500px;
+  padding: 50px; 
+    /* remove this dman */
+    
+    height: 85vh;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+
+.word-loop {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: loop 10s infinite linear;
+  padding: 50px 50px;
+   
+ 
+}
+
+.word-loop span{
+  border: 2px solid  #002fff;
+  padding: 10px 10px;
+  box-shadow: 0 0 10px rgba(4, 0, 255, 0.5);
+}
+@keyframes loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#Carrer_Slider{
+  height: 50vh;
+  width: 100%;
+}
+.navbar {
+  
+  background: rgba(255, 255, 255, 0.596);
+  backdrop-filter: 20px;
+
+
+}
+
+.navbar-nav .nav-link {
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.navbar-nav .nav-link:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D shadow effect */
+  transform: translateY(-3px); /* Moves the item slightly upwards */
+}
+
+.Bannerimg{
+  height: 75%;
+  width: auto;
+  
+}
+
+
+.cetimg{
+  height: 250px;
+  width: auto;
+}
+
+#card_features {
+  padding: 15px;
+  padding-left: 5%;
+  background-color: #000000;
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  
+ 
+}
+#card_features .card{
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth transition */
+  perspective: -1000px; /* Adds perspective for 3D effect */
+ 
+}
+#card_features .card:hover {
+  transform: rotateY(-19deg) rotatex(5deg)  rotatez(4deg); /* Slight 3D rotation on X and Y axis */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Adds a shadow to enhance the 3D look */
+}
+
+
+
+.cet_rec
+{
+  padding: 100px ;
+padding-left: 5%;
+background-color: #3f51b523;
+}
+
+
+#footer_foot{
+  background-color: #00000071;
+}
+
+footer {
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#exam_page{
+  background: linear-gradient(180deg, #ffffff,#3f51b571);
+  padding: 50px ;
+  padding-left: 10%;
+}
+
+
+/* General Styles */
+/* General Styles */
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll if circles go off-screen */
+}
+
+/* Section Styling */
+#exam_page {
+  padding: 50px 0;
+  position: relative; /* To position background circles */
+  z-index: 1; /* Ensure content stays above background circles */
+}
+
+#appointment_ui{
+  backdrop-filter: blur(10px);
+
+}
+
+
+
+/* 
+a.signup-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #3f51b5;
+  font-weight: bold;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+a.signup-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(63, 81, 181, 0.3);
+}
+
+/* Login link */
+a {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #283593;
+} */
+
+/* Image Styling */
+
+
+
+/* Card Styling with Glassmorphism */
+
+
+/* Hover effects for text */
+h2:hover {
+  transform: translateY(-5px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Circles in the Background */
+
+
+
+/*apti container*/
+
