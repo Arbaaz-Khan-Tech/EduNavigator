@@ -4,3 +4,4 @@ node_modules/
 *.exe
 *.o
 *.out
+ desktop.ini
