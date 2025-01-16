@@ -1,4 +1,4 @@
-# EduNavigator AI Powered Career and College Recommendation Website
+# EduNavigator  (AI Powered Career and College Recommendation Website)
 
 This is an AI-powered career and college recommendation website that leverages machine learning to provide personalized career and college suggestions to users based on their responses to various questions. The website also includes features such as quiz performance analysis, scholarship finder, hands-on learning, and a dashboard to track user progress.
 
