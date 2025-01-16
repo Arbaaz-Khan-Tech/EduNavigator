@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/header'); -%>
+  <body>
+    
+    <%- include('layouts/navbar'); -%>
+
+    <section class="cet_rec">
+      <h1 class="text-center mb-4">College Recommendations</h1>
+
+      <!-- Dropdown for selecting the year -->
+      <div class="text-center mb-4">
+        <select id="yearDropdown" class="form-select" onchange="filterResults()">
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <!-- Add more years as needed -->
+        </select>
+      </div>
+
+      <!-- Dropdown for selecting the round -->
+      <div class="text-center mb-4">
+        <select id="roundDropdown" class="form-select" onchange="filterResults()">
+          <option value="1">Round 1</option>
+          <option value="2">Round 2</option>
+          <option value="3">Round 3</option>
+        </select>
+      </div>
+
+      <% if (colleges.length > 0) { %>
+      <div class="table-responsive">
+        <table id="resultsTable" class="table table-striped table-bordered table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>College Name</th>
+              <th>University</th>
+              <th>Location</th>
+              <th>Branch</th>
+              <th>Category</th>
+              <th class="round-col" data-round="1">Round 1 Cutoff</th>
+              <th class="round-col" data-round="2">Round 2 Cutoff</th>
+              <th class="round-col" data-round="3">Round 3 Cutoff</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% colleges.forEach(college => { %>
+              <% college.branches.forEach(br => { %>
+                <% if (br.name === branch) { %>
+                  <% let roundCutoffs = {}; %>
+                  <% br.cutoffs.forEach(cutoff => { %>
+                    <% if (!roundCutoffs[cutoff.round]) { %>
+                      <% roundCutoffs[cutoff.round] = cutoff.cetScore; %>
+                    <% } %>
+                  <% }); %>
+                  <tr data-year="<%= br.cutoffs[0]?.year %>">
+                    <td><%= college.name %></td>
+                    <td><%= college.university %></td>
+                    <td><%= college.location %></td>
+                    <td><%= br.name %></td>
+                    <td><%= category %></td>
+                    <td class="round-col" data-round="1"><%= roundCutoffs[1] || 'N/A' %></td>
+                    <td class="round-col" data-round="2"><%= roundCutoffs[2] || 'N/A' %></td>
+                    <td class="round-col" data-round="3"><%= roundCutoffs[3] || 'N/A' %></td>
+                    <td><%= br.cutoffs[0]?.year %></td>
+                  </tr>
+                <% } %>
+              <% }) %>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } else { %>
+      <p class="alert alert-warning text-center">No colleges found matching your criteria.</p>
+      <% } %>
+
+      <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary">Search Again</a>
+      </div>
+
+    </section>
+    
+    <%- include('layouts/footer'); -%>
+
+    <script>
+      function filterResults() {
+        const selectedYear = document.getElementById('yearDropdown').value;
+        const selectedRound = document.getElementById('roundDropdown').value;
+        const rows = document.querySelectorAll('#resultsTable tbody tr');
+
+        // Show or hide the relevant cutoff columns based on selected round
+        document.querySelectorAll('.round-col').forEach(col => {
+          if (col.getAttribute('data-round') === selectedRound) {
+            col.style.display = '';
+          } else {
+            col.style.display = 'none';
+          }
+        });
+
+        // Filter rows by year
+        rows.forEach(row => {
+          const yearMatch = row.getAttribute('data-year') === selectedYear;
+          if (yearMatch) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
+
+      // Initially hide the other round columns
+      window.onload = function() {
+        filterResults();  // Call filterResults to hide columns initially
+      };
+    </script>
+
+  </body>
+</html>

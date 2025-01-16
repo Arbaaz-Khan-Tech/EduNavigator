@@ -1,0 +1,36 @@
+<%- include('layouts/header'); -%>
+
+<body>
+  <%- include('layouts/navbar'); -%>
+
+  <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <h1 class="display-4">Oops!</h1>
+      <img src="https://img.icons8.com/ios-filled/100/000000/sad.png" alt="Sad Face" class="mb-4">
+      <p class="lead">You are not logged in.</p>
+      <p>Please log in to access this page.</p>
+      <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+  </div>
+
+  <style>
+    body {
+      background-color: #f8f9fa; /* Light background color */
+    }
+    
+    .container {
+      text-align: center;
+    }
+    
+    .vh-100 {
+      height: 100vh;
+    }
+
+    img {
+      width: 100px; /* Set the size of the sad face */
+      height: auto;
+    }
+  </style>
+
+  <%- include('layouts/footer'); -%>
+</body>

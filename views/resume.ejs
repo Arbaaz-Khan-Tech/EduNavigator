@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive Resume Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 800px;
+    }
+    .template-preview {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .template-preview:hover {
+      transform: scale(1.05);
+    }
+    .template-preview.selected {
+      border: 3px solid #007bff;
+    }
+    #resumePreview {
+      min-height: 500px;
+    }
+    /* Minimalist Template */
+    .minimalist {
+      font-family: 'Arial', sans-serif;
+      color: #333;
+    }
+    .minimalist h1 {
+      font-size: 2.5rem;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+    }
+    .minimalist h2 {
+      font-size: 1.8rem;
+      color: #555;
+    }
+    /* Professional Template */
+    .professional {
+      font-family: 'Georgia', serif;
+      color: #2c3e50;
+    }
+    .professional h1 {
+      font-size: 2.8rem;
+      color: #34495e;
+    }
+    .professional h2 {
+      font-size: 2rem;
+      color: #16a085;
+      border-bottom: 1px solid #16a085;
+    }
+    /* Creative Template */
+    .creative {
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    .creative h1 {
+      font-size: 3rem;
+      color: #e74c3c;
+      text-transform: uppercase;
+    }
+    .creative h2 {
+      font-size: 2.2rem;
+      color: #3498db;
+      text-transform: uppercase;
+    }
+    .creative .section {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Comprehensive Resume Builder</h1>
+    
+    <form id="resumeForm">
+      <h3>Personal Information</h3>
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="tel" class="form-control" id="phone" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Current Location</label>
+        <input type="text" class="form-control" id="location" required>
+      </div>
+      <div class="mb-3">
+        <label for="linkedin" class="form-label">LinkedIn</label>
+        <input type="url" class="form-control" id="linkedin">
+      </div>
+      <div class="mb-3">
+        <label for="website" class="form-label">Website</label>
+        <input type="url" class="form-control" id="website">
+      </div>
+
+      <h3>Education</h3>
+      <div class="mb-3">
+        <label for="education" class="form-label">Education Details</label>
+        <textarea class="form-control" id="education" rows="3" required></textarea>
+      </div>
+
+      <h3>Experience</h3>
+      <div class="mb-3">
+        <label for="experience" class="form-label">Work Experience</label>
+        <textarea class="form-control" id="experience" rows="3" required></textarea>
+      </div>
+
+      <h3>Projects</h3>
+      <div class="mb-3">
+        <label for="projects" class="form-label">Project Details</label>
+        <textarea class="form-control" id="projects" rows="3"></textarea>
+      </div>
+
+      <h3>Skills</h3>
+      <div class="mb-3">
+        <label for="skills" class="form-label">Skills</label>
+        <textarea class="form-control" id="skills" rows="3" required></textarea>
+      </div>
+
+      <h3>Certifications</h3>
+      <div class="mb-3">
+        <label for="certifications" class="form-label">Courses and Certifications</label>
+        <textarea class="form-control" id="certifications" rows="3" placeholder="Course Title, Issuing Organization, Date Completed"></textarea>
+      </div>
+
+      <h3>Extracurricular Activities</h3>
+      <div class="mb-3">
+        <label for="extracurricular" class="form-label">Extracurricular Activities</label>
+        <textarea class="form-control" id="extracurricular" rows="3" placeholder="Activity, Role, Achievements"></textarea>
+      </div>
+
+      <h3>Awards and Honors</h3>
+      <div class="mb-3">
+        <label for="awards" class="form-label">Awards and Honors</label>
+        <textarea class="form-control" id="awards" rows="3"></textarea>
+      </div>
+
+      <h3>Languages</h3>
+      <div class="mb-3">
+        <label for="languages" class="form-label">Languages and Proficiency</label>
+        <textarea class="form-control" id="languages" rows="3" placeholder="Language: Proficiency Level"></textarea>
+      </div>
+
+      <h3>Hobbies and Interests</h3>
+      <div class="mb-3">
+        <label for="hobbies" class="form-label">Relevant Hobbies or Interests</label>
+        <textarea class="form-control" id="hobbies" rows="3"></textarea>
+      </div>
+
+      <h3>Internships</h3>
+      <div class="mb-3">
+        <label for="internships" class="form-label">Internship Details</label>
+        <textarea class="form-control" id="internships" rows="3" placeholder="Job Title, Company, Dates, Responsibilities, Achievements"></textarea>
+      </div>
+      
+      <h3 class="mt-4 mb-3">Choose a Template</h3>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="card template-preview" data-template="minimalist">
+            <img src="https://via.placeholder.com/300x200.png?text=Minimalist" class="card-img-top" alt="Minimalist Template">
+            <div class="card-body">
+              <h5 class="card-title">Minimalist</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card template-preview" data-template="professional">
+            <img src="https://via.placeholder.com/300x200.png?text=Professional" class="card-img-top" alt="Professional Template">
+            <div class="card-body">
+              <h5 class="card-title">Professional</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card template-preview" data-template="creative">
+            <img src="https://via.placeholder.com/300x200.png?text=Creative" class="card-img-top" alt="Creative Template">
+            <div class="card-body">
+              <h5 class="card-title">Creative</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary mt-3">Generate Resume</button>
+    </form>
+    
+    <div id="resumePreview" class="mt-5"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('resumeForm');
+      const preview = document.getElementById('resumePreview');
+      let selectedTemplate = 'minimalist';
+
+      // Template selection
+      document.querySelectorAll('.template-preview').forEach(template => {
+        template.addEventListener('click', function() {
+          document.querySelectorAll('.template-preview').forEach(t => t.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedTemplate = this.dataset.template;
+        });
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const location = document.getElementById('location').value;
+        const linkedin = document.getElementById('linkedin').value;
+        const website = document.getElementById('website').value;
+        const education = document.getElementById('education').value;
+        const experience = document.getElementById('experience').value;
+        const projects = document.getElementById('projects').value;
+        const skills = document.getElementById('skills').value;
+        const certifications = document.getElementById('certifications').value;
+        const extracurricular = document.getElementById('extracurricular').value;
+        const awards = document.getElementById('awards').value;
+        const languages = document.getElementById('languages').value;
+        const hobbies = document.getElementById('hobbies').value;
+        const internships = document.getElementById('internships').value;
+
+        let resumeHTML = '';
+
+        switch(selectedTemplate) {
+          case 'minimalist':
+            resumeHTML = `
+              <div class="minimalist p-4">
+                <h1 class="mb-4">${name}</h1>
+                <p>${email} | ${phone} | ${location}</p>
+                <p>${linkedin} | ${website}</p>
+                <h2 class="mt-4">Education</h2>
+                <p>${education}</p>
+                <h2 class="mt-4">Experience</h2>
+                <p>${experience}</p>
+                <h2 class="mt-4">Projects</h2>
+                <p>${projects}</p>
+                <h2 class="mt-4">Skills</h2>
+                <p>${skills}</p>
+                <h2 class="mt-4">Certifications</h2>
+                <p>${certifications}</p>
+                <h2 class="mt-4">Extracurricular Activities</h2>
+                <p>${extracurricular}</p>
+                <h2 class="mt-4">Awards and Honors</h2>
+                <p>${awards}</p>
+                <h2 class="mt-4">Languages</h2>
+                <p>${languages}</p>
+                <h2 class="mt-4">Hobbies and Interests</h2>
+                <p>${hobbies}</p>
+                <h2 class="mt-4">Internships</h2>
+                <p>${internships}</p>
+              </div>
+            `;
+            break;
+          case 'professional':
+            resumeHTML = `
+              <div class="professional p-4">
+                <h1 class="mb-3">${name}</h1>
+                <p><strong>Contact:</strong> ${email} | ${phone} | ${location}</p>
+                <p><strong>LinkedIn:</strong> ${linkedin} | <strong>Website:</strong> ${website}</p>
+                <h2 class="mt-4">Education</h2>
+                <p>${education}</p>
+                <h2 class="mt-4">Professional Experience</h2>
+                <p>${experience}</p>
+                <h2 class="mt-4">Projects</h2>
+                <p>${projects}</p>
+                <h2 class="mt-4">Skills & Expertise</h2>
+                <p>${skills}</p>
+                <h2 class="mt-4">Certifications</h2>
+                <p>${certifications}</p>
+                <h2 class="mt-4">Extracurricular Activities</h2>
+                <p>${extracurricular}</p>
+                <h2 class="mt-4">Awards and Honors</h2>
+                <p>${awards}</p>
+                <h2 class="mt-4">Languages</h2>
+                <p>${languages}</p>
+                <h2 class="mt-4">Hobbies and Interests</h2>
+                <p>${hobbies}</p>
+                <h2 class="mt-4">Internships</h2>
+                <p>${internships}</p>
+              </div>
+            `;
+            break;
+          case 'creative':
+            resumeHTML = `
+              <div class="creative p-4">
+                <h1 class="text-center mb-4">${name}</h1>
+                <div class="section">
+                  <p class="text-center">📧 ${email} | 📱 ${phone} | 📍 ${location}</p>
+                  <p class="text-center">🔗 ${linkedin} | 🌐 ${website}</p>
+                </div>
+                <div class="section">
+                  <h2>🎓 Education</h2>
+                  <p>${education}</p>
+                </div>
+                <div class="section">
+                  <h2>💼 Experience</h2>
+                  <p>${experience}</p>
+                </div>
+                <div class="section">
+                  <h2>🚀 Projects</h2>
+                  <p>${projects}</p>
+                </div>
+                <div class="section">
+                  <h2>🛠 Skills</h2>
+                  <p>${skills}</p>
+                </div>
+                <div class="section">
+                  <h2>🏆 Certifications</h2>
+                  <p>${certifications}</p>
+                </div>
+                <div class="section">
+                  <h2>🌟 Extracurricular</h2>
+                  <p>${extracurricular}</p>
+                </div>
+                <div class="section">
+                  <h2>🏅 Awards and Honors</h2>
+                  <p>${awards}</p>
+                </div>
+                                <div class="section">
+                  <h2>🌍 Languages</h2>
+                  <p>${languages}</p>
+                </div>
+                <div class="section">
+                  <h2>🎨 Hobbies and Interests</h2>
+                  <p>${hobbies}</p>
+                </div>
+                <div class="section">
+                  <h2>💼 Internships</h2>
+                  <p>${internships}</p>
+                </div>
+              </div>
+            `;
+            break;
+        }
+
+        preview.innerHTML = resumeHTML;
+      });
+
+      // Function to download the resume as a PDF
+      function downloadPDF() {
+        html2canvas(preview).then(canvas => {
+             const { jsPDF } = window.jspdf;
+ 
+// Initialize jsPDF directly
+            const pdf = new jsPDF();
+
+            const imgData = canvas.toDataURL('image/png');
+          pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
+          pdf.save('resume.pdf');
+        });
+      }
+
+      // Add a button to download the generated resume as PDF
+      const downloadButton = document.createElement('button');
+      downloadButton.textContent = 'Download Resume as PDF';
+      downloadButton.className = 'btn btn-secondary mt-3';
+      downloadButton.addEventListener('click', downloadPDF);
+      document.querySelector('.container').appendChild(downloadButton);
+    });
+  </script>
+</body>
+</html>

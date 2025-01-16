@@ -1,0 +1,333 @@
+<%- include('layouts/header'); -%>
+
+<head>
+  <style>
+    body .container .button-effect {
+  padding: 30px 0px;
+}
+body .container .button-effect h2 {
+  font-family: 'Droid Serif', serif;
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+body .container .button-effect a {
+  margin-right: 17px;
+}
+body .container .button-effect a:nth-child(2) {
+  background-color: #541388;
+}
+body .container .button-effect a:nth-child(3) {
+  background-color: #D90368;
+}
+body .container .button-effect a:nth-child(4) {
+  background-color: #104547;
+}
+body .container .button-effect a:last-child {
+  margin-right: 0px;
+}
+
+.effect {
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  text-transform: capitalize;
+  /* background-color: - add your own background-color */
+  font-family: 'Roboto', sans-serif;
+  /* put your font-family */
+  font-size: 18px;
+  padding: 20px 0px;
+  width: 150px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* effect-1 styles */
+.effect.effect-1 {
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.effect.effect-1:before {
+  content: "\f178";
+  font-family: FontAwesome;
+  font-size: 15px;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  height: 100%;
+  width: 40px;
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.effect.effect-1:hover {
+  text-indent: -20px;
+}
+.effect.effect-1:hover:before {
+  opacity: 1;
+  text-indent: 0px;
+}
+
+  </style>
+</head>
+<body>
+
+
+ <!-- ----------------------navbar------------------------------------------------->    
+ <%- include('layouts/navbar'); -%>
+ <div data-scroll-container>
+      <!-- ----------------------navbar------------ ---------------------->
+ <!-- ----------------------banner------------ ---------------------->
+      <section id="banner" data-scroll-section   >
+        <div class="container">
+            <div class="row g-3 align-items-center">
+                <!-- Left Column: Text -->
+                <div class="col-md-6"   >
+                    <h1 class="display-1   "  >Reach for the <br> stars</h1>
+                    <h1  style="color: rgb(255, 136, 0); padding-top: 15px;">Your dreams into reality. <br> Together, we can do it.</h1>
+                </div>
+    
+                <!-- Right Column: Image -->
+                <div class="col-md-6 text-end "  >
+                  <img src="/img/Banner2-removebg-preview.png" class="img-fluid Bannerimg" alt="Image">
+              </div>
+      
+                
+                
+            </div>
+            
+           
+        </div>
+      
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000" fill-opacity="1" d="M0,64L34.3,90.7C68.6,117,137,171,206,186.7C274.3,203,343,181,411,165.3C480,149,549,139,617,128C685.7,117,754,107,823,128C891.4,149,960,203,1029,208C1097.1,213,1166,171,1234,138.7C1302.9,107,1371,85,1406,74.7L1440,64L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+      
+    </section>
+     <!-- ----------------------banner------------ ---------------------->
+
+ <!-- ----------------------feature------------ ---------------------->
+
+<!-- Service 6 - Bootstrap Brain Component -->
+<section class="bsb-service-6 py-5 py-xl-8" id="card_features" data-scroll-section    >
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+        <h3 class="fs-6 mb-2 text-secondary text-center text-uppercase" style="font-weight: bold;">What We Do?</h3>
+        <h2 class="display-5 mb-4 mb-md-5 text-center" style="font-weight: bold;">We are giving you perfect solutions with our proficient services.</h2>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+      </div>
+    </div>
+  </div>
+
+  <div class="container overflow-hidden">
+    <div class="row gy-4 gy-md-0 gx-xxl-5">
+      <div class="col-12 col-md-4">
+        <div class="card bg-transparent border-primary rounded-0" data-scroll data-scroll-speed="1">
+          <div class="card-body">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-hdd text-primary mb-4" viewBox="0 0 16 16">
+              <path d="M4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+              <path d="M16 11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V9.51c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198V11zM3.655 4.26 1.592 8.043C1.724 8.014 1.86 8 2 8h12c.14 0 .276.014.408.042L12.345 4.26a.5.5 0 0 0-.439-.26H4.094a.5.5 0 0 0-.44.26zM1 10v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+            </svg>
+            <h3 class="h2 mb-4">Personalized AI Career Counseling</h3>
+            <p class="mb-4 text-secondary">Our personalized AI career counseling solutions provide tailored guidance to individuals, helping them explore career paths based on their skills and interests, enhancing decision-making and maximizing professional potential effectively.</p>
+            <a href="#!" class="fw-bold text-decoration-none link-primary">
+              Learn More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card bg-transparent border-primary rounded-0" data-scroll data-scroll-speed="-1">
+          <div class="card-body">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filetype-ai text-primary mb-4" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2H6v-1h6a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.113 14.82.8 15.85H0l1.342-3.999h.926l1.336 3.999h-.841l-.314-1.028H1.113Zm1.178-.588-.49-1.617h-.034l-.49 1.617h1.014Zm2.425-2.382v3.999h-.791V11.85h.79Z" />
+            </svg>
+            <h3 class="h2 mb-4">College Recommendations</h3>
+            <p class="mb-4 text-secondary">Our AI-powered college recommendation solutions guide students in selecting the best-fit institutions based on their scores and preferences, enhancing decision-making and maximizing their educational potential efficiently.</p>
+            <a href="#!" class="fw-bold text-decoration-none link-primary">
+              Learn More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card bg-transparent border-primary rounded-0" data-scroll data-scroll-speed="1">
+          <div class="card-body">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-diagram-3 text-primary mb-4" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
+            </svg>
+            <h3 class="h2 mb-4">Aptitude</h3>
+            <p class="mb-4 text-secondary">Our AI-driven aptitude test solutions help individuals identify strengths and improvement areas, enabling informed career choices and skill enhancement, maximizing potential and boosting overall performance efficiently.</p>
+            <a href="#!" class="fw-bold text-decoration-none link-primary">
+              Learn More
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</section>
+
+   <!-- ----------------------feature------------ ---------------------->
+  
+ 
+   <section id="appointment_ui" data-scroll-section    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000" fill-opacity="1" d="M0,224L30,218.7C60,213,120,203,180,202.7C240,203,300,213,360,202.7C420,192,480,160,540,154.7C600,149,660,171,720,181.3C780,192,840,192,900,176C960,160,1020,128,1080,149.3C1140,171,1200,245,1260,277.3C1320,309,1380,299,1410,293.3L1440,288L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path></svg>
+    <div class="container">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-12 text-end">
+                <h1 class="display-3  ">Are You Ready</h1>
+                <p>Schedule a Demo Session with our experts</p>
+            </div>
+        </div>
+      
+
+        <div class="row g-3 align-items-center">
+            <!-- Left Column: Text -->
+            <div class="col-md-6 text-end">
+                <img src="/img/App_bg1.png" class="img-fluid Bannerimg  " alt="Image" >
+            </div>
+
+            <!-- Right Column: Image -->
+            <div class="col-md-6 text-end"  data-scroll data-scroll-speed="2"  data-scroll-direction="horizontal">
+              <!-- <form class="row g-3" action="/send-email" method="POST">
+                <div class="col-md-6">
+                  <label for="inputName" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="inputName" name="name">
+                </div>
+                <div class="col-md-6">
+                  <label for="inputEmail4" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="inputEmail4" name="email">
+                </div>
+                <div class="col-6">
+                  <label for="Mobile_Number" class="form-label">Mobile Number</label>
+                  <input type="number" class="form-control" id="Mobile_Number" name="mobile">
+                </div>
+                <div class="col-md-6">
+                  <label for="Current_Education_Level" class="form-label">Current Education Level</label>
+                  <input type="text" class="form-control" id="Current_Education_Level" name="education">
+                </div>
+                <div class="col-md-6">
+                  <label for="Language" class="form-label">Language</label>
+                  <select id="Language" class="form-select" name="language">
+                    <option selected>English</option>
+                    <option>Hindi</option>
+                    <option>Marathi</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="Career_Interests_Goals" class="form-label">Career Interests/Goals</label>
+                  <input type="text" class="form-control" id="Career_Interests_Goals" name="careerGoals">
+                </div>
+                <div class="col-6">
+                  <label for="appointment-date" class="form-label">Select a Date:</label>
+                  <input type="date" id="appointment-date" class="form-control" name="date">
+                </div>
+                <div class="col-6">
+                  <label for="appointment-time" class="form-label">Select a Time:</label>
+                  <input type="time" id="appointment-time" class="form-control" name="time">
+                </div>
+                <div class="col-md-4">
+                  <button type="submit" class="btn btn-primary" data-scroll data-scroll-delay="1" data-scroll-speed="1" data-scroll-direction="horizontal">Schedule a Demo</button>
+                </div>
+              </form> -->
+              
+
+
+              <div class="button-effect">
+                <h2>Technology Field</h2>
+                <a class="effect effect-1" href="/AI_ML" title="Learn More">AI/ML Expert</a>
+                <a class="effect effect-1" href="/DS" title="Learn More">Data Scientist</a>
+                <a class="effect effect-1" href="/SE" title="Learn More">Software Engineer</a>
+              </div>
+              <div class="button-effect">
+                <h2>Counseling</h2>
+                <a class="effect effect-1" href="/CC" title="Learn More">Career Counselor</a>
+                <a class="effect effect-1" href="/Stress" title="Learn More">Stress Coach.</a>
+                <a class="effect effect-1" href="/Public_Speak" title="Learn More">Public Speaking Coach</a>
+              </div>
+              <div class="button-effect">
+                <h2>Finance Sector</h2>
+                <a class="effect effect-1" href="/Tax" title="Learn More">Tax Consultant</a>
+                <a class="effect effect-1" href="/Finance" title="Learn More">Personal Finance Coach </a>
+                <a class="effect effect-1" href="/IA" title="Learn More">Investment Advisor</a>
+              </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+</section>
+
+
+
+
+<section id="last" data-scroll-section="" >
+<div class="container "   >
+  <div class="row align-items-start">
+    <div class="col">
+      <h1 class="display-3">FAQ's</h1>
+    </div>
+  <details   >
+    <summary>Is AI Gonna Take our Jobs</summary>
+    <p>No But Your Incompetence Can</p>
+  </details>
+  <details   >
+    <summary>How can I manage my time effectively when studying?</summary>
+    <p> Create a study schedule, set realistic goals, and take short breaks.</p>
+  </details>
+  <details   >
+    <summary>How can I stay organized and avoid procrastination?</summary>
+    <p>Don't procrastinate , Just Noobcrastinate</p>
+  </details>
+  <details   >
+    <summary>How can I improve my concentration and focus while studying? s</summary>
+    <p>Nah Fam U can't </p>
+  </details>
+  </div>
+ 
+
+</div>
+
+  
+</section>
+
+
+<section data-scroll-section>
+  <%- include('layouts/footer'); -%>
+</section>
+
+
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector("[data-scroll-container]"),
+      smooth: true
+    });
+  });
+</script>
+
+
+</body>
+</html>

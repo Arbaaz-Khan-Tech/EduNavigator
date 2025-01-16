@@ -1,0 +1,199 @@
+<%- include('layouts/header'); -%>
+<body>
+  <%- include('layouts/navbar'); -%>
+
+  <div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+      <!-- Main Box Outline for Aptitude Test -->
+      <!-- <div class="col-md-10"> -->
+        <div class="card shadow-lg" style="width: 1500px;">
+          <div class="card-body">
+
+            <!-- Title Section -->
+            <div class="text-center mb-4" style="font-family: 'Times new roman', sans-serif; font-weight: bold;">
+              <h1>Aptitude Test</h1>
+            </div>
+
+            <div class="row">
+              <!-- Right Section for Timer and Navigation -->
+              <div class="col-md-3">
+                <!-- Timer and Navigation with Scroll -->
+                <div class="card bg-light mb-3 text-center" style="height: 100%; max-height: 400px;  overflow-y: auto;">
+                  <div class="card-body">
+                    <h5 class="card-title">Time Left</h5>
+                    <div id="timer" class="display-4">60:00</div>
+                    <!-- Start Test Button -->
+                    <button id="start-btn" class="btn btn-primary btn-lg mt-3" onclick="startTest()">Start Test</button>
+                  </div>
+              
+                  <!-- Question Navigation -->
+                  <div class="card-body">
+                    <h5 class="card-title" >Jump to Question</h5>
+              
+                    <h6 class="mt-3" style="font-family: 'Times new roman', sans-serif; font-weight: bold;">Verbal Ability</h6>
+                    <% questions.filter(q => q.section === 'Verbal Ability').forEach((question, index) => { %>
+                      <button type="button" id="nav-verbal-<%= index %>" class="btn btn-outline-danger btn-sm mb-1" onclick="jumpToQuestion(<%= index %>)">Q<%= index + 1 %></button>
+                    <% }) %>
+              
+                    <h6 class="mt-3" style="font-family: 'Times new roman', sans-serif; font-weight: bold;">Logical Reasoning</h6>
+                    <% questions.filter(q => q.section === 'Logical Reasoning').forEach((question, index) => { %>
+                      <button type="button" id="nav-logical-<%= index %>" class="btn btn-outline-danger btn-sm mb-1" onclick="jumpToQuestion(<%= index + 20 %>)">Q<%= index + 1 %></button>
+                    <% }) %>
+              
+                    <h6 class="mt-3" style="font-family: 'Times new roman', sans-serif; font-weight: bold;">Quantitative Aptitude</h6>
+                    <% questions.filter(q => q.section === 'Quantitative Aptitude').forEach((question, index) => { %>
+                      <button type="button" id="nav-quant-<%= index %>" class="btn btn-outline-danger btn-sm mb-1" onclick="jumpToQuestion(<%= index + 40 %>)">Q<%= index + 1 %></button>
+                    <% }) %>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Left Section for Questions -->
+              <div class="col-md-9">
+                <!-- Questions Section -->
+                <form id="aptitudeForm" action="/responses/submit" method="POST" style="display: none;" onsubmit="disableSubmitButton()">
+                  <div id="questions-container">
+                    <% questions.forEach((question, index) => { %>
+                      <div class="card mb-4 question" id="question-<%= index %>" style="display: <%= index === 0 ? 'block' : 'none' %>;">
+                        <div class="card-body">
+                          <h5 class="card-title">Q<%= index + 1 %>: <%= question.questionText %></h5>
+                          <div class="row" style="padding-top: 50px;">
+                            <% Object.entries(question.options).forEach(([key, value], optIndex) => { %>
+                              <div class="col-md-6 mb-2" style="padding-bottom: 25px;">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="question-<%= question._id %>" value="<%= key %>">
+                                  <label class="form-check-label">
+                                    (<%= key %>) <%= value %>
+                                  </label>
+                                </div>
+                              </div>
+                            <% }) %>
+                          </div>
+
+                          <!-- Navigation buttons -->
+                          <div class="d-flex justify-content-between mt-3" style="padding-top: 25px;">
+                            <button type="button" class="btn btn-secondary" onclick="previousQuestion()">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                            <button type="button" class="btn btn-success" onclick="saveAnswer('<%= question._id %>', <%= index %>)">Save and Next</button>
+                          </div>
+                        </div>
+                      </div>
+                    <% }) %>
+                  </div>
+
+                  <!-- Submit Test Button -->
+                  <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-danger btn-lg">Submit Test</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <%- include('layouts/footer'); -%>
+
+  <!-- Timer and Navigation Scripts -->
+  <script>
+    let timer;
+    let totalTime = 3600; // 60 minutes in seconds
+    let currentQuestion = 0;
+    let answers = {}; // Store user answers
+
+    // Start the test and the timer
+    function startTest() {
+      document.getElementById('start-btn').style.display = 'none'; // Hide start button
+      document.getElementById('aptitudeForm').style.display = 'block'; // Show questions
+
+      timer = setInterval(() => {
+        const minutes = Math.floor(totalTime / 60);
+        const seconds = totalTime % 60;
+        document.getElementById('timer').innerHTML = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        totalTime--;
+
+        if (totalTime < 0) {
+          clearInterval(timer);
+          alert("Time's up! Submitting your test.");
+          document.getElementById('aptitudeForm').submit(); // Automatically submit when time's up
+        }
+      }, 1000);
+    }
+
+    // Jump to a specific question
+    function jumpToQuestion(questionNum) {
+      document.querySelectorAll('.question').forEach((q, i) => {
+        q.style.display = i === questionNum ? 'block' : 'none'; // Display the selected question
+      });
+      currentQuestion = questionNum;
+    }
+
+    // Go to the next question
+    function nextQuestion() {
+      let questions = document.querySelectorAll('.question');
+      if (currentQuestion < questions.length - 1) {
+        questions[currentQuestion].style.display = 'none';
+        currentQuestion++;
+        questions[currentQuestion].style.display = 'block';
+      }
+    }
+
+    // Go to the previous question
+    function previousQuestion() {
+      let questions = document.querySelectorAll('.question');
+      if (currentQuestion > 0) {
+        questions[currentQuestion].style.display = 'none';
+        currentQuestion--;
+        questions[currentQuestion].style.display = 'block';
+      }
+    }
+
+    function saveAnswer(questionId, questionIndex) {
+  // Check if any option is selected for the current question
+  let selectedOption = document.querySelector(`input[name="question-${questionId}"]:checked`);
+  if (selectedOption) {
+    // Store the answer in the 'answers' object
+    answers[questionId] = selectedOption.value;
+
+    // Calculate section and question index for the navigation button
+    const section = getSection(questionIndex);
+    
+    // Determine correct index for each section (Verbal, Logical, Quantitative)
+    let navIndex = 0;
+    if (section === 'verbal') {
+      navIndex = questionIndex;
+    } else if (section === 'logical') {
+      navIndex = questionIndex - 20; // Adjust for Logical Reasoning section
+    } else if (section === 'quant') {
+      navIndex = questionIndex - 40; // Adjust for Quantitative Aptitude section
+    }
+
+    // Mark the corresponding button as green
+    document.getElementById(`nav-${section}-${navIndex}`).classList.remove('btn-outline-danger');
+    document.getElementById(`nav-${section}-${navIndex}`).classList.add('btn-outline-success');
+
+    // Move to the next question
+    nextQuestion();
+  } else {
+    alert("Please select an answer before saving.");
+  }
+}
+
+
+    // Determine the section (verbal, logical, or quant) based on question index
+    function getSection(index) {
+      if (index < 20) return 'verbal';
+      if (index < 40) return 'logical';
+      return 'quant';
+    }
+
+    //to disable submit
+    function disableSubmitButton() {
+    document.getElementById('submit-btn').disabled = true; // Disable the submit button to prevent multiple submissions
+  }
+  </script>
+</body>
+</html>

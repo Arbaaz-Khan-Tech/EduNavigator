@@ -1,0 +1,40 @@
+
+
+<%- include('layouts/header'); -%>
+<body >
+<%- include('layouts/navbar'); -%>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Scholarship Results</h1>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Scholarship Name</th>
+                    <th scope="col">Eligibility</th>
+                    <th scope="col">Courses</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Caste Category</th>
+                    <th scope="col">Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% scholarships.forEach(scholarship => { %>
+                    <tr>
+                        <td><%= scholarship.name %></td>
+                        <td><%= scholarship.eligibility %></td>
+                        <td><%= selectedCourse %></td>
+                        <td><%= selectedState %></td>
+                        <td><%= selectedCaste %></td>
+                        <td><a href="<%= scholarship.link %>" target="_blank" class="btn btn-primary">Apply</a></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<%- include('layouts/footer'); -%>
+</body>
