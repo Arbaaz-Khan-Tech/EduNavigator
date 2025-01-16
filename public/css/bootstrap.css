@@ -1,15 +1,66 @@
+body, html {
+  padding-top: 70px;
+  margin:  0;
+  width: 100%;
+  height: 100%;
+
+}
+
+
+.svg_my {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  border: none; /* Prevent border if any */
+}
+
+
+body {
+  background: rgba(241, 226, 215, 0.2);
+  background: #29363b;
+  position: relative;
+  padding-top: 70px; /* Adjust this based on your navbar height */
+
+}
+
+.logo {
+  position:     absolute;
+  left:         50%;
+  top:          50%;
+  height:       25px;
+  width:        120px;
+  z-index:      2;
+  margin-left: -60px;
+  margin-top:  -32px;
+  transform-origin: 50% 0;;
+}
+
+
+
+
+
 #banner{
     
     
-  height: 500px;
-  padding: 50px; 
+
+  
     /* remove this dman */
     
-    height: 85vh;
+    height: 100vh;
     justify-content: center;
     align-items: center;
+    background-attachment: fixed;
+
+   
  
 }
+#banner .container{
+  padding-left: 50px; 
+}
+
+
+
 
 
 .word-loop {
@@ -189,4 +240,51 @@ h2:hover {
 
 
 /*apti container*/
+
+#Career_Ai_Test .card {
+  position: relative;
+  
+  margin:30px auto;
+  box-shadow: 0 0 100px rgba(0,0,0, .3);
+}
+
+#Career_Ai_Test .card-title{
+  position: relative;
+  height: 20px;
+  background-size: cover;
+  background-position: top;
+  height: 40px;
+  padding: 20px;
+  
+
+}
+
+
+.clg_small {
+  vertical-align: middle;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+}
+
+
+#last{
+  border: #000000 2px solid;
+  background-color: #00000077;
+  color: rgb(255, 255, 255);
+  
+
+  & summary{
+    font-size: 1.4rem;
+    gap: 5px;
+    border-bottom: #f9fafd 1px dashed;
+    padding: 2px;
+
+  }
+& p{
+  font-size: 1.2rem;
+ 
+  
+}
+}
 
