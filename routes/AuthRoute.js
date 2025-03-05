@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
   const { username, password, isPoster } = req.body;
   const user = new User({ username, password, isPoster });
   await user.save();
-  res.redirect('/jobs');
+  res.redirect('/');
 });
 
 // Login routes

@@ -33,12 +33,9 @@ const apti = require('./routes/apti.js')
 const apti_res = require('./routes/stu_res.js')
 const ai_carrer = require('./routes/ai_cat.js')
 const chatbot = require('./routes/chatbot.js')
-
 const Carrer_Trends = require('./routes/Carrer_Trends.js')
 const jobs = require('./routes/job.js')
 const resources = require('./routes/resources.js')
-
-
 const contactRoutes = require('./routes/contact');
 const scholarshipRoutes = require('./routes/scholarship');
 const Mentor = require('./routes/mentor.js')
