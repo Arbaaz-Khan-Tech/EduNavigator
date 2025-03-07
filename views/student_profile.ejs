@@ -1,0 +1,113 @@
+<%- include('layouts/header'); -%>
+<%- include('layouts/navbar'); -%>
+
+<section class="bg-light p-3 p-md-4 p-xl-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+                <div class="card border-light-subtle shadow-sm p-4">
+                    <h3 class="text-center mb-4">Student Profile</h3>
+
+                    <!-- Display Username & Role -->
+                    <h5 class="text-center">Welcome, <%= username %> | Role: <%= role %></h5>
+
+                    <!-- Profile Image Display -->
+                    <div class="text-center mb-4">
+                        <img src="<%= profileImage %>" alt="Profile Image" class="rounded-circle" width="150" height="150">
+                    </div>
+
+                    <form action="/profile" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="existingProfileImage" value="<%= profile ? profile.profileImage : '' %>">
+
+                        <!-- Profile Image Upload -->
+                        <h5 class="mb-3">Profile Picture</h5>
+                        <div class="mb-3">
+                            <label for="profileImage" class="form-label">Upload Profile Image</label>
+                            <input type="file" class="form-control" name="profileImage" id="profileImage" accept="image/*">
+                        </div>
+
+                        <!-- Personal Details -->
+                        <h5 class="mt-4 mb-3">Personal Details</h5>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="fullName" id="fullName" 
+                                   value="<%= profile && profile.fullName ? profile.fullName : username %>" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" value="<%= profile ? profile.email : '' %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" id="phone" value="<%= profile ? profile.phone : '' %>" required>
+                        </div>
+
+                        <!-- Location Details -->
+                        <h5 class="mt-4 mb-3">Location Details</h5>
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" name="state" id="state" value="<%= profile ? profile.state : '' %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="district" class="form-label">District</label>
+                            <input type="text" class="form-control" name="district" id="district" value="<%= profile ? profile.district : '' %>" required>
+                        </div>
+
+                        <!-- Education Details -->
+                        <h5 class="mt-4 mb-3">Education Details</h5>
+                        <div class="mb-3">
+                            <label for="collegeName" class="form-label">College Name</label>
+                            <input type="text" class="form-control" name="collegeName" id="collegeName" value="<%= profile ? profile.collegeName : '' %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="course" class="form-label">Course</label>
+                            <input type="text" class="form-control" name="course" id="course" value="<%= profile ? profile.course : '' %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Year</label>
+                            <input type="text" class="form-control" name="year" id="year" value="<%= profile ? profile.year : '' %>" required>
+                        </div>
+
+                        <h5 class="mt-4 mb-3">Parent Linking</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Parent Linking Code</label>
+                            <input type="text" class="form-control" id="uniqueCode" value="<%= profile?.uniqueCode || '' %>" readonly>
+                            
+                            <% if (!profile?.uniqueCode) { %>
+                                <button class="btn btn-primary mt-2" id="generateCodeBtn">Generate Code</button>
+                            <% } %>
+                        
+                            <small class="text-muted">Share this code with your parent to link their account.</small>
+                        </div>
+                        
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-dark btn-lg">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById("generateCodeBtn")?.addEventListener("click", async function() {
+        try {
+            const response = await fetch("/profile/generate-code", { method: "POST" });
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById("uniqueCode").value = data.uniqueCode;
+                document.getElementById("generateCodeBtn").style.display = "none";
+            } else {
+                alert("Error generating code.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred.");
+        }
+    });
+    </script>
+
+<%- include('layouts/footer'); -%>

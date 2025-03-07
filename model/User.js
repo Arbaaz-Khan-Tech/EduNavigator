@@ -8,8 +8,9 @@ const passportLocalMongoose = require('passport-local-mongoose');
 var User = new Schema({
     username: String,
     password: String,
-    googleId: String, // Add this field for Google login
-    email: String // Optional: to store the email from Google profile
+    role: { type: String, enum: ['student', 'teacher', 'parent'], required: true },
+    googleId: String, 
+    email: String 
 });
 
 User.plugin(passportLocalMongoose);
