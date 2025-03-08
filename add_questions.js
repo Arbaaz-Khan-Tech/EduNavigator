@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Question = require('./model/questions');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/collegeDB', {
+mongoose.connect('mongodb+srv://sachinchaurasiya69:606280Sk@tesing.8vhz1.mongodb.net/education', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

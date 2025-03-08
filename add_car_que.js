@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Question = require('./model/Carrer_Que'); // Adjust the path according to your folder structure
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/collegeDB', {
+mongoose.connect('mongodb+srv://sachinchaurasiya69:606280Sk@tesing.8vhz1.mongodb.net/education', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost:27017/collegeDB', {
 // Function to add 15 questions
 const addQuestions = async () => {
   const questions = [
-    {
+    { 
       questionText: "Which activity do you enjoy most?",
       category: "Technical",
       options: [

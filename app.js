@@ -61,7 +61,8 @@ const path = require('path');
 // Set the public folder to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect("mongodb://localhost:27017/collegeDB");
+mongoose.connect("mongodb+srv://sachinchaurasiya69:606280Sk@tesing.8vhz1.mongodb.net/education");
+console.log("Connected to Onlien db MongoDB");
 
 
 app.set("view engine", "ejs");
@@ -125,6 +126,7 @@ app.use(Cert)
 app.use(interview)
 
 
+
 // Define the isLoggedIn middleware (if it's in another file, require it instead)
 
 
@@ -149,6 +151,9 @@ app.get('/vid', (req, res) => {
     res.render('vid')
 });
 
+app.get('/mentor', (req, res) => {
+    res.sendFile(__dirname + '/views/Mentor.html');
+});
 
 app.get('/an', (req, res) => {
     res.render('anima')

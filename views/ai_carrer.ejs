@@ -1,307 +1,545 @@
 <head>
-
   <%- include('layouts/header'); -%>
+  <style>
+    :root {
+      --primary: #7C3AED;
+      --primary-dark: #6D28D9;
+      --secondary: #EC4899;
+      --accent: #8B5CF6;
+      --background: #F3F4F6;
+      --card-bg: #FFFFFF;
+      --text-primary: #1F2937;
+      --text-secondary: #4B5563;
+      --success: #10B981;
+      --error: #EF4444;
+      --warning: #F59E0B;
+    }
 
-    <style>
-      body {
-        background-color: #502b55;
-        font-family: Arial, sans-serif;
-        color: white;
-        
-      }
-      .container{
-        backdrop-filter: contrast(1.5);
-      }
+    body {
+      background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-container {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem;
+      margin: 2rem auto;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s ease-out;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+
+    .form-label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .form-control {
+      border: 2px solid #E5E7EB;
+      border-radius: 10px;
+      padding: 12px 16px;
+      background-color: var(--background);
+      font-size: 1rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      outline: none;
+    }
+
+    .form-control:hover {
+      border-color: var(--secondary);
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 120px;
+      justify-content: center;
+    }
+
+    .btn-prev {
+      background-color: var(--background);
+      color: var(--text-primary);
+    }
+
+    .btn-prev:hover {
+      background-color: #E5E7EB;
+      transform: translateX(-2px);
+    }
+
+    .btn-next {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-next:hover {
+      background-color: var(--primary-dark);
+      transform: translateX(2px);
+    }
+
+    .btn-submit {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .btn-submit:hover {
+      background-color: #059669;
+      transform: translateY(-2px);
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background-color: var(--background);
+      border-radius: 10px;
+      margin: 0 0 2.5rem 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      animation: shimmer 2s infinite linear;
+      background-size: 200% 100%;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .question-container {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .question-container.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .form-heading {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      color: white;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      letter-spacing: -0.02em;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .form-subheading {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .question-number {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question-number::after {
+      content: '';
+      height: 2px;
+      background-color: #E5E7EB;
+      flex: 1;
+    }
+
+    /* Custom datalist styling */
+    input::-webkit-calendar-picker-indicator {
+      display: none !important;
+    }
+
+    datalist {
+      display: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
       .form-container {
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 30px;
-        background-color: #a59d9d;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-       
-      }
-
-      .form-label {
-        font-weight: 600;
-      }
-
-      .form-control {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: #fafafa;
-      }
-
-      .form-control:focus {
-        border-color: #5a9;
-        box-shadow: 0 0 5px rgba(0, 150, 150, 0.2);
-      }
-
-      button[type="submit"] {
-        background-color: #5a9;
-        border: none;
-        color: #fff;
-        padding: 12px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: 100%;
-      }
-
-      button[type="submit"]:hover {
-        background-color: #488b8f;
+        padding: 1.5rem;
+        margin: 1rem;
       }
 
       .form-heading {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-align: center;
-        color: #444;
-        margin-bottom: 20px;
+        font-size: 2rem;
       }
-    </style>
-</head>
 
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Additional animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
 
 <body>
   <%- include('layouts/navbar'); -%>
 
+  <div class="container">
+    <h1 class="form-heading">AI Career Guidance</h1>
+    <p class="form-subheading">Let's find your perfect career path together</p>
+    
+    <div class="form-container">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
 
+      <form id="careerForm" action="/Ai_Insights" method="post">
+        <!-- Question 1 -->
+        <div class="question-container active" data-question="1">
+          <div class="question-number">Question 1 of 10</div>
+          <label for="Education" class="form-label">What is your current educational background?</label>
+          <input list="education-options" class="form-control" id="Education" name="Education" required placeholder="Select or type your education">
+          <datalist id="education-options">
+            <option value="High School Diploma">
+            <option value="Bachelor's Degree in Computer Science">
+            <option value="Bachelor's Degree in Business">
+            <option value="Master's Degree in Engineering">
+            <option value="PhD in Physics">
+          </datalist>
+        </div>
 
+        <!-- Question 2 -->
+        <div class="question-container" data-question="2">
+          <div class="question-number">Question 2 of 10</div>
+          <label for="Skills" class="form-label">What skills do you excel at?</label>
+          <input list="skills-options" class="form-control" id="Skills" name="Skills" required placeholder="Select or type your skills">
+          <datalist id="skills-options">
+            <option value="Programming">
+            <option value="Data Analysis">
+            <option value="Project Management">
+            <option value="Graphic Design">
+            <option value="Public Speaking">
+          </datalist>
+        </div>
 
+        <!-- Question 3 -->
+        <div class="question-container" data-question="3">
+          <div class="question-number">Question 3 of 10</div>
+          <label for="WorkPreference" class="form-label">Do you prefer working independently or in a team?</label>
+          <input list="workpreference-options" class="form-control" id="WorkPreference" name="WorkPreference" required placeholder="Select your work preference">
+          <datalist id="workpreference-options">
+            <option value="Independently">
+            <option value="In a team">
+            <option value="Both, depending on the task">
+          </datalist>
+        </div>
 
-    <div class="container mt-5">
-      <h1 class="text-center mb-4">AI Assistant</h1>
+        <!-- Question 4 -->
+        <div class="question-container" data-question="4">
+          <div class="question-number">Question 4 of 10</div>
+          <label for="CareerGoals" class="form-label">Where do you see yourself in 5 years?</label>
+          <input list="careergoals-options" class="form-control" id="CareerGoals" name="CareerGoals" required placeholder="Select your career goal">
+          <datalist id="careergoals-options">
+            <option value="In a leadership role">
+            <option value="Running my own business">
+            <option value="Working internationally">
+            <option value="Advancing in my current field">
+            <option value="Continuing my education">
+          </datalist>
+        </div>
 
-      <form id="" action="/Ai_Insights" method="post">
-        <div class="row">
-          <div class="mb-3  col-md-6">
-           
-              <label for="Education" class="form-label">What is your current educational background?</label>
-              <input list="education-options" class="form-control" id="Education" name="Education" required>
-              <datalist id="education-options">
-                <option value="High School Diploma">
-                <option value="Bachelor's Degree in Computer Science">
-                <option value="Bachelor's Degree in Business">
-                <option value="Master's Degree in Engineering">
-                <option value="PhD in Physics">
-              </datalist>
-           
+        <!-- Question 5 -->
+        <div class="question-container" data-question="5">
+          <div class="question-number">Question 5 of 10</div>
+          <label for="WorkEnvironment" class="form-label">What kind of work environment do you thrive in?</label>
+          <input list="workenvironment-options" class="form-control" id="WorkEnvironment" name="WorkEnvironment" required placeholder="Select your ideal work environment">
+          <datalist id="workenvironment-options">
+            <option value="Fast-paced startup">
+            <option value="Structured corporate">
+            <option value="Remote work">
+            <option value="Hybrid environment">
+            <option value="Creative studio">
+          </datalist>
+        </div>
 
-          </div>
+        <!-- Question 6 -->
+        <div class="question-container" data-question="6">
+          <div class="question-number">Question 6 of 10</div>
+          <label for="Interests" class="form-label">What topics or fields interest you the most?</label>
+          <input list="interests-options" class="form-control" id="Interests" name="Interests" required placeholder="Select your interests">
+          <datalist id="interests-options">
+            <option value="Technology and Innovation">
+            <option value="Arts and Design">
+            <option value="Business and Finance">
+            <option value="Healthcare and Science">
+            <option value="Education and Training">
+          </datalist>
+        </div>
 
-          <div class="mb-3 col-md-6">
-          
-              <label for="WorkExperience" class="form-label">What work experience do you have (if any)?</label>
-              <input list="workexperience-options" class="form-control" id="WorkExperience" name="WorkExperience"
-                required>
-              <datalist id="workexperience-options">
-                <option value="Internship">
-                <option value="Software Developer">
-                <option value="Project Manager">
-                <option value="Marketing Specialist">
-                <option value="No experience yet">
-              </datalist>
-           
-          </div>
+        <!-- Question 7 -->
+        <div class="question-container" data-question="7">
+          <div class="question-number">Question 7 of 10</div>
+          <label for="Strengths" class="form-label">What do you consider your greatest strength?</label>
+          <input list="strengths-options" class="form-control" id="Strengths" name="Strengths" required placeholder="Select your greatest strength">
+          <datalist id="strengths-options">
+            <option value="Problem Solving">
+            <option value="Communication">
+            <option value="Leadership">
+            <option value="Creativity">
+            <option value="Analytical Thinking">
+          </datalist>
+        </div>
 
-          <div class="mb-3 col-md-6">
-            <label for="Skills" class="form-label">What skills do you excel at?</label>
-            <input list="skills-options" class="form-control" id="Skills" name="Skills" required>
-            <datalist id="skills-options">
-              <option value="Programming">
-              <option value="Data Analysis">
-              <option value="Project Management">
-              <option value="Graphic Design">
-              <option value="Public Speaking">
-            </datalist>
-          </div>
+        <!-- Question 8 -->
+        <div class="question-container" data-question="8">
+          <div class="question-number">Question 8 of 10</div>
+          <label for="WorkLifeBalance" class="form-label">How important is work-life balance to you?</label>
+          <input list="balance-options" class="form-control" id="WorkLifeBalance" name="WorkLifeBalance" required placeholder="Select your preference">
+          <datalist id="balance-options">
+            <option value="Very important - I prioritize personal time">
+            <option value="Important but flexible">
+            <option value="Career-focused currently">
+            <option value="Depends on the opportunity">
+          </datalist>
+        </div>
 
-          <div class="mb-3 col-md-6">
-            <label for="Subjects" class="form-label">What subjects or activities are you most interested in?</label>
-            <input list="subjects-options" class="form-control" id="Subjects" name="Subjects" required>
-            <datalist id="subjects-options">
-              <option value="Mathematics">
-              <option value="Physics">
-              <option value="History">
-              <option value="Art and Design">
-              <option value="Sports">
-            </datalist>
-          </div>
+        <!-- Question 9 -->
+        <div class="question-container" data-question="9">
+          <div class="question-number">Question 9 of 10</div>
+          <label for="LearningStyle" class="form-label">How do you prefer to learn new skills?</label>
+          <input list="learning-options" class="form-control" id="LearningStyle" name="LearningStyle" required placeholder="Select your learning style">
+          <datalist id="learning-options">
+            <option value="Hands-on practice">
+            <option value="Reading and research">
+            <option value="Video tutorials">
+            <option value="Mentorship">
+            <option value="Group workshops">
+          </datalist>
+        </div>
 
-          <div class="mb-3 col-md-6">
-            <label for="WorkPreference" class="form-label">Do you prefer working independently or in a team?</label>
-            <input list="workpreference-options" class="form-control" id="WorkPreference" name="WorkPreference"
-              required>
-            <datalist id="workpreference-options">
-              <option value="Independently">
-              <option value="In a team">
-              <option value="Both, depending on the task">
-            </datalist>
-          </div>
+        <!-- Question 10 -->
+        <div class="question-container" data-question="10">
+          <div class="question-number">Question 10 of 10</div>
+          <label for="Motivation" class="form-label">What motivates you the most in a career?</label>
+          <input list="motivation-options" class="form-control" id="Motivation" name="Motivation" required placeholder="Select your primary motivation">
+          <datalist id="motivation-options">
+            <option value="Making a positive impact">
+            <option value="Financial success">
+            <option value="Learning and growth">
+            <option value="Recognition and achievement">
+            <option value="Work-life harmony">
+          </datalist>
+        </div>
 
-          <div class="mb-3 col-md-6">
-            <label for="Hobbies" class="form-label">What hobbies do you enjoy in your free time?</label>
-            <input list="hobbies-options" class="form-control" id="Hobbies" name="Hobbies" required>
-            <datalist id="hobbies-options">
-              <option value="Reading">
-              <option value="Painting">
-              <option value="Hiking">
-              <option value="Cooking">
-              <option value="Gaming">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="LearningInterests" class="form-label">What topics do you often find yourself researching or
-              learning about?</label>
-            <input list="learninginterests-options" class="form-control" id="LearningInterests" name="LearningInterests"
-              required>
-            <datalist id="learninginterests-options">
-              <option value="Technology">
-              <option value="Environmental Science">
-              <option value="Personal Finance">
-              <option value="Health and Wellness">
-              <option value="History">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="CareerGoals" class="form-label">Where do you see yourself in 5–10 years?</label>
-            <input list="careergoals-options" class="form-control" id="CareerGoals" name="CareerGoals" required>
-            <datalist id="careergoals-options">
-              <option value="In a leadership role">
-              <option value="Running my own business">
-              <option value="Working internationally">
-              <option value="Advancing in my current field">
-              <option value="Continuing my education">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="WorkEnvironment" class="form-label">What kind of work environment do you thrive in?</label>
-            <input list="workenvironment-options" class="form-control" id="WorkEnvironment" name="WorkEnvironment"
-              required>
-            <datalist id="workenvironment-options">
-              <option value="Collaborative">
-              <option value="Fast-paced">
-              <option value="Flexible">
-              <option value="Structured and organized">
-              <option value="Supportive and growth-oriented">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="JobPreferences" class="form-label">What is more important to you: job security, career growth,
-              or work-life balance?</label>
-            <input list="jobpreferences-options" class="form-control" id="JobPreferences" name="JobPreferences"
-              required>
-            <datalist id="jobpreferences-options">
-              <option value="Job Security">
-              <option value="Career Growth">
-              <option value="Work-Life Balance">
-              <option value="A combination of all three">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="WorkImpact" class="form-label">What kind of impact do you want your work to have?</label>
-            <input list="workimpact-options" class="form-control" id="WorkImpact" name="WorkImpact" required>
-            <datalist id="workimpact-options">
-              <option value="Improving people's lives">
-              <option value="Contributing to technological advancement">
-              <option value="Environmental sustainability">
-              <option value="Making a difference in my community">
-              <option value="Building a legacy">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="WorkSchedule" class="form-label">Do you prefer a stable 9-to-5 job or a more flexible work
-              schedule?</label>
-            <input list="workschedule-options" class="form-control" id="WorkSchedule" name="WorkSchedule" required>
-            <datalist id="workschedule-options">
-              <option value="Stable 9-to-5">
-              <option value="Flexible schedule">
-              <option value="Depends on the job">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="SalaryImportance" class="form-label">How much importance do you place on salary when considering
-              a career?</label>
-            <input list="salaryimportance-options" class="form-control" id="SalaryImportance" name="SalaryImportance"
-              required>
-            <datalist id="salaryimportance-options">
-              <option value="Very important">
-              <option value="Somewhat important">
-              <option value="Not as important">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="StressManagement" class="form-label">How do you handle stress or high-pressure
-              situations?</label>
-            <input list="stressmanagement-options" class="form-control" id="StressManagement" name="StressManagement"
-              required>
-            <datalist id="stressmanagement-options">
-              <option value="Exercise regularly">
-              <option value="Take breaks when needed">
-              <option value="Prioritize tasks">
-              <option value="Seek support from others">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="WorkStyle" class="form-label">Are you more of a planner or someone who prefers to take things as
-              they come?</label>
-            <input list="workstyle-options" class="form-control" id="WorkStyle" name="WorkStyle" required>
-            <datalist id="workstyle-options">
-              <option value="Planner">
-              <option value="Go with the flow">
-              <option value="A mix of both">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="Feedback" class="form-label">What feedback have you received from peers or mentors about your
-              strengths or areas for improvement?</label>
-            <input list="feedback-options" class="form-control" id="Feedback" name="Feedback" required>
-            <datalist id="feedback-options">
-              <option value="Excellent communicator">
-              <option value="Great attention to detail">
-              <option value="Needs to improve time management">
-              <option value="Strong leadership skills">
-            </datalist>
-          </div>
-
-          <div class="mb-3 col-md-6">
-            <label for="FutureLearning" class="form-label">What new skills or knowledge are you eager to learn?</label>
-            <input list="futurelearning-options" class="form-control" id="FutureLearning" name="FutureLearning"
-              required>
-            <datalist id="futurelearning-options">
-              <option value="Machine Learning">
-              <option value="Data Science">
-              <option value="Public Speaking">
-              <option value="Financial Management">
-              <option value="Foreign Language">
-            </datalist>
-          </div>
-
-          <button type="submit">Submit</button>
+        <div class="navigation-buttons">
+          <button type="button" class="btn btn-prev" id="prevBtn" style="display: none;">
+            <i class="fas fa-arrow-left"></i> Previous
+          </button>
+          <button type="button" class="btn btn-next" id="nextBtn">
+            Next <i class="fas fa-arrow-right"></i>
+          </button>
+          <button type="submit" class="btn btn-submit" id="submitBtn" style="display: none;">
+            <i class="fas fa-check"></i> Submit
+          </button>
         </div>
       </form>
-
-
-
-      <!-- <div id="resumePreview" class="mt-5"></div> -->
     </div>
+  </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('careerForm');
+      const questions = document.querySelectorAll('.question-container');
+      const progressBar = document.getElementById('progressBar');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      let currentQuestion = 1;
+      const totalQuestions = 10; // Updated to 10 questions
 
+      // Update progress bar
+      function updateProgress() {
+        const progress = (currentQuestion - 1) / (totalQuestions - 1) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
 
-    <%- include('layouts/footer'); -%>
+      // Show specific question
+      function showQuestion(questionNumber) {
+        questions.forEach(q => {
+          q.classList.remove('active');
+        });
+        
+        const questionToShow = document.querySelector(`[data-question="${questionNumber}"]`);
+        questionToShow.classList.add('active');
 
+        // Update buttons
+        prevBtn.style.display = questionNumber === 1 ? 'none' : 'block';
+        nextBtn.style.display = questionNumber === totalQuestions ? 'none' : 'block';
+        submitBtn.style.display = questionNumber === totalQuestions ? 'block' : 'none';
+
+        updateProgress();
+      }
+
+      // Next button click handler with smooth validation
+      nextBtn.addEventListener('click', function() {
+        const currentInput = document.querySelector('.question-container.active input');
+        if (currentInput.value.trim() === '') {
+          currentInput.classList.add('shake');
+          setTimeout(() => currentInput.classList.remove('shake'), 500);
+          return;
+        }
+        
+        if (currentQuestion < totalQuestions) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        }
+      });
+
+      // Previous button click handler
+      prevBtn.addEventListener('click', function() {
+        if (currentQuestion > 1) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      });
+
+      // Form submission handler
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const allInputs = form.querySelectorAll('input[required]');
+        let isValid = true;
+
+        allInputs.forEach(input => {
+          if (input.value.trim() === '') {
+            isValid = false;
+            input.classList.add('shake');
+            setTimeout(() => input.classList.remove('shake'), 500);
+          }
+        });
+
+        if (!isValid) {
+          return;
+        }
+
+        // Submit the form
+        this.submit();
+      });
+
+      // Initialize
+      updateProgress();
+
+      // Add keydown event listener for keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          nextBtn.click();
+        }
+      });
+    });
+  </script>
+
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .shake {
+      animation: shake 0.3s ease-in-out;
+      border-color: var(--error) !important;
+    }
+  </style>
 </body>
