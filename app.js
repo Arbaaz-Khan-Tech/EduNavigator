@@ -47,7 +47,7 @@ const profileRoutes = require('./routes/profileRoute.js');
 const teacherRoutes = require('./routes/teacherpRoute');
 const studentlistRoutes = require('./routes/studentlistRoutes');
 const parentProfileRoutes = require("./routes/parentProfileRoutes.js"); 
-
+const carrer_bank = require('./routes/carrer_bank.js')
 
 
 const Cert = require('./routes/cert_validator.js')
@@ -119,7 +119,7 @@ app.use(profileRoutes);
 app.use(teacherRoutes);
 app.use(studentlistRoutes);
 app.use(parentProfileRoutes);
-
+app.use(carrer_bank)
 
 app.use(Cert)
 app.use(interview)
