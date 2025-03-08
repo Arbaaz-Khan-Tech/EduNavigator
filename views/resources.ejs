@@ -1,41 +1,387 @@
 <%- include('layouts/header'); -%>
 
+<style>
+  :root {
+    --primary: #4F46E5;
+    --secondary: #EC4899;
+    --accent: #8B5CF6;
+    --background: #F9FAFB;
+    --card-bg: #FFFFFF;
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #4F46E5 0%, #EC4899 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  .resources-header {
+    text-align: center;
+    padding: 3rem 0;
+    color: white;
+  }
+
+  .resources-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .resources-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .resources-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .resource-section {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .resource-section:hover {
+    transform: translateY(-5px);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .resource-card {
+    background: var(--background);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .resource-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .resource-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .resource-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .resource-link:hover {
+    color: var(--secondary);
+    gap: 0.75rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-bar {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    .resources-container {
+      padding: 1rem;
+    }
+
+    .resource-section {
+      padding: 1.5rem;
+    }
+
+    .resources-header h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+
 <body>
-    <%- include('layouts/navbar'); -%>
+  <%- include('layouts/navbar'); -%>
 
+  <div class="resources-header">
+    <h1>Career Resources</h1>
+    <p>Discover tools, guides, and materials to help you in your career journey</p>
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Search resources..." id="resourceSearch">
+    </div>
+  </div>
 
-
-    <div class="container">
-      <div class="row">
-        <div class="col-6 col-sm-3">div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">First Year</h5>
-            <p class="card-text">Resources For First Year</p>
+  <div class="resources-container">
+    <!-- Career Assessment Tools -->
+    <div class="resource-section">
+      <h2 class="section-title">
+        <i class="fas fa-clipboard-check"></i>
+        Career Assessment Tools
+      </h2>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Myers-Briggs Type Indicator (MBTI)</h3>
+          <div class="tags">
+            <span class="tag">Personality Test</span>
+            <span class="tag">Career Matching</span>
           </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Click Here</a>
-          </div></div>
-        <div class="col-6 col-sm-3">div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">First Year</h5>
-            <p class="card-text">Resources For First Year</p>
+          <p>Discover your personality type and find careers that match your preferences and strengths.</p>
+          <a href="https://www.16personalities.com/" target="_blank" class="resource-link">
+            Take the Test <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Strong Interest Inventory</h3>
+          <div class="tags">
+            <span class="tag">Interest Assessment</span>
+            <span class="tag">Career Planning</span>
           </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Click Here</a>
-          </div></div>
-
+          <p>Explore your interests and find career paths that align with your passions.</p>
+          <a href="#" class="resource-link">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
+        <div class="resource-card">
+          <h3>Skills Assessment</h3>
+          <div class="tags">
+            <span class="tag">Skills Analysis</span>
+            <span class="tag">Professional Development</span>
+          </div>
+          <p>Evaluate your current skills and identify areas for improvement.</p>
+          <a href="#" class="resource-link">
+            Start Assessment <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
+      </div>
+    </div>
+
+    <!-- Learning Resources -->
+    <div class="resource-section">
+      <h2 class="section-title">
+        <i class="fas fa-graduation-cap"></i>
+        Learning Resources
+      </h2>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Online Courses</h3>
+          <div class="tags">
+            <span class="tag">Coursera</span>
+            <span class="tag">Udemy</span>
+            <span class="tag">edX</span>
+          </div>
+          <p>Access thousands of courses from top universities and institutions.</p>
+          <a href="https://www.coursera.org/" target="_blank" class="resource-link">
+            Browse Courses <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Skill Development</h3>
+          <div class="tags">
+            <span class="tag">Technical Skills</span>
+            <span class="tag">Soft Skills</span>
+          </div>
+          <p>Resources to help you develop both technical and soft skills.</p>
+          <a href="#" class="resource-link">
+            Explore Skills <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Industry Certifications</h3>
+          <div class="tags">
+            <span class="tag">Professional</span>
+            <span class="tag">Technical</span>
+          </div>
+          <p>Find relevant certifications for your career path.</p>
+          <a href="#" class="resource-link">
+            View Certifications <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Career Planning -->
+    <div class="resource-section">
+      <h2 class="section-title">
+        <i class="fas fa-map"></i>
+        Career Planning
+      </h2>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Resume Building</h3>
+          <div class="tags">
+            <span class="tag">Templates</span>
+            <span class="tag">Tips</span>
+          </div>
+          <p>Create a professional resume with our templates and guides.</p>
+          <a href="#" class="resource-link">
+            Build Resume <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Interview Preparation</h3>
+          <div class="tags">
+            <span class="tag">Practice</span>
+            <span class="tag">Questions</span>
+          </div>
+          <p>Prepare for interviews with common questions and tips.</p>
+          <a href="#" class="resource-link">
+            Practice Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Career Path Guides</h3>
+          <div class="tags">
+            <span class="tag">Industry Insights</span>
+            <span class="tag">Growth Paths</span>
+          </div>
+          <p>Detailed guides on various career paths and industries.</p>
+          <a href="#" class="resource-link">
+            View Guides <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industry Insights -->
+    <div class="resource-section">
+      <h2 class="section-title">
+        <i class="fas fa-chart-line"></i>
+        Industry Insights
+      </h2>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Market Trends</h3>
+          <div class="tags">
+            <span class="tag">Analysis</span>
+            <span class="tag">Reports</span>
+          </div>
+          <p>Stay updated with the latest industry trends and market analysis.</p>
+          <a href="#" class="resource-link">
+            View Trends <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Salary Guides</h3>
+          <div class="tags">
+            <span class="tag">Compensation</span>
+            <span class="tag">Benefits</span>
+          </div>
+          <p>Research salary ranges and compensation packages for different roles.</p>
+          <a href="#" class="resource-link">
+            Check Salaries <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="resource-card">
+          <h3>Company Reviews</h3>
+          <div class="tags">
+            <span class="tag">Workplace</span>
+            <span class="tag">Culture</span>
+          </div>
+          <p>Read reviews and insights about potential employers.</p>
+          <a href="#" class="resource-link">
+            Read Reviews <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Search functionality
+    document.getElementById('resourceSearch').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const cards = document.querySelectorAll('.resource-card');
       
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+        
+        const matches = title.includes(searchTerm) || 
+                       description.includes(searchTerm) || 
+                       tags.some(tag => tag.includes(searchTerm));
+        
+        card.style.display = matches ? 'block' : 'none';
+      });
+    });
 
+    // Animate cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
 
-      
-
-
-
-
-    <%- include('layouts/footer'); -%>
+    document.querySelectorAll('.resource-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>

@@ -150,6 +150,9 @@ wss.on('connection', ws => {
 app.get('/vid', (req, res) => {
     res.render('vid')
 });
+app.get('/resources', (req, res) => {
+    res.render('resources')
+});
 
 app.get('/mentor', (req, res) => {
     res.sendFile(__dirname + '/views/Mentor.html');
