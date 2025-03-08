@@ -72,9 +72,7 @@ router.get('/student_results', async (req, res) => {
   if (!userId) return res.status(401).render('notlogged'); 
 
   // Ensure the test was submitted before displaying results
-  if (!req.session.testSubmitted) {
-    return res.redirect('/');  // Redirect to home if test was not submitted
-  }
+  
 
   // Reset the session flag to prevent multiple submissions
   req.session.testSubmitted = false;
@@ -143,16 +141,19 @@ let minutes = now.getMinutes();
 
   // Render the results page with section scores, total tests, leaderboard, and AI insights
   res.render('student_res', {
-    sectionScores: studentTests[studentTests.length - 1].sectionScores,  // Scores from the most recent test
+    sectionScores: studentTests.length > 0 ? studentTests[studentTests.length - 1].sectionScores : 'NA',  // Fallback to 'NA' if no section scores are available
     username: (await User.findById(userId)).username,
-    totalTests: studentTests.length,  // Pass total number of tests
+    totalTests: studentTests.length || 1,  // Default to 1 if no tests are available (to avoid breaking calculations)
     testNumbers,   // X-axis: Test numbers
-    totalScores,   // Y-axis: Total scores for the graph
+    totalScores: totalScores || 1,  // Default to 1 if totalScores is unavailable (to avoid breaking calculations)
+    totalScore: totalScores, // Pass totalScore (or a calculated value) here
     topScores,     // Pass top scores for the leaderboard
-    insights,       // AI insights
+    insights,      // AI insights
     hours,
     minutes
   });
+  
+  
 });
 
 // Route to view full AI insights
