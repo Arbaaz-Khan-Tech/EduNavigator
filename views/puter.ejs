@@ -1,0 +1,323 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Interview Simulator</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+         body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        #video-container {
+    position: fixed;
+    width: 640px;
+    height: 360px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+    /* Additional style for video box */
+.video-overlay {
+    object-fit: cover;
+    background: #000;
+}
+        .active {
+            opacity: 1;
+        }
+
+        #field-selection {
+            position: fixed;
+            top: 85%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #voice-interface {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+}
+
+#voice-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+}
+
+
+        #chat-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    bottom: 160px;
+    left: auto;
+    width: 300px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 8px;
+    padding: 15px;
+    backdrop-filter: blur(5px);
+}
+
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+
+        .user-message {
+            background: rgba(255,255,255,0.1);
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background: rgba(0,123,255,0.2);
+            margin-right: auto;
+        }
+
+        #loading {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video id="talkingVideo" class="video-overlay" style="height: 450px;" muted playsinline loop>
+            <source src="/videos/layla_talk.mp4" type="video/mp4">
+        </video>
+        <video id="idleVideo" class="video-overlay active" muted playsinline loop>
+            <source src="/videos/layla_notalk.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="field-selection">
+        <p>Select your interview field:</p>
+        <button class="field-btn" data-field="frontend">Frontend</button>
+        <button class="field-btn" data-field="backend">Backend</button>
+        <button class="field-btn" data-field="fullstack">Full Stack</button>
+        <button class="field-btn" data-field="devops">DevOps</button>
+    </div>
+
+    <div id="voice-interface">
+        <div id="voice-circle">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+            </svg>
+        </div>
+        <div id="status">Click the circle to start speaking</div>
+    </div>
+
+    <div id="chat-messages"></div>
+    <div id="loading">Generating response...</div>
+
+    <script>
+   // public/client.js
+const talkingVideo = document.getElementById('talkingVideo');
+const idleVideo = document.getElementById('idleVideo');
+const loadingIndicator = document.getElementById('loading');
+const voiceCircle = document.getElementById('voice-circle');
+const chatMessages = document.getElementById('chat-messages');
+const status = document.getElementById('status');
+const fieldSelection = document.getElementById('field-selection');
+const voiceInterface = document.getElementById('voice-interface');
+
+let conversationHistory = [];
+let interviewField = '';
+let questionCount = 0;
+let recognition;
+let isListening = false;
+
+// Initialize speech recognition
+function initSpeechRecognition() {
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = () => {
+            voiceCircle.classList.add('listening');
+            status.textContent = "Listening...";
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            addMessage(transcript, 'user');
+            handleUserInput(transcript);
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            status.textContent = "Error: " + event.error;
+            voiceCircle.classList.remove('listening');
+        };
+
+        recognition.onend = () => {
+            voiceCircle.classList.remove('listening');
+            status.textContent = "Click the circle to speak";
+        };
+    } else {
+        console.warn('Speech recognition not supported');
+        voiceInterface.style.display = 'none';
+    }
+}
+
+// Video control functions
+function setSpeakingState(speaking) {
+    if (speaking) {
+        talkingVideo.classList.add('active');
+        idleVideo.classList.remove('active');
+        talkingVideo.play();
+        idleVideo.pause();
+    } else {
+        talkingVideo.classList.remove('active');
+        idleVideo.classList.add('active');
+        talkingVideo.pause();
+        idleVideo.play();
+    }
+}
+
+// Field selection handlers
+document.querySelectorAll('.field-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        interviewField = e.target.dataset.field;
+        fieldSelection.style.display = 'none';
+        voiceInterface.style.display = 'block';
+
+        conversationHistory.push({
+            role: 'system',
+            content: `Act as a ${interviewField} technical interviewer. 
+                     Ask one technical question at a time. 
+                     Start with basic concepts and progress to complex scenarios.
+                     After 5 questions, provide detailed feedback.`
+        });
+
+        startInterview();
+    });
+});
+
+// Voice interface handler
+voiceCircle.addEventListener('click', () => {
+    if (!isListening && recognition) {
+        recognition.start();
+    }
+});
+
+async function startInterview() {
+    try {
+        loadingIndicator.style.display = 'block';
+        // Replace with your actual AI service call
+        const response = await fetch('/generate-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: conversationHistory,
+                field: interviewField
+            })
+        });
+
+        if (!response.ok) throw new Error('API request failed');
+        
+        const data = await response.json();
+        const aiResponse = data.response;
+
+        addMessage(aiResponse, 'ai');
+        speakResponse(aiResponse);
+        conversationHistory.push({ role: 'assistant', content: aiResponse });
+        loadingIndicator.style.display = 'none';
+    } catch (error) {
+        console.error('Error:', error);
+        status.textContent = "Error processing request. Please try again.";
+        loadingIndicator.style.display = 'none';
+    }
+}
+
+async function handleUserInput(message) {
+    conversationHistory.push({ role: 'user', content: message });
+
+    try {
+        loadingIndicator.style.display = 'block';
+        // Replace with your actual AI service call
+        const response = await fetch('/generate-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: conversationHistory,
+                field: interviewField
+            })
+        });
+
+        if (!response.ok) throw new Error('API request failed');
+        
+        const data = await response.json();
+        const aiResponse = data.response;
+
+        addMessage(aiResponse, 'ai');
+        speakResponse(aiResponse);
+        conversationHistory.push({ role: 'assistant', content: aiResponse });
+        
+        if (++questionCount >= 5) {
+            // Handle feedback generation
+            requestFeedback();
+        }
+        loadingIndicator.style.display = 'none';
+    } catch (error) {
+        console.error('Error:', error);
+        status.textContent = "Error processing request. Please try again.";
+        loadingIndicator.style.display = 'none';
+    }
+}
+
+function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    messageDiv.textContent = text;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Initialize the app
+function init() {
+    initSpeechRecognition();
+    // Hide voice interface initially
+    voiceInterface.style.display = 'none';
+    loadingIndicator.style.display = 'none';
+}
+
+// Start the application
+document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

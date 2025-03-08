@@ -178,6 +178,6 @@ app.get('/teacher_home', (req, res) => {
     res.render('teacher_home');
 });
 
-})
+
 
 
