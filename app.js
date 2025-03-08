@@ -52,7 +52,8 @@ const path = require('path');
 // Set the public folder to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect("mongodb://localhost:27017/collegeDB");
+mongoose.connect("mongodb+srv://sachinchaurasiya69:606280Sk@tesing.8vhz1.mongodb.net/education");
+console.log("Connected to Onlien db MongoDB");
 
 
 app.set("view engine", "ejs");
