@@ -1,0 +1,50 @@
+<%- include('layouts/header'); -%>
+<%- include('layouts/tnavbar'); -%>
+
+<section class="bg-light p-3 p-md-4 p-xl-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+                <div class="card border-light-subtle shadow-sm p-4">
+                    <h3 class="text-center mb-4">Student List</h3>
+
+                    <% if (students.length > 0) { %>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Sr. No.</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Year</th>
+                                        <th scope="col">Profile Photo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% students.forEach((student, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= student.fullName  %></td>
+                                            <td><%= student.email %></td>
+                                            <td><%= student.phone %></td>
+                                            <td><%= student.year %></td>
+                                            <td class="text-center">
+                                                <img src="<%= student.profileImage || '/default-profile.png' %>" 
+                                                     alt="Profile" class="rounded-circle" width="50" height="50">
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } else { %>
+                        <p class="text-center text-muted">No students found from your college.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('layouts/footer'); -%>
