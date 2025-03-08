@@ -1,57 +1,232 @@
-<nav class="navbar navbar-expand-lg ml-auto fixed-top navbar-light ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="BootstrapBrain Logo" width="175" height="60"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse  "  id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto ">
-  
-            <li class="nav-item">
-                <a class="nav-link" href="/parent_home">Home</a>
-              </li>
-  
-             
-  
-          <li class="nav-item">
-            <a class="nav-link" href="/parentprofile">profile</a>
-          </li>
-  
-          <li class="nav-item"></li>
-            <a class="nav-link" href="/scholarship">Scholarship</a>
-          </li>
-  
-          <li class="nav-item"></li>
-          <a class="nav-link" href="/PBL_1">Labs</a>
-        </li>
-  
-          <li class="nav-item"></li>
-          <a class="nav-link" href="/resume">Resume</a>
-        </li>
-          
-  
-      
-  
-  
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduNavigator Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo span:first-child {
+            color: #27ae60; /* Green for Edu */
+        }
+
+        .logo span:last-child {
+            color: #2980b9; /* Blue for Navigator */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #34495e;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #27ae60;
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            min-width: 200px;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            padding: 12px 16px;
+            display: block;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+            color: #27ae60;
+        }
+
+        .login-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(88, 182, 11, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger .line {
+            width: 25px;
+            height: 3px;
+            background: #2c3e50;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #fff;
+                flex-direction: column;
+                gap: 0;
+                transition: 0.3s;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                display: none;
+                background: #f8f9fa;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .login-btn {
+                margin: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <span>Edu</span><span>Navigator</span>
+        </div>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="nav-links">
+          <a  href="/parent_home">Home</a>
+          <a  href="/parentprofile">Profile</a>
+     
+            
           <% if (userId) { %>
        
-          <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-  
-            <% } else { %>
-  
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-           
-          </li>
-          <% }  %>
-        </ul>
-      </div>
-    </div>
-  </nav>
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+    
+              <% } else { %>
+    
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+             
+            </li>
+            <% }  %>
   
-  
-  
-  
+        </div>
+    </nav>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('active');
+                dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>
+

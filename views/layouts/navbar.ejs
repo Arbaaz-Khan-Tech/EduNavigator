@@ -174,7 +174,7 @@
         <div class="nav-links">
           <a  href="/">Home</a>
             <a href="#">Services</a>
-            <a href="">Resources</a>
+            <a href="/resources">Resources</a>
             
             <div class="dropdown">
                 <a href="#">Career ▼</a>
@@ -185,24 +185,16 @@
                 </div>
             </div>
 
-            <!-- <div class="dropdown">
-                <a href="#">Certif ▼</a>
-                <div class="dropdown-content">
-                    <a href="#">Certifications</a>
-                    <a href="#">Licenses</a>
-                    <a href="#">Fellowships</a>
-                </div>
-            </div> -->
+            <a href="/exam_choice">College</a>
+            <a href="/scholarship">Scholarship</a>
+            <a href="/Certificate_Validator">Certificate</a>
+            <a href="/resume">Resume</a>
+            <a href="/profile">Profile</a>
+            <a href="/mentor">Mentor</a>
 
-            <a class="nav-link" href="/exam_choice">College</a>
-            <a class="nav-link" href="/scholarship">Scholarship</a>
-            <a class="nav-link" href="/Certificate_Validator">Certificate</a>
-            <a class="nav-link" href="/resume">Resume</a>
-            <a class="nav-link" href="/profile">Profile</a>
-            <a class="nav-link" href="/mentor">Mentor</a>
             <% if (userId) { %>
               <a href="/apti">Aptitude</a>
-            <a href="#" class="login-btn">Log Out</a>
+            <a href="/logout" class="login-btn">Log Out</a>
             <% } else { %>
             
                 <a class="nav-link" href="/login">Login</a>
