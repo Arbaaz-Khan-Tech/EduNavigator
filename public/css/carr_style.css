@@ -834,7 +834,7 @@ svg path {
 
 /* Banner 2 Section */
 #banner_2 {
-    background-image: url("/img/image.png");
+    background-image: url("https://mindlerimages.imgix.net/tinyimg/desktop.svg");
     width: 100%;
     height: 60vh;
     background-size: contain; /* Ensures the image covers the entire section */
@@ -1153,7 +1153,7 @@ svg path {
     
   
   }
-  
+
   
   .clg_small {
     vertical-align: middle;
