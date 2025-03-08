@@ -1,57 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Bank</title>
-    <link rel="stylesheet" href="/css/carr_style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">Edu<span>Navigator</span></div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li class="dropdown">
-                <a href="#">Services</a>
-                <ul class="dropdown-menu">
-                    <li><a href="/career-recommendation">Skills and Interest</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Ai_Insights">AI Career</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Career_Trends">Trending Careers</a>
-                    </li>
-                    
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#">Resources</a>
-                <ul class="dropdown-menu">
-                    <li><a href="/career-bank">Career Bank</a></li>
-                    <li><a href="/videos">Videos</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/exam_choice">College</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/scholarship">Scholarship</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Certificate_Validator">Certificate</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/resume">Resume</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
-            </li>
-            <li><a href="/contact">Contact Us</a></li>
-        </ul>
-        <a href="#login" class="login-btn">Log In / Sign Up</a>
-    </nav>
+  <%- include('layouts/header'); -%>
+  <body>
+    
+    <%- include('layouts/navbar'); -%>
     
 
     <div class="career-bank">
