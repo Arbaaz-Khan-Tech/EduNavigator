@@ -42,8 +42,17 @@ const Mentor = require('./routes/mentor.js')
 const PBL = require('./routes/pbl.js')
 const project = require('./routes/project.js')
 const Carrer_Test = require('./routes/Carrer_Test_Que.js')
+
+const profileRoutes = require('./routes/profileRoute.js');
+const teacherRoutes = require('./routes/teacherpRoute');
+const studentlistRoutes = require('./routes/studentlistRoutes');
+const parentProfileRoutes = require("./routes/parentProfileRoutes.js"); 
+
+
+
 const Cert = require('./routes/cert_validator.js')
 const interview = require('./routes/Ai_Interview.js')
+
 
 let app = express();
 const path = require('path');
@@ -99,18 +108,22 @@ app.use(apti_res)
 app.use(PBL)
 app.use(project)
 app.use(jobs)
-
-
 app.use(Carrer_Trends)
-
 app.use(resources)
-
 app.use(contactRoutes);
 app.use(scholarshipRoutes);
 app.use(Mentor);
 app.use(Carrer_Test)
+
+app.use(profileRoutes);
+app.use(teacherRoutes);
+app.use(studentlistRoutes);
+app.use(parentProfileRoutes);
+
+
 app.use(Cert)
 app.use(interview)
+
 
 // Define the isLoggedIn middleware (if it's in another file, require it instead)
 
@@ -148,6 +161,23 @@ app.get('/resume', (req, res) => {
 
 app.get('/verify',(req,res)=>{
     res.render('blockchain')
+
+});
+
+app.get('/parent_home', (req, res) => {
+    if (req.session.role !== 'parent') {
+        return res.redirect('/login');
+    }
+    res.render('parent_home');
+});
+
+app.get('/teacher_home', (req, res) => {
+    if (req.session.role !== 'teacher') {
+        return res.redirect('/login');
+    }
+    res.render('teacher_home');
+});
+
 })
 
 
