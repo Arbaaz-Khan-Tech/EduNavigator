@@ -5,3 +5,4 @@ node_modules/
 *.o
 *.out
  desktop.ini
+ *.mp4

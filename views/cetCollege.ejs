@@ -1,89 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <%- include('layouts/header'); -%>
-<body style="background-image: url(/img/blob.svg) ; background-repeat: no-repeat; background-size: cover;">
-    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Green-Blue Neomorphic Theme */
+        .neomorphic-bg {
+            background: linear-gradient(135deg, #a8e6cf, #dcedc1); /* Light green to soft green */
+        }
+
+        .neomorphic-card {
+            background: #dcedc1; /* Soft green */
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #8bbabb, -10px -10px 20px #ffffff; /* Teal shadows */
+        }
+
+        .neomorphic-input {
+            background: #dcedc1; /* Soft green */
+            border-radius: 10px;
+            box-shadow: inset 5px 5px 10px #8bbabb, inset -5px -5px 10px #ffffff; /* Teal shadows */
+            border: none;
+        }
+
+        .neomorphic-input:focus {
+            outline: none;
+            box-shadow: inset 5px 5px 10px #8bbabb, inset -5px -5px 10px #ffffff; /* Teal shadows */
+        }
+
+        .neomorphic-button {
+            background: #dcedc1; /* Soft green */
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #8bbabb, -5px -5px 10px #ffffff; /* Teal shadows */
+            transition: all 0.3s ease;
+        }
+
+        .neomorphic-button:hover {
+            box-shadow: inset 5px 5px 10px #8bbabb, inset -5px -5px 10px #ffffff; /* Teal shadows */
+        }
+
+        /* Text and other elements */
+        h1 {
+            color: #2c3e50; /* Dark blue-gray for contrast */
+        }
+
+        label {
+            color: #2c3e50; /* Dark blue-gray */
+        }
+
+        button {
+            color: #2c3e50; /* Dark blue-gray */
+        }
+
+        button:hover {
+            color: #3498db; /* Lighter blue for hover effect */
+        }
+    </style>
+</head>
+<body class="neomorphic-bg min-h-screen flex flex-col">
     <!-- Navbar -->
-   
     <%- include('layouts/navbar'); -%>
-<section class="cet_rec">
-    <h1 class="text-center mb-4">College Recommendation System</h1>
 
-    <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          
-          <a href="#"><img src="/img/spo1.png" class="d-block w-100" alt="..." style="height: 299px;"></a>
+    <!-- Main Content -->
+    <section class="flex-grow flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl">
+            <h1 class="text-4xl font-bold text-center mb-8">College Recommendation System</h1>
+
+            <!-- Form -->
+            <form action="/recommendcet" method="POST" class="neomorphic-card p-8 space-y-6">
+                <!-- CET Score -->
+                <div>
+                    <label for="cetScore" class="block text-sm font-medium mb-2">CET Score:</label>
+                    <input type="number" id="cetScore" name="cetScore" step="0.01" required
+                           class="neomorphic-input w-full p-3 focus:outline-none">
+                </div>
+
+                <!-- University Selection -->
+                <div>
+                    <label for="university" class="block text-sm font-medium mb-2">Select University:</label>
+                    <select id="university" name="university" required
+                            class="neomorphic-input w-full p-3 focus:outline-none">
+                        <option value="Any">Any</option>
+                        <% universities.forEach(uni => { %>
+                            <option value="<%= uni %>"><%= uni %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <!-- Branch Selection -->
+                <div>
+                    <label for="branch" class="block text-sm font-medium mb-2">Select Branch:</label>
+                    <select id="branch" name="branch" required
+                            class="neomorphic-input w-full p-3 focus:outline-none">
+                        <% branches.forEach(br => { %>
+                            <option value="<%= br %>"><%= br %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <!-- Category Selection -->
+                <div>
+                    <label for="category" class="block text-sm font-medium mb-2">Select Category:</label>
+                    <select id="category" name="category" required
+                            class="neomorphic-input w-full p-3 focus:outline-none">
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat %>"><%= cat %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="neomorphic-button w-full p-3 font-semibold">
+                    Get Recommendations
+                </button>
+            </form>
         </div>
-        <div class="carousel-item">
-          <
-          <a href="#"><img src="/img/spo2.png"  class="d-block w-100" alt="..." style="height: 299px;" ></a>
-        </div>
-        <div class="carousel-item">
-          
-          <a href="#"><img src="/img/spo1.png"  class="d-block w-100" alt="..." style="height: 299px;"></a>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div> -->
-    
-    <h1 class="text-center mb-4">College Recommendation System</h1>
+    </section>
 
-<form action="/recommendcet" method="POST" class="container">
-  <!-- CET Score -->
-  <div class="mb-3">
-    <label for="cetScore" class="form-label">CET Score:</label>
-    <input type="number" id="cetScore" name="cetScore" class="form-control" step="0.01" required>
-  </div>
-  
-
-  <!-- University Selection -->
-  <div class="mb-3">
-    <label for="university" class="form-label">Select University:</label>
-    <select id="university" name="university" class="form-select" required>
-      <option value="Any">Any</option>
-      <% universities.forEach(uni => { %>
-        <option value="<%= uni %>"><%= uni %></option>
-      <% }) %>
-    </select>
-  </div>
-
-  <!-- Branch Selection -->
-  <div class="mb-3">
-    <label for="branch" class="form-label">Select Branch:</label>
-    <select id="branch" name="branch" class="form-select" required>
-      <% branches.forEach(br => { %>
-        <option value="<%= br %>"><%= br %></option>
-      <% }) %>
-    </select>
-  </div>
-
-  <!-- Category Selection -->
-  <div class="mb-3">
-    <label for="category" class="form-label">Select Category:</label>
-    <select id="category" name="category" class="form-select" required>
-      <% categories.forEach(cat => { %>
-        <option value="<%= cat %>"><%= cat %></option>
-      <% }) %>
-    </select>
-  </div>
-
-  <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary w-100">Get Recommendations</button>
-</form>
-
-</section>
+    <!-- Footer -->
     <%- include('layouts/footer'); -%>
 
     <script src="app.js"></script>
-
-
 </body>
 </html>

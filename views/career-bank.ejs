@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Bank</title>
+    <link rel="stylesheet" href="/css/carr_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Edu<span>Navigator</span></div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Services</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/career-recommendation">Skills and Interest</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Ai_Insights">AI Career</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Career_Trends">Trending Careers</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Resources</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/career-bank">Career Bank</a></li>
+                    <li><a href="/videos">Videos</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/exam_choice">College</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/scholarship">Scholarship</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Certificate_Validator">Certificate</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/resume">Resume</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+        <a href="#login" class="login-btn">Log In / Sign Up</a>
+    </nav>
+    
+
+    <div class="career-bank">
+        <div class="container">
+            <h1 class="text-center mb-4">Career Bank</h1>
+            <p class="text-center mb-4">Explore various professions and find your ideal career.</p>
+
+            <!-- Search Bar -->
+            <div class="search-bar mb-4">
+                <input type="text" id="search" class="form-control" placeholder="Search for a profession...">
+                <button class="search-icon"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters mb-4">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+                <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+                <button class="filter-btn" data-filter="finance">Finance</button>
+                <button class="filter-btn" data-filter="education">Education</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="law">Law</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+                <button class="filter-btn" data-filter="marketing">Marketing</button>
+                <button class="filter-btn" data-filter="media">Media</button>
+                <button class="filter-btn" data-filter="science">Science</button>
+                <button class="filter-btn" data-filter="aviation">Aviation</button>
+                <button class="filter-btn" data-filter="hospitality">Hospitality</button>
+                <button class="filter-btn" data-filter="management">Management</button>
+            </div>
+
+            <!-- Profession List -->
+            <div class="career-grid" id="profession-list">
+                <% professions.forEach(profession => { %>
+                    <div class="career-card" data-category="<%= profession.category.toLowerCase() %>">
+                        <div class="card-icon">
+                            <% if (profession.category.toLowerCase() === 'technology') { %>
+                                <i class="fas fa-laptop-code"></i>
+                            <% } else if (profession.category.toLowerCase() === 'healthcare') { %>
+                                <i class="fas fa-user-md"></i>
+                            <% } else if (profession.category.toLowerCase() === 'finance') { %>
+                                <i class="fas fa-coins"></i>
+                            <% } else if (profession.category.toLowerCase() === 'education') { %>
+                                <i class="fas fa-graduation-cap"></i>
+                            <% } else if (profession.category.toLowerCase() === 'engineering') { %>
+                                <i class="fas fa-cogs"></i>
+                            <% } else if (profession.category.toLowerCase() === 'law') { %>
+                                <i class="fas fa-balance-scale"></i>
+                            <% } else if (profession.category.toLowerCase() === 'design') { %>
+                                <i class="fas fa-palette"></i>
+                            <% } else if (profession.category.toLowerCase() === 'marketing') { %>
+                                <i class="fas fa-bullhorn"></i>
+                            <% } else if (profession.category.toLowerCase() === 'media') { %>
+                                <i class="fas fa-film"></i>
+                            <% } else if (profession.category.toLowerCase() === 'science') { %>
+                                <i class="fas fa-flask"></i>
+                            <% } else if (profession.category.toLowerCase() === 'aviation') { %>
+                                <i class="fas fa-plane"></i>
+                            <% } else if (profession.category.toLowerCase() === 'hospitality') { %>
+                                <i class="fas fa-utensils"></i>
+                            <% } else if (profession.category.toLowerCase() === 'management') { %>
+                                <i class="fas fa-briefcase"></i>
+                            <% } else { %>
+                                <i class="fas fa-briefcase"></i> <!-- Default icon -->
+                            <% } %>
+                        </div>
+                        <h3><%= profession.name %></h3>
+                        <p><strong>Category:</strong> <%= profession.category %></p>
+                        <a href="/career/<%= profession.id %>" class="btn btn-primary">View Details</a>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <%- include('layouts/footer') %>
+
+    <script>
+        // Search functionality
+        document.getElementById('search').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let items = document.querySelectorAll('.career-card');
+            
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                item.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const careerCards = document.querySelectorAll('.career-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                careerCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
