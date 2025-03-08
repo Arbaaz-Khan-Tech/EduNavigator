@@ -126,6 +126,7 @@ app.use(Cert)
 app.use(interview)
 
 
+
 // Define the isLoggedIn middleware (if it's in another file, require it instead)
 
 
@@ -150,6 +151,9 @@ app.get('/vid', (req, res) => {
     res.render('vid')
 });
 
+app.get('/mentor', (req, res) => {
+    res.sendFile(__dirname + '/views/Mentor.html');
+});
 
 app.get('/an', (req, res) => {
     res.render('anima')

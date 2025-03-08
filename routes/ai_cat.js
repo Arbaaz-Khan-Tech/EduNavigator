@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const dotenv = require("dotenv").config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
@@ -82,9 +81,6 @@ router.post('/Ai_Insights', (req, res) => {
 
     
 });
-
-
-
 const generateContent = async (req, res) => {
     try {
       // Ensure Gprompt is set before calling generateContent
