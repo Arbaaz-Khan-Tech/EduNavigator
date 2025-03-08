@@ -15,7 +15,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const nodemailer = require('nodemailer');
 
-
+const axios = require('axios');
 // API Key has been revoked
 
 
@@ -45,8 +45,8 @@ const Mentor = require('./routes/mentor.js')
 const PBL = require('./routes/pbl.js')
 const project = require('./routes/project.js')
 const Carrer_Test = require('./routes/Carrer_Test_Que.js')
-
-
+const Cert = require('./routes/cert_validator.js')
+const interview = require('./routes/Ai_Interview.js')
 
 let app = express();
 const path = require('path');
@@ -112,8 +112,8 @@ app.use(contactRoutes);
 app.use(scholarshipRoutes);
 app.use(Mentor);
 app.use(Carrer_Test)
-
-
+app.use(Cert)
+app.use(interview)
 
 // Define the isLoggedIn middleware (if it's in another file, require it instead)
 
@@ -152,3 +152,5 @@ app.get('/resume', (req, res) => {
 app.get('/verify',(req,res)=>{
     res.render('blockchain')
 })
+
+
