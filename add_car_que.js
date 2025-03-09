@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const Question = require('./model/Carrer_Que'); // Adjust the path according to your folder structure
-
+require('dotenv').config(); 
 // MongoDB connection
-mongoose.connect('mongodb+srv://sachinchaurasiya69:606280Sk@tesing.8vhz1.mongodb.net/education', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+  
+
+  // This loads the .env variables
+
+
   
 // Function to add 15 questions
 const addQuestions = async () => {
