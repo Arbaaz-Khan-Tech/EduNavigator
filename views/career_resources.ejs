@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Roadmap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #1e1b4b;
+            --light: #ffffff;
+            --gradient: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .overview-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .overview-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .overview-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .overview-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .week-card {
+            width: calc(50% - 30px);
+            margin: 2rem 0;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .week-card:nth-child(odd) {
+            margin-left: auto;
+            padding-left: 3rem;
+        }
+
+        .week-card:nth-child(even) {
+            padding-right: 3rem;
+        }
+
+        .week-card::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 20px;
+        }
+
+        .week-card:nth-child(odd)::before {
+            left: -10px;
+        }
+
+        .week-card:nth-child(even)::before {
+            right: -10px;
+        }
+
+        .week-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .week-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .week-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .week-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .week-focus {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .topic-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .topic-item {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .topic-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        .resources-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .resource-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .resource-link:hover {
+            color: var(--secondary);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 0;
+            }
+
+            .week-card {
+                width: 100%;
+                padding-left: 2rem !important;
+                padding-right: 0 !important;
+            }
+
+            .week-card::before {
+                left: -10px !important;
+            }
+        }
+
+        .resource-modal {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .resource-modal .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(90deg, #4f46e5 0%, #ec4899 100%);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .resource-modal .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-item {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .milestone-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .milestone-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4f46e5 0%, #ec4899 100%);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(90deg, #4f46e5 0%, #ec4899 100%);
+            border: none;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* XP Display Enhancement */
+        .xp-display {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .xp-badge {
+            background: var(--gradient);
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Career Cards Enhancement */
+        .career-selection-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .career-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .career-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .career-card:hover::before {
+            transform: translateY(0);
+        }
+
+        .career-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .career-card i {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .career-card h4 {
+            color: var(--light);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .career-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Milestone Cards Enhancement */
+        .milestone-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .milestone-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            filter: blur(50px);
+            opacity: 0.2;
+            transition: all 0.3s ease;
+        }
+
+        .milestone-card:hover::after {
+            width: 150px;
+            height: 150px;
+            opacity: 0.3;
+        }
+
+        .milestone-card h4 {
+            color: var(--light);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .milestone-card.completed {
+            background: rgba(40, 167, 69, 0.1);
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .xp-reward {
+            background: var(--gradient);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Modal Enhancement */
+        .resource-modal {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .resource-modal .modal-header {
+            background: var(--gradient);
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .resource-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-gradient {
+            background: var(--gradient);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(79, 70, 229, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(79, 70, 229, 0.3); }
+        }
+    </style>
+</head>
+<body>
+    <%- include('layouts/header'); -%>
+    <%- include('layouts/navbar'); -%>
+
+    <div class="container mt-5 pt-5">
+        <!-- XP Display -->
+        <div class="xp-display text-center">
+            <div class="xp-badge">
+                <i class="fas fa-crown me-2"></i>
+                Level <span id="user-level" class="fw-bold">1</span>
+                <span class="mx-3">|</span>
+                <i class="fas fa-star me-2"></i>
+                XP: <span id="current-xp" class="fw-bold">0</span>
+            </div>
+        </div>
+
+        <!-- Career Selection Section -->
+        <div id="career-selection" class="career-selection-container">
+            <h2 class="text-center mb-4" style="font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Choose Your Career Path
+            </h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="career-card card h-100" onclick="showRoadmap('fullstack')">
+                        <div class="card-body text-center">
+                            <i class="fas fa-laptop-code fa-3x mb-3"></i>
+                            <h4>Full Stack Developer</h4>
+                            <p class="text-muted">Master both frontend and backend development</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="career-card card h-100" onclick="showRoadmap('ai')">
+                        <div class="card-body text-center">
+                            <i class="fas fa-brain fa-3x mb-3"></i>
+                            <h4>AI/ML Engineer</h4>
+                            <p class="text-muted">Specialize in artificial intelligence and machine learning</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="career-card card h-100" onclick="showRoadmap('cybersecurity')">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shield-alt fa-3x mb-3"></i>
+                            <h4>Cybersecurity Expert</h4>
+                            <p class="text-muted">Protect systems and networks from threats</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="career-card card h-100" onclick="showRoadmap('cloud')">
+                        <div class="card-body text-center">
+                            <i class="fas fa-cloud fa-3x mb-3"></i>
+                            <h4>Cloud Architect</h4>
+                            <p class="text-muted">Design and manage cloud infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Section (Initially Hidden) -->
+        <div id="roadmap-section" class="mt-5" style="display: none;">
+            <button class="btn btn-secondary mb-4" onclick="backToSelection()">
+                <i class="fas fa-arrow-left"></i> Back to Career Selection
+            </button>
+            
+            <h2 id="roadmap-title" class="mb-4"></h2>
+            <div class="roadmap-timeline" id="roadmap-content"></div>
+        </div>
+    </div>
+
+    <%- include('layouts/footer'); -%>
+
+    <style>
+        .career-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .milestone-card {
+            border-left: 3px solid #2C3E50;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .milestone-card::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #2C3E50;
+        }
+
+        .milestone-card.completed {
+            border-left-color: #28a745;
+        }
+
+        .milestone-card.completed::before {
+            background: #28a745;
+        }
+
+        .xp-reward {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: #ffc107;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+
+    <script>
+        let userXP = parseInt(localStorage.getItem('userXP')) || 0;
+        let userLevel = parseInt(localStorage.getItem('userLevel')) || 1;
+        const completedMilestones = JSON.parse(localStorage.getItem('completedMilestones')) || {};
+
+        // Career roadmaps data
+        const roadmaps = {
+            fullstack: {
+                title: "Full Stack Developer Roadmap",
+                milestones: [
+                    {
+                        id: 'fs1',
+                        title: "HTML, CSS & JavaScript Basics",
+                        xp: 100,
+                        description: "Master the fundamentals of web development",
+                        videoUrl: "https://www.youtube.com/embed/PkZNo7MFNFg", // Example video
+                        resources: [
+                            { title: "MDN Web Docs", url: "https://developer.mozilla.org/en-US/docs/Learn" },
+                            { title: "W3Schools Tutorials", url: "https://www.w3schools.com" },
+                            { title: "JavaScript.info", url: "https://javascript.info" }
+                        ]
+                    },
+                    {
+                        id: 'fs2',
+                        title: "Frontend Framework (React/Vue/Angular)",
+                        xp: 150,
+                        description: "Learn a modern frontend framework",
+                        videoUrl: "https://www.youtube.com/embed/w7ejDZ8SWv8", // React tutorial example
+                        resources: [
+                            { title: "React Documentation", url: "https://reactjs.org/docs/getting-started.html" },
+                            { title: "Vue.js Guide", url: "https://vuejs.org/guide/introduction.html" },
+                            { title: "Angular Tutorial", url: "https://angular.io/tutorial" }
+                        ]
+                    },
+                    { id: 'fs3', title: "Backend Development (Node.js)", xp: 200, description: "Build server-side applications" },
+                    { id: 'fs4', title: "Database Management", xp: 150, description: "Learn SQL and NoSQL databases" },
+                    { id: 'fs5', title: "API Development", xp: 175, description: "Create RESTful and GraphQL APIs" }
+                ]
+            },
+            ai: {
+                title: "AI/ML Engineer Roadmap",
+                milestones: [
+                    { id: 'ai1', title: "Python Programming", xp: 100, description: "Master Python fundamentals" },
+                    { id: 'ai2', title: "Mathematics & Statistics", xp: 150, description: "Learn essential math concepts" },
+                    { id: 'ai3', title: "Machine Learning Basics", xp: 200, description: "Understand ML algorithms" },
+                    { id: 'ai4', title: "Deep Learning", xp: 250, description: "Master neural networks" },
+                    { id: 'ai5', title: "MLOps", xp: 175, description: "Learn ML deployment and operations" }
+                ]
+            },
+            cybersecurity: {
+                title: "Cybersecurity Expert Roadmap",
+                milestones: [
+                    { id: 'cs1', title: "Network Fundamentals", xp: 100, description: "Learn networking basics" },
+                    { id: 'cs2', title: "Security Fundamentals", xp: 150, description: "Understand security concepts" },
+                    { id: 'cs3', title: "Ethical Hacking", xp: 200, description: "Master penetration testing" },
+                    { id: 'cs4', title: "Security Tools & Technologies", xp: 175, description: "Learn security tools" },
+                    { id: 'cs5', title: "Incident Response", xp: 200, description: "Handle security incidents" }
+                ]
+            },
+            cloud: {
+                title: "Cloud Architect Roadmap",
+                milestones: [
+                    { id: 'cl1', title: "Cloud Basics", xp: 100, description: "Understand cloud concepts" },
+                    { id: 'cl2', title: "AWS/Azure/GCP", xp: 200, description: "Master a cloud platform" },
+                    { id: 'cl3', title: "Infrastructure as Code", xp: 150, description: "Learn Terraform/CloudFormation" },
+                    { id: 'cl4', title: "Containerization", xp: 175, description: "Master Docker and Kubernetes" },
+                    { id: 'cl5', title: "Cloud Security", xp: 200, description: "Implement cloud security" }
+                ]
+            }
+        };
+
+        let currentMilestone = null;
+
+        function showResourceModal(encodedMilestone) {
+            try {
+                const milestone = JSON.parse(decodeURIComponent(encodedMilestone));
+                currentMilestone = milestone;
+                
+                // Update modal content
+                document.getElementById('tutorial-video').src = milestone.videoUrl;
+                
+                const resourceList = document.getElementById('resource-list');
+                resourceList.innerHTML = milestone.resources ? milestone.resources.map(resource => `
+                    <li class="resource-item">
+                        <a href="${resource.url}" target="_blank" class="text-decoration-none text-white">
+                            <i class="fas fa-external-link-alt me-2"></i>
+                            ${resource.title}
+                        </a>
+                    </li>
+                `).join('') : '';
+                
+                // Show modal
+                new bootstrap.Modal(document.getElementById('resourceModal')).show();
+            } catch (error) {
+                console.error('Error showing resource modal:', error);
+            }
+        }
+
+        function completeMilestone() {
+            if (currentMilestone) {
+                toggleMilestone(currentMilestone.id, currentMilestone.xp);
+                document.getElementById('resourceModal').querySelector('.btn-close').click();
+            }
+        }
+
+        function showRoadmap(career) {
+            document.getElementById('career-selection').style.display = 'none';
+            document.getElementById('roadmap-section').style.display = 'block';
+            
+            const roadmap = roadmaps[career];
+            document.getElementById('roadmap-title').textContent = roadmap.title;
+            
+            const content = document.getElementById('roadmap-content');
+            content.innerHTML = roadmap.milestones.map(milestone => {
+                // Safely encode the milestone data
+                const milestoneData = encodeURIComponent(JSON.stringify(milestone));
+                
+                return `
+                    <div class="milestone-card ${completedMilestones[milestone.id] ? 'completed' : ''}" 
+                         id="milestone-${milestone.id}">
+                        <div class="xp-reward">
+                            <i class="fas fa-star"></i> ${milestone.xp} XP
+                        </div>
+                        <h4>${milestone.title}</h4>
+                        <p>${milestone.description}</p>
+                        <button class="btn ${completedMilestones[milestone.id] ? 'btn-success' : 'btn-gradient'}"
+                                onclick="${completedMilestones[milestone.id] ? '' : `showResourceModal('${milestoneData}')`}"
+                                ${completedMilestones[milestone.id] ? 'disabled' : ''}>
+                            ${completedMilestones[milestone.id] ? 'Completed!' : 'Start Learning'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function backToSelection() {
+            document.getElementById('career-selection').style.display = 'flex';
+            document.getElementById('roadmap-section').style.display = 'none';
+        }
+
+        function toggleMilestone(milestoneId, xpReward) {
+            if (!completedMilestones[milestoneId]) {
+                completedMilestones[milestoneId] = true;
+                localStorage.setItem('completedMilestones', JSON.stringify(completedMilestones));
+                
+                // Award XP
+                userXP += xpReward;
+                userLevel = Math.floor(userXP / 1000) + 1;
+                
+                // Save to localStorage
+                localStorage.setItem('userXP', userXP);
+                localStorage.setItem('userLevel', userLevel);
+                
+                // Update UI
+                updateXPDisplay();
+                
+                // Update milestone appearance
+                const milestoneElement = document.getElementById(`milestone-${milestoneId}`);
+                milestoneElement.classList.add('completed');
+                const button = milestoneElement.querySelector('button');
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-success');
+                button.textContent = 'Completed!';
+                button.disabled = true;
+                
+                // Show celebration
+                showCelebration(xpReward);
+            }
+        }
+
+        function showCelebration(xp) {
+            const celebration = document.createElement('div');
+            celebration.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(40, 167, 69, 0.9);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                animation: fadeInOut 2s forwards;
+                z-index: 1000;
+            `;
+            celebration.innerHTML = `
+                <h3>🎉 Milestone Complete!</h3>
+                <p>You earned ${xp} XP</p>
+            `;
+            document.body.appendChild(celebration);
+            setTimeout(() => celebration.remove(), 2000);
+        }
+
+        function updateXPDisplay() {
+            document.getElementById('user-level').textContent = userLevel;
+            document.getElementById('current-xp').textContent = userXP;
+        }
+
+        // Initialize XP display
+        updateXPDisplay();
+    </script>
+
+    <!-- Add Bootstrap JS and its dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Add this modal markup before closing body tag -->
+    <div class="modal fade" id="resourceModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content resource-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title">Learning Resources</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="video-section mb-4">
+                        <h6 class="mb-3">Tutorial Video</h6>
+                        <div class="ratio ratio-16x9">
+                            <iframe id="tutorial-video" src="" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    
+                    <div class="resources-section">
+                        <h6 class="mb-3">Additional Resources</h6>
+                        <ul class="resource-list" id="resource-list"></ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-gradient" onclick="completeMilestone()">Mark as Complete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
