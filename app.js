@@ -48,6 +48,7 @@ const teacherRoutes = require('./routes/teacherpRoute');
 const studentlistRoutes = require('./routes/studentlistRoutes');
 const parentProfileRoutes = require("./routes/parentProfileRoutes.js"); 
 const carrer_bank = require('./routes/carrer_bank.js')
+const teacherHomeRoutes = require("./routes/teacherhome.js");
 
 
 const Cert = require('./routes/cert_validator.js')
@@ -61,9 +62,11 @@ const path = require('path');
 // Set the public folder to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected successfully'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
+
 
 
 
@@ -126,6 +129,7 @@ app.use(carrer_bank)
 
 app.use(Cert)
 app.use(interview)
+app.use(teacherHomeRoutes); // Use teacher home routes
 
 
 

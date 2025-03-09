@@ -11,6 +11,8 @@ const ProfileSchema = new mongoose.Schema({
     collegeName: { type: String, required: true },
     course: { type: String, required: true },
     year: { type: String, required: true },
+    linkedin: { type: String, required: true },
+    twitter: { type: String, required: true },
     // schoolName: { type: String, required: true },
     // schoolBoard: { type: String, required: true },
     // passingYear: { type: Number, required: true },

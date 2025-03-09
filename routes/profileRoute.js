@@ -60,6 +60,8 @@
                 collegeName,
                 course,
                 year,
+                linkedin,
+                twitter,
                 // schoolName,
                 // schoolBoard,
                 // passingYear,
@@ -77,7 +79,10 @@
                 district: district?.trim() || "",
                 collegeName: collegeName?.trim() || "",
                 course: course?.trim() || "",
-                year: year?.trim() || "N/A", // Default value if missing
+                year: year?.trim() || "N/A", 
+                linkedin: linkedin?.trim() || "N/A",
+                twitter: twitter?.trim() || "N/A",
+                // Default value if missing
                 // schoolName: schoolName?.trim() || "N/A",
                 // schoolBoard: schoolBoard?.trim() || "N/A",
                 // passingYear: passingYear?.trim() || "N/A",

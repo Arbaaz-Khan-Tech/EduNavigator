@@ -2,12 +2,13 @@
 <%- include('layouts/tnavbar'); -%>
 <!-- <body class="bg-gray-50 dark:bg-gray-900"> -->
     <!-- Main Container -->
-    <div class="min-h-screen p-20">
+    <div class="min-h-screen p-15">
         <!-- Header Section -->
         <header class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-10">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray">Welcome, Rajesh Kumar</h1>
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray">Welcome, <%= username %></h1>
+
                     <p class="text-gray-600 dark:text-gray-400">Senior Teacher - Mathematics Department</p>
                 </div>
                 <!-- Dark Mode Toggle -->
@@ -21,7 +22,7 @@
         </header>
 
         <!-- Search and Filter Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+        <div class="bg-white dark:bg-white-200 rounded-lg shadow-lg p-6 mb-6">
             <div class="flex flex-col md:flex-row gap-4">
                 <input type="text" placeholder="Search Students..." class="flex-1 px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600">
                 <select class="px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600">
@@ -42,7 +43,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             <!-- Syllabus Progress -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Syllabus Progress</h2>
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-black">Syllabus Progress</h2>
                 <div class="relative w-48 h-48 mx-auto">
                     <svg class="transform -rotate-90 w-full h-full" viewBox="0 0 100 100">
                         <circle class="text-gray-200 stroke-current" stroke-width="10" cx="50" cy="50" r="40" fill="none"/>
@@ -56,23 +57,18 @@
             </div>
 
             <!-- Student Progress -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-black">Student Progress</h2>
                 <div class="space-y-4">
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-700 dark:text-gray-300">Amit Sharma</span>
-                        <div class="w-32 bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
+                    <% students.forEach(student => { %>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-700 dark:text-black-300"><%= student.fullName %></span>
+                            <div class="w-32 bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: <%= student.progress %>%;"></div>
+                            </div>
+                            <span class="text-blue-600"><%= student.progress %>%</span>
                         </div>
-                        <span class="text-blue-600">85%</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-700 dark:text-gray-300">Priya Patel</span>
-                        <div class="w-32 bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 70%"></div>
-                        </div>
-                        <span class="text-blue-600">70%</span>
-                    </div>
+                    <% }) %>
                 </div>
             </div>
 
@@ -80,21 +76,24 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-black">Tasks</h2>
-                    <button class="px-4 py-2 bg-blue-600 text-black rounded-lg hover:bg-blue-700 transition">
-                        + New Task
-                    </button>
+                    <form action="/addTask" method="POST" class="flex gap-2">
+                        <input type="text" name="title" placeholder="Task Title" class="px-2 py-1 border rounded">
+                        <input type="date" name="dueDate" class="px-2 py-1 border rounded">
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-black rounded-lg hover:bg-blue-700">
+                            + Add Task
+                        </button>
+                    </form>
                 </div>
                 <div class="space-y-4">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h3 class="font-semibold text-gray-800 dark:text-white">Math Assignment</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Due Date: March 25</p>
-                    </div>
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h3 class="font-semibold text-gray-800 dark:text-white">Science Project</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Due Date: March 30</p>
-                    </div>
+                    <% tasks.forEach(task => { %>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 dark:text-white"><%= task.title %></h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Due Date: <%= task.dueDate %></p>
+                        </div>
+                    <% }) %>
                 </div>
             </div>
+            
         </div>
 
         <!-- Aptitude Test Analytics -->
@@ -108,21 +107,24 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Announcements</h2>
-                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                        + New Announcement
-                    </button>
+                    <form action="/addAnnouncement" method="POST" class="flex gap-2">
+                        <input type="text" name="title" placeholder="Announcement Title" class="px-2 py-1 border rounded">
+                        <input type="date" name="date" class="px-2 py-1 border rounded">
+                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            + Add Announcement
+                        </button>
+                    </form>
                 </div>
                 <div class="space-y-4">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h3 class="font-semibold text-gray-800 dark:text-white">Annual Exam Dates</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Starting from April 15</p>
-                    </div>
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <h3 class="font-semibold text-gray-800 dark:text-white">Parent-Teacher Meeting</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">On March 30</p>
-                    </div>
+                    <% announcements.forEach(announcement => { %>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 dark:text-white"><%= announcement.title %></h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Date: <%= announcement.date %></p>
+                        </div>
+                    <% }) %>
                 </div>
             </div>
+            
         </div>
     </div>
     <%- include('layouts/footer'); -%>
