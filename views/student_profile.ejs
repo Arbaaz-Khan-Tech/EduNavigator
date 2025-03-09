@@ -1,100 +1,109 @@
 <%- include('layouts/header'); -%>
 <%- include('layouts/navbar'); -%>
 
-<section class="bg-light p-3 p-md-4 p-xl-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-xl-10">
-                <div class="card border-light-subtle shadow-sm p-4">
-                    <h3 class="text-center mb-4">Student Profile</h3>
+<!-- Gradient Background -->
+<section class="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-6">
+    <div class="container mx-auto">
+        <div class="flex justify-center">
+            <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-3xl font-bold text-center text-gray-800 mb-6">Student Profile</h3>
 
-                    <!-- Display Username & Role -->
-                    <h5 class="text-center">Welcome, <%= username %> | Role: <%= role %></h5>
+                <!-- Display Username & Role -->
+                <h5 class="text-xl text-center text-gray-700 mb-6">Welcome, <%= username %> | Role: <%= role %></h5>
 
-                    <!-- Profile Image Display -->
-                    <div class="text-center mb-4">
-                        <img src="<%= profileImage %>" alt="Profile Image" class="rounded-circle" width="150" height="150">
+                <!-- Profile Image Display -->
+                <div class="flex justify-center mb-8">
+                    <img src="<%= profileImage %>" alt="Profile Image" class="rounded-full w-36 h-36 border-4 border-white shadow-md">
+                </div>
+
+                <form action="/profile" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="existingProfileImage" value="<%= profile ? profile.profileImage : '' %>">
+
+                    <!-- Profile Image Upload -->
+                    <div class="mb-6 p-6 bg-blue-50 rounded-lg border-2 border-blue-100">
+                        <label class="block text-gray-700 text-lg font-semibold mb-2">Profile Picture</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label class="flex flex-col items-center px-4 py-6 bg-white rounded-lg border-2 border-dashed border-blue-200 cursor-pointer hover:bg-blue-100">
+                                <span class="text-blue-700 text-sm">Upload Profile Image</span>
+                                <input type="file" class="hidden" name="profileImage" id="profileImage" accept="image/*">
+                            </label>
+                        </div>
                     </div>
 
-                    <form action="/profile" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="existingProfileImage" value="<%= profile ? profile.profileImage : '' %>">
+                    <!-- Personal Details -->
+<div class="mb-6 p-6 bg-purple-100 rounded-lg border-2 border-purple-300">
+    <h5 class="text-xl font-semibold text-gray-800 mb-4">Personal Details</h5>
+    <div class="space-y-4">
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">Full Name</label>
+            <input type="text" name="fullName" id="fullName" value="<%= profile && profile.fullName ? profile.fullName : username %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        </div>
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">Email</label>
+            <input type="email" name="email" id="email" value="<%= profile ? profile.email : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        </div>
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">Phone Number</label>
+            <input type="tel" name="phone" id="phone" value="<%= profile ? profile.phone : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        </div>
+    </div>
+</div>
 
-                        <!-- Profile Image Upload -->
-                        <h5 class="mb-3">Profile Picture</h5>
-                        <div class="mb-3">
-                            <label for="profileImage" class="form-label">Upload Profile Image</label>
-                            <input type="file" class="form-control" name="profileImage" id="profileImage" accept="image/*">
-                        </div>
+<!-- Location Details -->
+<div class="mb-6 p-6 bg-blue-100 rounded-lg border-2 border-blue-300">
+    <h5 class="text-xl font-semibold text-gray-800 mb-4">Location Details</h5>
+    <div class="space-y-4">
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">State</label>
+            <input type="text" name="state" id="state" value="<%= profile ? profile.state : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">District</label>
+            <input type="text" name="district" id="district" value="<%= profile ? profile.district : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+    </div>
+</div>
 
-                        <!-- Personal Details -->
-                        <h5 class="mt-4 mb-3">Personal Details</h5>
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="fullName" id="fullName" 
-                                   value="<%= profile && profile.fullName ? profile.fullName : username %>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" id="email" value="<%= profile ? profile.email : '' %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" name="phone" id="phone" value="<%= profile ? profile.phone : '' %>" required>
-                        </div>
+<!-- Education Details -->
+<div class="mb-6 p-6 bg-indigo-100 rounded-lg border-2 border-indigo-300">
+    <h5 class="text-xl font-semibold text-gray-800 mb-4">Education Details</h5>
+    <div class="space-y-4">
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">College Name</label>
+            <input type="text" name="collegeName" id="collegeName" value="<%= profile ? profile.collegeName : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">Course</label>
+            <input type="text" name="course" id="course" value="<%= profile ? profile.course : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">Year</label>
+            <input type="text" name="year" id="year" value="<%= profile ? profile.year : '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+    </div>
+</div>
 
-                        <!-- Location Details -->
-                        <h5 class="mt-4 mb-3">Location Details</h5>
-                        <div class="mb-3">
-                            <label for="state" class="form-label">State</label>
-                            <input type="text" class="form-control" name="state" id="state" value="<%= profile ? profile.state : '' %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="district" class="form-label">District</label>
-                            <input type="text" class="form-control" name="district" id="district" value="<%= profile ? profile.district : '' %>" required>
-                        </div>
+<!-- Parent Linking -->
+<div class="mb-6 p-6 bg-sky-100 rounded-lg border-2 border-sky-300">
+    <h5 class="text-xl font-semibold text-gray-800 mb-4">Parent Linking</h5>
+    <div class="space-y-4">
+        <div>
+            <label class="block text-gray-700 text-sm font-medium mb-1">Parent Linking Code</label>
+            <input type="text" id="uniqueCode" value="<%= profile?.uniqueCode || '' %>" class="w-full px-4 py-2 bg-white rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-500" readonly>
+            <% if (!profile?.uniqueCode) { %>
+                <button type="button" id="generateCodeBtn" class="mt-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500">Generate Code</button>
+            <% } %>
+            <small class="block text-gray-500 mt-2">Share this code with your parent to link their account.</small>
+        </div>
+    </div>
+</div>
 
-                        <!-- Education Details -->
-                        <h5 class="mt-4 mb-3">Education Details</h5>
-                        <div class="mb-3">
-                            <label for="collegeName" class="form-label">College Name</label>
-                            <input type="text" class="form-control" name="collegeName" id="collegeName" value="<%= profile ? profile.collegeName : '' %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="course" class="form-label">Course</label>
-                            <input type="text" class="form-control" name="course" id="course" value="<%= profile ? profile.course : '' %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Year</label>
-                            <input type="text" class="form-control" name="year" id="year" value="<%= profile ? profile.year : '' %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="linkedin" class="form-label">LinkedIn Link</label>
-                            <input type="text" class="form-control" name="linkedin" id="linkedin" value="<%= profile ? profile.linkedin : '' %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="twitter" class="form-label">Twitter Link</label>
-                            <input type="text" class="form-control" name="twitter" id="twitter" value="<%= profile ? profile.twitter : '' %>" required>
-                        </div>
 
-                        <h5 class="mt-4 mb-3">Parent Linking</h5>
-                        <div class="mb-3">
-                            <label class="form-label">Parent Linking Code</label>
-                            <input type="text" class="form-control" id="uniqueCode" value="<%= profile?.uniqueCode || '' %>" readonly>
-                            
-                            <% if (!profile?.uniqueCode) { %>
-                                <button class="btn btn-primary mt-2" id="generateCodeBtn">Generate Code</button>
-                            <% } %>
-                        
-                            <small class="text-muted">Share this code with your parent to link their account.</small>
-                        </div>
-                        
-
-                        <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-dark btn-lg">Save Profile</button>
-                        </div>
-                    </form>
-                </div>
+                    <!-- Save Button -->
+                    <div class="flex justify-center mt-8">
+                        <button type="submit" class="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Save Profile</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -116,6 +125,6 @@
             alert("An error occurred.");
         }
     });
-    </script>
+</script>
 
 <%- include('layouts/footer'); -%>

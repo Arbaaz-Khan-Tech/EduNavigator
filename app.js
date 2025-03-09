@@ -198,3 +198,9 @@ app.get('/teacher_home', (req, res) => {
 app.get('/carrer_roadmap',(req,res)=>{
     res.render('career_roadmap')
 })
+
+
+
+app.get('/webinars', (req, res) => {
+    res.render('webinars');
+});
