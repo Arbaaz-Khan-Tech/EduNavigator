@@ -388,134 +388,158 @@ const generateContent = async (req, res) => {
 
  
 
-  // Add new route for career roadmap
+  // Update the roadmap route
   router.get('/career-roadmap/:role', async (req, res) => {
-    const role = req.params.role;
-    
-    const roadmapPrompt = `
-    As an expert career counselor, create a detailed day-wise schedule and roadmap for someone aspiring to become a "${role}". 
-    
-    Please provide:
-    1. A 90-day learning roadmap divided into:
-       - Month 1 (Foundation)
-       - Month 2 (Intermediate)
-       - Month 3 (Advanced)
-    
-    2. For each month, break down:
-       - Weekly goals
-       - Key skills to master
-       - Recommended resources (courses, books, tools)
-       - Practice projects
-       - Industry certifications to pursue
-    
-    3. Additional tips:
-       - Daily study schedule
-       - Important milestones
-       - Industry networking suggestions
-    
-    Format the response in a clear, structured way with proper headings and bullet points.
-    `;
-
     try {
-        const result = await model.generateContent(roadmapPrompt);
-        const response = await result.response;
-        const roadmapText = response.text();
+        const role = decodeURIComponent(req.params.role);
+        // Use the same model as the one defined at the top of the file
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        // Send the formatted HTML response
-        res.send(`
-            <html>
-            <head>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-                <style>
-                    body {
-                        font-family: 'Inter', sans-serif;
-                        background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-                        color: #fff;
-                        line-height: 1.6;
-                        padding: 2rem;
-                    }
-                    .roadmap-container {
-                        max-width: 1000px;
-                        margin: 0 auto;
-                        background: rgba(255, 255, 255, 0.1);
-                        backdrop-filter: blur(10px);
-                        border-radius: 20px;
-                        padding: 2rem;
-                        box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-                    }
-                    .month-section {
-                        background: rgba(255, 255, 255, 0.05);
-                        border-radius: 15px;
-                        padding: 1.5rem;
-                        margin-bottom: 2rem;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                    }
-                    .month-title {
-                        font-size: 1.8rem;
-                        color: #ec4899;
-                        margin-bottom: 1rem;
-                        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-                        padding-bottom: 0.5rem;
-                    }
-                    .week-section {
-                        background: rgba(255, 255, 255, 0.03);
-                        border-radius: 10px;
-                        padding: 1rem;
-                        margin: 1rem 0;
-                    }
-                    .week-title {
-                        color: #8b5cf6;
-                        font-size: 1.2rem;
-                        margin-bottom: 0.5rem;
-                    }
-                    ul {
-                        list-style-type: none;
-                        padding-left: 0;
-                    }
-                    li {
-                        margin-bottom: 0.5rem;
-                        padding-left: 1.5rem;
-                        position: relative;
-                    }
-                    li::before {
-                        content: '→';
-                        position: absolute;
-                        left: 0;
-                        color: #ec4899;
-                    }
-                    .resource-link {
-                        color: #60a5fa;
-                        text-decoration: none;
-                    }
-                    .resource-link:hover {
-                        text-decoration: underline;
-                    }
-                    @media (max-width: 768px) {
-                        body {
-                            padding: 1rem;
-                        }
-                        .roadmap-container {
-                            padding: 1rem;
-                        }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="roadmap-container">
-                    <h1 class="text-center mb-4">Career Roadmap: ${role}</h1>
-                    <div class="roadmap-content">
-                        ${roadmapText.replace(/\n/g, '<br>')
-                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                            .replace(/# (.*?)\n/g, '<h2 class="month-title">$1</h2>')
-                            .replace(/## (.*?)\n/g, '<h3 class="week-title">$1</h3>')}
-                    </div>
-                </div>
-            </body>
-            </html>
-        `);
+        // Updated prompt with better structure
+        const prompt = `As a career counselor, create a detailed 12-week roadmap for becoming a ${role}.
+
+Format your response as a JSON object with exactly this structure:
+{
+    "overview": {
+        "roleDescription": "A clear 2-3 sentence description of the ${role} position",
+        "requiredSkills": "A comma-separated list of key technical and soft skills required",
+        "careerGrowth": "3-4 potential career advancement paths and opportunities",
+        "salaryRange": "Typical salary range for entry-level to senior positions"
+    },
+    "weeks": [
+        {
+            "focus": "The main learning objective for Week 1",
+            "topics": [
+                "Specific topic 1 to learn",
+                "Specific topic 2 to learn",
+                "Specific topic 3 to learn"
+            ],
+            "resources": [
+                "Specific online course or tutorial link",
+                "Recommended book or documentation",
+                "Practice exercise or project idea"
+            ]
+        }
+    ]
+}
+
+Important guidelines:
+1. Make the content specific to ${role}
+2. Include exactly 12 weeks of content
+3. Each week should have 3-5 topics and resources
+4. Resources should be specific and actionable
+5. Ensure proper JSON formatting
+6. No placeholder text or "example" content
+7. All content should be practical and industry-relevant
+
+Remember to maintain valid JSON structure with proper quotes and commas.`;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        let roadmapData;
+
+        try {
+            const responseText = response.text();
+            // Extract JSON from the response if it's wrapped in other text
+            const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+            const jsonStr = jsonMatch ? jsonMatch[0] : responseText;
+            roadmapData = JSON.parse(jsonStr);
+
+            // Ensure we have exactly 12 weeks
+            if (!roadmapData.weeks || roadmapData.weeks.length < 12) {
+                const weekTemplate = {
+                    focus: "Continue building practical skills",
+                    topics: [
+                        "Advanced concepts",
+                        "Industry best practices",
+                        "Professional development"
+                    ],
+                    resources: [
+                        "Online courses and tutorials",
+                        "Industry documentation",
+                        "Practice projects"
+                    ]
+                };
+                roadmapData.weeks = Array(12).fill(null).map((_, index) => 
+                    roadmapData.weeks && roadmapData.weeks[index] 
+                        ? roadmapData.weeks[index] 
+                        : weekTemplate
+                );
+            }
+
+            // Validate overview structure
+            if (!roadmapData.overview) {
+                roadmapData.overview = {
+                    roleDescription: `Detailed description of ${role} role and responsibilities`,
+                    requiredSkills: "Key technical and soft skills required for this role",
+                    careerGrowth: "Career advancement opportunities and growth paths",
+                    salaryRange: "Typical salary range for this position"
+                };
+            }
+        } catch (parseError) {
+            console.error('Error parsing JSON response:', parseError);
+            console.log('Raw response:', response.text());
+            
+            // Structured fallback data
+            roadmapData = {
+                overview: {
+                    roleDescription: `A ${role} is a professional who specializes in designing, developing, and implementing solutions in their field.`,
+                    requiredSkills: "Technical expertise, problem-solving, communication, teamwork, and continuous learning ability",
+                    careerGrowth: "Career paths include senior roles, team leadership, technical architecture, and specialized consulting",
+                    salaryRange: "Entry-level to senior positions typically range from $50,000 to $150,000+ depending on experience and location"
+                },
+                weeks: Array(12).fill(null).map((_, i) => ({
+                    focus: `Week ${i + 1}: Core ${role} Skills and Knowledge`,
+                    topics: [
+                        "Fundamental concepts and principles",
+                        "Industry-standard tools and practices",
+                        "Professional development skills"
+                    ],
+                    resources: [
+                        "Online learning platforms (Coursera, Udemy)",
+                        "Professional documentation and guides",
+                        "Hands-on projects and exercises"
+                    ]
+                }))
+            };
+        }
+
+        res.render('career_roadmap', {
+            role: role,
+            overview: roadmapData.overview,
+            weeks: roadmapData.weeks
+        });
     } catch (error) {
-        console.error("Error generating roadmap:", error);
-        res.status(500).send("An error occurred while generating the career roadmap.");
+        console.error('Error generating roadmap:', error);
+        
+        // More specific fallback data
+        const fallbackData = {
+            overview: {
+                roleDescription: `We're currently preparing a detailed description of the ${role} position. This role typically involves specialized work in the field.`,
+                requiredSkills: "Core technical skills, problem-solving abilities, and professional competencies specific to the role",
+                careerGrowth: "Various advancement opportunities including senior positions, leadership roles, and specialized paths",
+                salaryRange: "Competitive compensation based on experience and location"
+            },
+            weeks: Array(12).fill(null).map((_, i) => ({
+                focus: `Week ${i + 1}: Essential Skills Development`,
+                topics: [
+                    "Core concepts and fundamentals",
+                    "Professional tools and technologies",
+                    "Industry best practices"
+                ],
+                resources: [
+                    "Industry-leading online courses",
+                    "Professional documentation",
+                    "Practical exercises and projects"
+                ]
+            }))
+        };
+
+        res.render('career_roadmap', {
+            role: role,
+            overview: fallbackData.overview,
+            weeks: fallbackData.weeks
+        });
     }
 });
 

@@ -277,7 +277,7 @@
 
   <div class="container">
     <h1 class="form-heading">AI Career Guidance</h1>
-    <p class="form-subheading">Let's find your perfect career path together</p>
+    <p class="form-subheading">Let's analyze your personality traits to find your perfect career path</p>
     
     <div class="form-container">
       <div class="progress-container">
@@ -285,142 +285,161 @@
       </div>
 
       <form id="careerForm" action="/Ai_Insights" method="post">
-        <!-- Question 1 -->
+        <!-- Openness -->
         <div class="question-container active" data-question="1">
-          <div class="question-number">Question 1 of 10</div>
-          <label for="Education" class="form-label">What is your current educational background?</label>
-          <input list="education-options" class="form-control" id="Education" name="Education" required placeholder="Select or type your education">
-          <datalist id="education-options">
-            <option value="High School Diploma">
-            <option value="Bachelor's Degree in Computer Science">
-            <option value="Bachelor's Degree in Business">
-            <option value="Master's Degree in Engineering">
-            <option value="PhD in Physics">
-          </datalist>
+          <div class="question-number">Question 1 of 8</div>
+          <label class="form-label">How open are you to new experiences and ideas?</label>
+          <div class="personality-scale">
+            <input type="range" class="form-range" id="Openness" name="Openness" min="1" max="5" step="1" required>
+            <div class="scale-labels">
+              <span>Very Traditional</span>
+              <span>Balanced</span>
+              <span>Very Creative</span>
+            </div>
+          </div>
+          <div class="trait-description">
+            <p>This measures your creativity, curiosity, and openness to trying new things.</p>
+          </div>
         </div>
 
-        <!-- Question 2 -->
+        <!-- Conscientiousness -->
         <div class="question-container" data-question="2">
-          <div class="question-number">Question 2 of 10</div>
-          <label for="Skills" class="form-label">What skills do you excel at?</label>
-          <input list="skills-options" class="form-control" id="Skills" name="Skills" required placeholder="Select or type your skills">
-          <datalist id="skills-options">
-            <option value="Programming">
-            <option value="Data Analysis">
-            <option value="Project Management">
-            <option value="Graphic Design">
-            <option value="Public Speaking">
-          </datalist>
+          <div class="question-number">Question 2 of 8</div>
+          <label class="form-label">How organized and goal-oriented are you?</label>
+          <div class="personality-scale">
+            <input type="range" class="form-range" id="Conscientiousness" name="Conscientiousness" min="1" max="5" step="1" required>
+            <div class="scale-labels">
+              <span>Very Flexible</span>
+              <span>Balanced</span>
+              <span>Very Organized</span>
+            </div>
+          </div>
+          <div class="trait-description">
+            <p>This measures your level of organization, responsibility, and goal-oriented behavior.</p>
+          </div>
         </div>
 
-        <!-- Question 3 -->
+        <!-- Extraversion -->
         <div class="question-container" data-question="3">
-          <div class="question-number">Question 3 of 10</div>
-          <label for="WorkPreference" class="form-label">Do you prefer working independently or in a team?</label>
-          <input list="workpreference-options" class="form-control" id="WorkPreference" name="WorkPreference" required placeholder="Select your work preference">
-          <datalist id="workpreference-options">
-            <option value="Independently">
-            <option value="In a team">
-            <option value="Both, depending on the task">
-          </datalist>
+          <div class="question-number">Question 3 of 8</div>
+          <label class="form-label">How do you prefer to interact with others?</label>
+          <div class="personality-scale">
+            <input type="range" class="form-range" id="Extraversion" name="Extraversion" min="1" max="5" step="1" required>
+            <div class="scale-labels">
+              <span>Very Reserved</span>
+              <span>Balanced</span>
+              <span>Very Outgoing</span>
+            </div>
+          </div>
+          <div class="trait-description">
+            <p>This measures your social energy and preference for social interactions.</p>
+          </div>
         </div>
 
-        <!-- Question 4 -->
+        <!-- Agreeableness -->
         <div class="question-container" data-question="4">
-          <div class="question-number">Question 4 of 10</div>
-          <label for="CareerGoals" class="form-label">Where do you see yourself in 5 years?</label>
-          <input list="careergoals-options" class="form-control" id="CareerGoals" name="CareerGoals" required placeholder="Select your career goal">
-          <datalist id="careergoals-options">
-            <option value="In a leadership role">
-            <option value="Running my own business">
-            <option value="Working internationally">
-            <option value="Advancing in my current field">
-            <option value="Continuing my education">
-          </datalist>
+          <div class="question-number">Question 4 of 8</div>
+          <label class="form-label">How do you typically approach conflicts and cooperation?</label>
+          <div class="personality-scale">
+            <input type="range" class="form-range" id="Agreeableness" name="Agreeableness" min="1" max="5" step="1" required>
+            <div class="scale-labels">
+              <span>Very Direct</span>
+              <span>Balanced</span>
+              <span>Very Accommodating</span>
+            </div>
+          </div>
+          <div class="trait-description">
+            <p>This measures your approach to relationships and handling conflicts.</p>
+          </div>
         </div>
 
-        <!-- Question 5 -->
+        <!-- Neuroticism -->
         <div class="question-container" data-question="5">
-          <div class="question-number">Question 5 of 10</div>
-          <label for="WorkEnvironment" class="form-label">What kind of work environment do you thrive in?</label>
-          <input list="workenvironment-options" class="form-control" id="WorkEnvironment" name="WorkEnvironment" required placeholder="Select your ideal work environment">
-          <datalist id="workenvironment-options">
-            <option value="Fast-paced startup">
-            <option value="Structured corporate">
-            <option value="Remote work">
-            <option value="Hybrid environment">
-            <option value="Creative studio">
-          </datalist>
+          <div class="question-number">Question 5 of 8</div>
+          <label class="form-label">How do you typically handle stress and emotions?</label>
+          <div class="personality-scale">
+            <input type="range" class="form-range" id="Neuroticism" name="Neuroticism" min="1" max="5" step="1" required>
+            <div class="scale-labels">
+              <span>Very Calm</span>
+              <span>Balanced</span>
+              <span>Very Sensitive</span>
+            </div>
+          </div>
+          <div class="trait-description">
+            <p>This measures your emotional stability and stress response.</p>
+          </div>
         </div>
 
-        <!-- Question 6 -->
+        <!-- Education Background -->
         <div class="question-container" data-question="6">
-          <div class="question-number">Question 6 of 10</div>
-          <label for="Interests" class="form-label">What topics or fields interest you the most?</label>
-          <input list="interests-options" class="form-control" id="Interests" name="Interests" required placeholder="Select your interests">
-          <datalist id="interests-options">
-            <option value="Technology and Innovation">
-            <option value="Arts and Design">
-            <option value="Business and Finance">
-            <option value="Healthcare and Science">
-            <option value="Education and Training">
-          </datalist>
+          <div class="question-number">Question 6 of 8</div>
+          <label class="form-label">What is your educational background?</label>
+          <input type="text" class="form-control" id="Education" name="Education" required placeholder="Enter your highest level of education and field of study">
+          <div class="trait-description">
+            <p>This helps us understand your academic foundation and expertise.</p>
+          </div>
         </div>
-
-        <!-- Question 7 -->
-        <div class="question-container" data-question="7">
-          <div class="question-number">Question 7 of 10</div>
-          <label for="Strengths" class="form-label">What do you consider your greatest strength?</label>
-          <input list="strengths-options" class="form-control" id="Strengths" name="Strengths" required placeholder="Select your greatest strength">
-          <datalist id="strengths-options">
-            <option value="Problem Solving">
-            <option value="Communication">
-            <option value="Leadership">
-            <option value="Creativity">
-            <option value="Analytical Thinking">
-          </datalist>
-        </div>
-
-        <!-- Question 8 -->
         <div class="question-container" data-question="8">
-          <div class="question-number">Question 8 of 10</div>
-          <label for="WorkLifeBalance" class="form-label">How important is work-life balance to you?</label>
-          <input list="balance-options" class="form-control" id="WorkLifeBalance" name="WorkLifeBalance" required placeholder="Select your preference">
-          <datalist id="balance-options">
-            <option value="Very important - I prioritize personal time">
-            <option value="Important but flexible">
-            <option value="Career-focused currently">
-            <option value="Depends on the opportunity">
-          </datalist>
+          <div class="question-number">Question 8 of 8</div>
+          <label class="form-label">Tell us more about yourself</label>
+          <textarea class="form-control" id="selfDescription" name="selfDescription" rows="4" required 
+            placeholder="Share anything else you'd like us to know about your interests, aspirations, or experiences..."></textarea>
+          <div class="trait-description">
+            <p>Your personal insights help us provide more accurate career recommendations.</p>
+          </div>
+        </div>
+        <!-- Social Media Analysis Permission -->
+        <div class="question-container" data-question="7">
+          <div class="question-number">Question 7 of 8</div>
+          <label class="form-label">Would you like us to analyze your social media profiles for better career recommendations?</label>
+          <div class="social-media-section">
+            <div class="social-media-options">
+              <div class="social-media-card">
+                <div class="social-media-header">
+                  <i class="fab fa-linkedin"></i>
+                  <span>LinkedIn Profile</span>
+                  <div class="status-badge connected">
+                    <i class="fas fa-check-circle"></i> Connected
+                  </div>
+                </div>
+                <div class="profile-preview">
+                  <small>@sachinchaurasiya</small>
+                  <div class="analysis-status">
+                    <div class="analysis-progress">
+                      <div class="analysis-bar"></div>
+                    </div>
+                    <span class="status-text">Analyzing profile data...</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="social-media-card">
+                <div class="social-media-header">
+                  <i class="fab fa-twitter"></i>
+                  <span>Twitter Profile</span>
+                  <div class="status-badge connected">
+                    <i class="fas fa-check-circle"></i> Connected
+                  </div>
+                </div>
+                <div class="profile-preview">
+                  <small>@sachindev69</small>
+                  <div class="analysis-status">
+                    <div class="analysis-progress">
+                      <div class="analysis-bar"></div>
+                    </div>
+                    <span class="status-text">Analyzing profile data...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="privacy-notice">
+              <p><i class="fas fa-shield-alt"></i> Your privacy is important to us. We only analyze public information to provide better career recommendations.</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Question 9 -->
-        <div class="question-container" data-question="9">
-          <div class="question-number">Question 9 of 10</div>
-          <label for="LearningStyle" class="form-label">How do you prefer to learn new skills?</label>
-          <input list="learning-options" class="form-control" id="LearningStyle" name="LearningStyle" required placeholder="Select your learning style">
-          <datalist id="learning-options">
-            <option value="Hands-on practice">
-            <option value="Reading and research">
-            <option value="Video tutorials">
-            <option value="Mentorship">
-            <option value="Group workshops">
-          </datalist>
-        </div>
-
-        <!-- Question 10 -->
-        <div class="question-container" data-question="10">
-          <div class="question-number">Question 10 of 10</div>
-          <label for="Motivation" class="form-label">What motivates you the most in a career?</label>
-          <input list="motivation-options" class="form-control" id="Motivation" name="Motivation" required placeholder="Select your primary motivation">
-          <datalist id="motivation-options">
-            <option value="Making a positive impact">
-            <option value="Financial success">
-            <option value="Learning and growth">
-            <option value="Recognition and achievement">
-            <option value="Work-life harmony">
-          </datalist>
-        </div>
+        <!-- Self Description -->
+        
 
         <div class="navigation-buttons">
           <button type="button" class="btn btn-prev" id="prevBtn" style="display: none;">
@@ -430,7 +449,7 @@
             Next <i class="fas fa-arrow-right"></i>
           </button>
           <button type="submit" class="btn btn-submit" id="submitBtn" style="display: none;">
-            <i class="fas fa-check"></i> Submit
+            <i class="fas fa-check"></i> Get Career Insights
           </button>
         </div>
       </form>
@@ -447,7 +466,7 @@
       const submitBtn = document.getElementById('submitBtn');
       
       let currentQuestion = 1;
-      const totalQuestions = 10; // Updated to 10 questions
+      const totalQuestions = 8;
 
       // Update progress bar
       function updateProgress() {
@@ -464,7 +483,6 @@
         const questionToShow = document.querySelector(`[data-question="${questionNumber}"]`);
         questionToShow.classList.add('active');
 
-        // Update buttons
         prevBtn.style.display = questionNumber === 1 ? 'none' : 'block';
         nextBtn.style.display = questionNumber === totalQuestions ? 'none' : 'block';
         submitBtn.style.display = questionNumber === totalQuestions ? 'block' : 'none';
@@ -472,22 +490,34 @@
         updateProgress();
       }
 
-      // Next button click handler with smooth validation
+      // Simulate profile analysis animation
+      function startAnalysisAnimation() {
+        const bars = document.querySelectorAll('.analysis-bar');
+        bars.forEach(bar => {
+          bar.style.width = '0%';
+          setTimeout(() => {
+            bar.style.width = '100%';
+          }, 100);
+        });
+      }
+
+      // Start analysis animation when reaching the social media question
+      questions.forEach(question => {
+        question.addEventListener('transitionend', function() {
+          if (this.classList.contains('active') && this.dataset.question === '7') {
+            startAnalysisAnimation();
+          }
+        });
+      });
+
+      // Navigation handlers
       nextBtn.addEventListener('click', function() {
-        const currentInput = document.querySelector('.question-container.active input');
-        if (currentInput.value.trim() === '') {
-          currentInput.classList.add('shake');
-          setTimeout(() => currentInput.classList.remove('shake'), 500);
-          return;
-        }
-        
         if (currentQuestion < totalQuestions) {
           currentQuestion++;
           showQuestion(currentQuestion);
         }
       });
 
-      // Previous button click handler
       prevBtn.addEventListener('click', function() {
         if (currentQuestion > 1) {
           currentQuestion--;
@@ -495,23 +525,23 @@
         }
       });
 
-      // Form submission handler
+      // Form submission
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        const allInputs = form.querySelectorAll('input[required]');
+        
+        // Validate form
+        const requiredInputs = form.querySelectorAll('input[required], textarea[required]');
         let isValid = true;
 
-        allInputs.forEach(input => {
-          if (input.value.trim() === '') {
+        requiredInputs.forEach(input => {
+          if (!input.value) {
             isValid = false;
             input.classList.add('shake');
             setTimeout(() => input.classList.remove('shake'), 500);
           }
         });
 
-        if (!isValid) {
-          return;
-        }
+        if (!isValid) return;
 
         // Submit the form
         this.submit();
@@ -519,16 +549,186 @@
 
       // Initialize
       updateProgress();
-
-      // Add keydown event listener for keyboard navigation
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          nextBtn.click();
-        }
-      });
     });
   </script>
+
+  <style>
+    /* Additional styles for personality assessment */
+    .personality-scale {
+      margin: 2rem 0;
+      padding: 0 1rem;
+    }
+
+    .form-range {
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-appearance: none;
+    }
+
+    .form-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-range::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .trait-description {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .social-media-section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .social-media-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-check-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .privacy-notice {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .privacy-notice i {
+      color: var(--success);
+    }
+
+    .social-media-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .social-media-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+
+    .social-media-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .social-media-header i {
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .status-badge {
+      margin-left: auto;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .status-badge.connected {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+    }
+
+    .profile-preview {
+      padding: 0.8rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+    }
+
+    .profile-preview small {
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .analysis-status {
+      margin-top: 0.8rem;
+    }
+
+    .analysis-progress {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .analysis-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      width: 0;
+      transition: width 2s ease-in-out;
+    }
+
+    .status-text {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    textarea.form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    textarea.form-control:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+    }
+  </style>
 
   <style>
     @keyframes shake {

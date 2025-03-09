@@ -1,0 +1,4 @@
+spacy>=3.7.2
+requests>=2.31.0
+python-dateutil>=2.8.2
+en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.7.1/en_core_web_lg-3.7.1-py3-none-any.whl 
