@@ -20,6 +20,19 @@
                 <!-- Timer and Navigation with Scroll -->
                 <div class="card bg-light mb-3 text-center" style="height: 100%; max-height: 400px;  overflow-y: auto;">
                   <div class="card-body">
+                    <!-- Add XP Section above timer -->
+                    <div class="xp-section mb-3" style="background: #2C3E50; color: white; padding: 10px; border-radius: 8px;">
+                      <div class="level-badge" style="font-size: 1.2rem; font-weight: bold;">
+                        <i class="fas fa-star"></i> Level <span id="user-level">1</span>
+                      </div>
+                      <div class="xp-progress mt-2">
+                        <div class="progress" style="height: 8px;">
+                          <div id="xp-bar" class="progress-bar bg-warning" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <small class="mt-1 d-block">XP: <span id="current-xp">0</span>/<span id="next-level-xp">100</span></small>
+                      </div>
+                    </div>
+
                     <h5 class="card-title">Time Left</h5>
                     <div id="timer" class="display-4">60:00</div>
                     <!-- Start Test Button -->
@@ -104,6 +117,61 @@
     let currentQuestion = 0;
     let answers = {}; // Store user answers
 
+    // XP System
+    let userXP = 0;
+    let userLevel = 1;
+    const baseXP = 100; // Base XP needed for first level
+
+    function calculateXPForLevel(level) {
+      return baseXP * level;
+    }
+
+    function awardXP(amount) {
+      userXP += amount;
+      const nextLevelXP = calculateXPForLevel(userLevel);
+      
+      // Check for level up
+      if (userXP >= nextLevelXP) {
+        userLevel++;
+        // Play level up animation
+        showLevelUpAnimation();
+      }
+      
+      // Update UI
+      document.getElementById('current-xp').textContent = userXP;
+      document.getElementById('next-level-xp').textContent = calculateXPForLevel(userLevel);
+      document.getElementById('user-level').textContent = userLevel;
+      
+      // Update progress bar
+      const progress = (userXP % calculateXPForLevel(userLevel)) / calculateXPForLevel(userLevel) * 100;
+      document.getElementById('xp-bar').style.width = `${progress}%`;
+    }
+
+    function showLevelUpAnimation() {
+      const levelUpAlert = document.createElement('div');
+      levelUpAlert.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(44, 62, 80, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        animation: fadeInOut 2s forwards;
+        z-index: 1000;
+      `;
+      levelUpAlert.innerHTML = `
+        <h3>🎉 Level Up!</h3>
+        <p>You reached Level ${userLevel}</p>
+      `;
+      document.body.appendChild(levelUpAlert);
+      
+      setTimeout(() => {
+        levelUpAlert.remove();
+      }, 2000);
+    }
+
     // Start the test and the timer
     function startTest() {
       document.getElementById('start-btn').style.display = 'none'; // Hide start button
@@ -151,37 +219,37 @@
       }
     }
 
+    // Modify saveAnswer function to include XP rewards
     function saveAnswer(questionId, questionIndex) {
-  // Check if any option is selected for the current question
-  let selectedOption = document.querySelector(`input[name="question-${questionId}"]:checked`);
-  if (selectedOption) {
-    // Store the answer in the 'answers' object
-    answers[questionId] = selectedOption.value;
+      let selectedOption = document.querySelector(`input[name="question-${questionId}"]:checked`);
+      if (selectedOption) {
+        // Original save answer logic
+        answers[questionId] = selectedOption.value;
+        const section = getSection(questionIndex);
+        let navIndex = 0;
+        if (section === 'verbal') {
+          navIndex = questionIndex;
+        } else if (section === 'logical') {
+          navIndex = questionIndex - 20;
+        } else if (section === 'quant') {
+          navIndex = questionIndex - 40;
+        }
 
-    // Calculate section and question index for the navigation button
-    const section = getSection(questionIndex);
-    
-    // Determine correct index for each section (Verbal, Logical, Quantitative)
-    let navIndex = 0;
-    if (section === 'verbal') {
-      navIndex = questionIndex;
-    } else if (section === 'logical') {
-      navIndex = questionIndex - 20; // Adjust for Logical Reasoning section
-    } else if (section === 'quant') {
-      navIndex = questionIndex - 40; // Adjust for Quantitative Aptitude section
+        // Award XP (you can adjust these values)
+        const baseXPReward = 10;
+        const speedBonus = Math.max(0, 30 - Math.floor((Date.now() - questionStartTime) / 1000));
+        const totalXP = baseXPReward + speedBonus;
+        awardXP(totalXP);
+
+        // Update navigation button
+        document.getElementById(`nav-${section}-${navIndex}`).classList.remove('btn-outline-danger');
+        document.getElementById(`nav-${section}-${navIndex}`).classList.add('btn-outline-success');
+
+        nextQuestion();
+      } else {
+        alert("Please select an answer before saving.");
+      }
     }
-
-    // Mark the corresponding button as green
-    document.getElementById(`nav-${section}-${navIndex}`).classList.remove('btn-outline-danger');
-    document.getElementById(`nav-${section}-${navIndex}`).classList.add('btn-outline-success');
-
-    // Move to the next question
-    nextQuestion();
-  } else {
-    alert("Please select an answer before saving.");
-  }
-}
-
 
     // Determine the section (verbal, logical, or quant) based on question index
     function getSection(index) {
@@ -194,6 +262,19 @@
     function disableSubmitButton() {
     document.getElementById('submit-btn').disabled = true; // Disable the submit button to prevent multiple submissions
   }
+
+    // Add this style to your existing styles
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInOut {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        20% { transform: translate(-50%, -50%) scale(1); }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>

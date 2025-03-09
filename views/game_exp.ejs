@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Path & Journey</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a2a43, #1e3a5f);
+            color: white;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        /* Career Path Selection */
+        .career-bank {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #0a2a43, #1e3a5f);
+            color: white;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .career-card {
+            background: linear-gradient(135deg, #1e3a5f, #0a2a43);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #00c08b, #1e3a5f);
+        }
+
+        .career-card h2 {
+            font-size: 24px;
+            margin: 10px 0;
+            color: white;
+        }
+
+        .career-card p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        /* Career Journey */
+        .career-map {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3a5f, #0a2a43);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress {
+            height: 20px;
+            background: #00c08b;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .milestones {
+            margin-top: 20px;
+        }
+
+        .milestone {
+            background: linear-gradient(135deg, #1e3a5f, #0a2a43);
+            border: 1px solid #00c08b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .milestone h3 {
+            margin: 0;
+            color: white;
+        }
+
+        .milestone p {
+            margin: 10px 0;
+            color: #ddd;
+        }
+
+        .milestone button {
+            background: #00c08b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .milestone button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .milestone button:hover:not(:disabled) {
+            background: #1e3a5f;
+        }
+
+        .badges {
+            margin-top: 20px;
+        }
+
+        .badges h2 {
+            color: white;
+        }
+
+        #badge-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #00c08b;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: #00c08b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background: #1e3a5f;
+        }
+
+        /* Popup Styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1e3a5f, #0a2a43);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+            color: white;
+        }
+
+        .popup h2 {
+            margin: 0;
+            color: #00c08b;
+        }
+
+        .popup button {
+            background: #00c08b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .popup button:hover {
+            background: #1e3a5f;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Career Path Selection -->
+        <div id="career-path" class="career-bank">
+            <h1>Choose Your Career Path</h1>
+            <div class="career-grid">
+                <% careerPaths.forEach(path => { %>
+                    <div class="career-card" onclick="selectPath('<%= path.id %>')">
+                        <h2><%= path.emoji %> <%= path.title %></h2>
+                        <p><%= path.description %></p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <!-- Career Journey -->
+        <div id="career-journey" class="career-map">
+            <button class="back-button" onclick="goBack()">← Back to Career Paths</button>
+            <h1 id="journey-title">Your <%= selectedPath.title %> Journey</h1>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <p>Progress: <span id="progress-text">0%</span></p>
+
+            <!-- Milestones -->
+            <div class="milestones" id="milestones-container">
+                <% selectedPath.milestones.forEach((milestone, index) => { %>
+                    <div class="milestone" data-completed="false">
+                        <h3><%= milestone.title %></h3>
+                        <p><%= milestone.description %></p>
+                        <button onclick="completeMilestone(<%= index %>)">Complete</button>
+                    </div>
+                <% }); %>
+            </div>
+
+            <!-- Badges -->
+            <div class="badges">
+                <h2>🏆 Badges</h2>
+                <div id="badge-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>🎉 Congratulations! 🎉</h2>
+        <p>You have successfully completed your career journey!</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        // Career Path Data (can be passed from the server)
+        const careerPaths = [
+            {
+                id: 'software-development',
+                title: 'Software Development',
+                emoji: '🚀',
+                description: 'Become a software developer and build amazing applications.',
+                milestones: [
+                    { title: '🎯 Milestone 1: Learn Python', description: 'Complete a beginner Python course.' },
+                    { title: '🎯 Milestone 2: Build a Portfolio Project', description: 'Create a project to showcase your skills.' },
+                    { title: '🎯 Milestone 3: Apply for Internships', description: 'Apply to 5 software development internships.' }
+                ]
+            },
+            {
+                id: 'data-science',
+                title: 'Data Science',
+                emoji: '📊',
+                description: 'Dive into data analysis, machine learning, and AI.',
+                milestones: [
+                    { title: '🎯 Milestone 1: Learn Statistics', description: 'Complete a course on statistics and probability.' },
+                    { title: '🎯 Milestone 2: Master Machine Learning', description: 'Build a machine learning model using Python.' },
+                    { title: '🎯 Milestone 3: Analyze Real-World Data', description: 'Complete a data analysis project using real-world datasets.' }
+                ]
+            },
+            {
+                id: 'digital-marketing',
+                title: 'Digital Marketing',
+                emoji: '📈',
+                description: 'Master SEO, social media, and online advertising.',
+                milestones: [
+                    { title: '🎯 Milestone 1: Learn SEO Basics', description: 'Complete a course on Search Engine Optimization.' },
+                    { title: '🎯 Milestone 2: Run a Social Media Campaign', description: 'Create and manage a social media campaign.' },
+                    { title: '🎯 Milestone 3: Analyze Campaign Performance', description: 'Use analytics tools to measure campaign success.' }
+                ]
+            },
+            {
+                id: 'graphic-design',
+                title: 'Graphic Design',
+                emoji: '🎨',
+                description: 'Create stunning visuals and designs.',
+                milestones: [
+                    { title: '🎯 Milestone 1: Learn Design Principles', description: 'Complete a course on design fundamentals.' },
+                    { title: '🎯 Milestone 2: Create a Portfolio', description: 'Design 3 projects for your portfolio.' },
+                    { title: '🎯 Milestone 3: Collaborate on a Real Project', description: 'Work with a client or team on a design project.' }
+                ]
+            }
+        ];
+
+        // Function to handle career path selection
+        function selectPath(path) {
+            // Hide career path selection
+            document.getElementById('career-path').style.display = 'none';
+
+            // Show career journey
+            const careerJourney = document.getElementById('career-journey');
+            careerJourney.style.display = 'block';
+
+            // Update the title based on the selected path
+            const selectedPath = careerPaths.find(p => p.id === path);
+            document.getElementById('journey-title').textContent = Your ${selectedPath.title} Journey;
+
+            // Render milestones for the selected path
+            renderMilestones(selectedPath.milestones);
+        }
+
+        // Function to render milestones
+        function renderMilestones(milestones) {
+            const milestonesContainer = document.getElementById('milestones-container');
+            milestonesContainer.innerHTML = ''; // Clear previous milestones
+
+            milestones.forEach((milestone, index) => {
+                const milestoneDiv = document.createElement('div');
+                milestoneDiv.className = 'milestone';
+                milestoneDiv.setAttribute('data-completed', 'false');
+                milestoneDiv.innerHTML = `
+                    <h3>${milestone.title}</h3>
+                    <p>${milestone.description}</p>
+                    <button onclick="completeMilestone(${index})">Complete</button>
+                `;
+                milestonesContainer.appendChild(milestoneDiv);
+            });
+        }
+
+        // Function to handle milestone completion
+        function completeMilestone(index) {
+            const milestones = document.querySelectorAll('.milestone');
+            const milestone = milestones[index];
+
+            if (milestone.getAttribute('data-completed') === 'false') {
+                milestone.setAttribute('data-completed', 'true');
+                milestone.querySelector('button').disabled = true;
+                milestone.style.backgroundColor = '#00c08b';
+
+                // Update progress
+                const completedMilestones = document.querySelectorAll('.milestone[data-completed="true"]').length;
+                const totalMilestones = milestones.length;
+                const progress = (completedMilestones / totalMilestones) * 100;
+
+                document.getElementById('progress').style.width = ${progress}%;
+                document.getElementById('progress-text').textContent = ${Math.round(progress)}%;
+
+                // Add a badge
+                const badgeContainer = document.getElementById('badge-container');
+                const badge = document.createElement('div');
+                badge.className = 'badge';
+                badge.textContent = 🏅 Milestone ${index + 1} Completed;
+                badgeContainer.appendChild(badge);
+
+                // Check if all milestones are completed
+                if (completedMilestones === totalMilestones) {
+                    showPopup();
+                }
+            }
+        }
+
+        // Function to show the popup
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Function to go back to career paths
+        function goBack() {
+            document.getElementById('career-journey').style.display = 'none';
+            document.getElementById('career-path').style.display = 'block';
+            document.getElementById('progress').style.width = '0%';
+            document.getElementById('progress-text').textContent = '0%';
+            document.getElementById('badge-container').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
