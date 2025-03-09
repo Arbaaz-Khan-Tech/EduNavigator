@@ -1,71 +1,313 @@
 <%- include('layouts/header'); -%>
 <%- include('layouts/pnavbar'); -%>
 
-<section class="bg-light p-4">
-    <div class="container">
+<div class="parent-profile-container">
+    <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-sm p-4">
-                    <h3 class="text-center mb-4">Parent Profile</h3>
-
-                    <form action="/parentprofile" method="POST">
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" class="form-control" value="<%= username %>" disabled>
+            <div class="col-md-10">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-circle"></i>
                         </div>
+                        <h2 class="profile-title">Parent Dashboard</h2>
+                        <p class="profile-subtitle">Manage Your Profile & Student Connection</p>
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" value="<%= email %>" required>
+                    <div class="profile-content">
+                        <!-- Profile Form -->
+                        <form action="/parentprofile" method="POST" class="profile-form">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-field">
+                                        <label class="form-label">
+                                            <i class="fas fa-user me-2"></i>Username
+                                        </label>
+                                        <input type="text" class="form-control" value="<%= username %>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-field">
+                                        <label class="form-label">
+                                            <i class="fas fa-envelope me-2"></i>Email
+                                        </label>
+                                        <input type="email" class="form-control" name="email" value="<%= email %>" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-field">
+                                        <label class="form-label">
+                                            <i class="fas fa-phone me-2"></i>Phone
+                                        </label>
+                                        <input type="text" class="form-control" name="phone" value="<%= phone %>" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-field">
+                                        <label class="form-label">
+                                            <i class="fas fa-key me-2"></i>Student Unique Code
+                                        </label>
+                                        <input type="text" class="form-control" name="studentCode" placeholder="Enter student's unique code" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-gradient w-100">
+                                <i class="fas fa-save me-2"></i>Update Profile
+                            </button>
+                        </form>
+
+                        <!-- Student Details Section -->
+                        <div class="student-details mt-5">
+                            <h3 class="section-title">
+                                <i class="fas fa-user-graduate me-2"></i>
+                                Linked Student Details
+                            </h3>
+
+                            <% if (linkedStudent) { %>
+                                <div class="student-card">
+                                    <div class="student-info">
+                                        <div class="info-grid">
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-user me-2"></i>Name
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.fullName %></span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-envelope me-2"></i>Email
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.email %></span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-phone me-2"></i>Phone
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.phone %></span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-map-marker-alt me-2"></i>State
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.state %></span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-university me-2"></i>College
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.collegeName %></span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-book me-2"></i>Course
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.course %></span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">
+                                                    <i class="fas fa-calendar-alt me-2"></i>Year
+                                                </span>
+                                                <span class="info-value"><%= linkedStudent.year %></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <div class="no-student-card">
+                                    <i class="fas fa-user-plus mb-3"></i>
+                                    <p>No student linked yet. Use the student code above to connect with your child's account.</p>
+                                </div>
+                            <% } %>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" value="<%= phone %>" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Student Unique Code</label>
-                            <input type="text" class="form-control" name="studentCode" placeholder="Enter student's unique code" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">Update Profile</button>
-                    </form>
-
-                    <% if (linkedStudent) { %>
-                        <hr>
-                        <h5 class="text-center mt-3">Linked Student Details</h5>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>State</th>
-                                    <th>College</th>
-                                    <th>Course</th>
-                                    <th>Year</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><%= linkedStudent.fullName %></td>
-                                    <td><%= linkedStudent.email %></td>
-                                    <td><%= linkedStudent.phone %></td>
-                                    <td><%= linkedStudent.state %></td>
-                                    <td><%= linkedStudent.collegeName %></td>
-                                    <td><%= linkedStudent.course %></td>
-                                    <td><%= linkedStudent.year %></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    <% } else { %>
-                        <p class="text-center text-muted mt-3">No student linked yet.</p>
-                    <% } %>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+<style>
+    :root {
+        --primary: #4f46e5;
+        --secondary: #ec4899;
+        --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .parent-profile-container {
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+        color: #fff;
+    }
+
+    .profile-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+    }
+
+    .profile-header {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 3rem 2rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 1.5rem;
+        background: var(--gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-avatar i {
+        font-size: 3rem;
+        color: white;
+    }
+
+    .profile-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .profile-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.1rem;
+    }
+
+    .profile-content {
+        padding: 2rem;
+    }
+
+    .form-field {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-field:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .form-label {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        box-shadow: none;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-gradient {
+        background: var(--gradient);
+        border: none;
+        color: white;
+        padding: 1rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        color: white;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .student-card {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 15px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .info-item {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .info-item:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .info-label {
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .no-student-card {
+        text-align: center;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .no-student-card i {
+        font-size: 3rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .no-student-card p {
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+    }
+</style>
 
 <%- include('layouts/footer'); -%>

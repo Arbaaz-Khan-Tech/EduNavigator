@@ -1,0 +1,394 @@
+<%- include('layouts/header'); -%>
+<%- include('layouts/navbar'); -%>
+
+<div class="webinars-container">
+    <div class="container py-5">
+        <!-- Hero Section -->
+        <div class="hero-section text-center mb-5">
+            <h1 class="hero-title">Alumni Talks & Webinars</h1>
+            <p class="hero-subtitle">Learn from industry experts and successful alumni</p>
+            
+            <!-- Upcoming Webinar Banner -->
+            <div class="featured-webinar">
+                <div class="live-badge">
+                    <span class="pulse"></span>
+                    Coming Up Next
+                </div>
+                <div class="featured-content">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.FQQSqUjiDRbywR4WgA59fQAAAA%26pid%3DApi&f=1&ipt=159f5f3f352e37dcfea2dbfb49b5f1a2a693cad517519a69c0e533bf504c4066&ipo=images" 
+                                 alt="Tanay Pratap" class="featured-speaker">
+                        </div>
+                        <div class="col-md-8 text-start">
+                            <h2>Roadmap to Becoming a Software Developer in 2024</h2>
+                            <p class="speaker-name">with Tanay Pratap</p>
+                            <p class="speaker-title">Ex-Microsoft | Founder of Invact</p>
+                            <div class="webinar-meta">
+                                <span><i class="fas fa-calendar"></i> 25th March 2024</span>
+                                <span><i class="fas fa-clock"></i> 6:00 PM IST</span>
+                                <span><i class="fas fa-users"></i> 1.5k+ registered</span>
+                            </div>
+                            <button class="btn btn-gradient mt-3" data-bs-toggle="modal" data-bs-target="#registerModal">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Webinars Section -->
+        <section class="webinars-section mb-5">
+            <h2 class="section-title">Upcoming Webinars</h2>
+            <div class="row">
+                <% const upcomingWebinars = [
+                    {
+                        speaker: "Kunal Kushwaha",
+                        image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.6OVa7hUzcFblmNYTj8oEBQHaE8%26pid%3DApi&f=1&ipt=ccbacaeb38a1a3fa7f5324460df85855c5aab700f38bafd6d1c82122f661432b&ipo=images",
+                        title: "Open Source Contributions: A Complete Guide",
+                        role: "DevRel Engineer at Civo",
+                        date: "28th March 2024",
+                        time: "7:00 PM IST",
+                        registered: "850"
+                    },
+                    {
+                        speaker: "Ankur Warikoo",
+                        image: "https://yt3.googleusercontent.com/ytc/APkrFKZWeMCsx4Q9e_Hm6Da6_LaP-kR1AZxg1Gb2GvoY=s176-c-k-c0x00ffffff-no-rj",
+                        title: "Personal Branding for Tech Professionals",
+                        role: "Founder of nearbuy.com",
+                        date: "1st April 2024",
+                        time: "5:00 PM IST",
+                        registered: "1.2k"
+                    },
+                    {
+                        speaker: "Harry",
+                        image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.6OVa7hUzcFblmNYTj8oEBQHaE8%26pid%3DApi&f=1&ipt=ccbacaeb38a1a3fa7f5324460df85855c5aab700f38bafd6d1c82122f661432b&ipo=images",
+                        title: "Web Development Trends 2024",
+                        role: "Founder of CodeWithHarry",
+                        date: "5th April 2024",
+                        time: "6:30 PM IST",
+                        registered: "950"
+                    }
+                ] %>
+
+                <% upcomingWebinars.forEach(webinar => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="webinar-card">
+                            <div class="speaker-image">
+                                <img src="<%= webinar.image %>" alt="<%= webinar.speaker %>">
+                            </div>
+                            <div class="webinar-content">
+                                <h3><%= webinar.title %></h3>
+                                <p class="speaker-info">
+                                    <strong><%= webinar.speaker %></strong><br>
+                                    <span><%= webinar.role %></span>
+                                </p>
+                                <div class="webinar-details">
+                                    <span><i class="fas fa-calendar"></i> <%= webinar.date %></span>
+                                    <span><i class="fas fa-clock"></i> <%= webinar.time %></span>
+                                    <span><i class="fas fa-users"></i> <%= webinar.registered %> registered</span>
+                                </div>
+                                <button class="btn btn-outline-gradient w-100 mt-3" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#registerModal">
+                                    Register Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+
+        <!-- Past Webinars Section -->
+        <section class="past-webinars-section">
+            <h2 class="section-title">Past Webinars</h2>
+            <div class="row">
+                <% const pastWebinars = [
+                    {
+                        speaker: "Love Babbar",
+                        image: "https://yt3.googleusercontent.com/ytc/APkrFKaHM7sJgXwGgWuKvMSWX8n_YSHj6Qq2HWKpczo3=s176-c-k-c0x00ffffff-no-rj",
+                        title: "DSA Interview Preparation",
+                        role: "Ex-Amazon | Founder of CodeHelp",
+                        date: "15th March 2024",
+                        views: "25k",
+                        recording: true
+                    },
+                    {
+                        speaker: "Shradha Khapra",
+                        image: "https://yt3.googleusercontent.com/ytc/APkrFKY455xp16s2AIHalRjK60zas-DitxAHmRjQsXPE2A=s176-c-k-c0x00ffffff-no-rj",
+                        title: "Building Your Tech Career",
+                        role: "Ex-Microsoft | Founder of Apna College",
+                        date: "10th March 2024",
+                        views: "18k",
+                        recording: true
+                    },
+                    {
+                        speaker: "Sandeep Jain",
+                        image: "https://yt3.googleusercontent.com/ytc/APkrFKaqca-xQcdPKH0V3uqXYRGP8DcYgxjHlPHfaF5-=s176-c-k-c0x00ffffff-no-rj",
+                        title: "System Design for Interviews",
+                        role: "Founder of GeeksforGeeks",
+                        date: "5th March 2024",
+                        views: "22k",
+                        recording: true
+                    }
+                ] %>
+
+                <% pastWebinars.forEach(webinar => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="webinar-card past">
+                            <div class="recording-badge">
+                                <i class="fas fa-play-circle"></i> Recording Available
+                            </div>
+                            <div class="speaker-image">
+                                <img src="<%= webinar.image %>" alt="<%= webinar.speaker %>">
+                            </div>
+                            <div class="webinar-content">
+                                <h3><%= webinar.title %></h3>
+                                <p class="speaker-info">
+                                    <strong><%= webinar.speaker %></strong><br>
+                                    <span><%= webinar.role %></span>
+                                </p>
+                                <div class="webinar-details">
+                                    <span><i class="fas fa-calendar"></i> <%= webinar.date %></span>
+                                    <span><i class="fas fa-eye"></i> <%= webinar.views %> views</span>
+                                </div>
+                                <button class="btn btn-outline-gradient w-100 mt-3">
+                                    Watch Recording
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Registration Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Register for Webinar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="webinarRegistrationForm">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">College/Company</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Questions for Speaker (Optional)</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-gradient w-100">Confirm Registration</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #4f46e5;
+        --secondary: #ec4899;
+        --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .webinars-container {
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        min-height: 100vh;
+        color: #fff;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+    }
+
+    .featured-webinar {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2rem;
+        position: relative;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .live-badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--gradient);
+        padding: 0.5rem 2rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .pulse {
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    .featured-speaker {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        background: var(--gradient);
+        padding: 2px;
+    }
+
+    .webinar-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .webinar-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .speaker-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .speaker-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .webinar-content {
+        padding: 1.5rem;
+    }
+
+    .webinar-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .recording-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+
+    .btn-gradient {
+        background: var(--gradient);
+        border: none;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-gradient {
+        background: transparent;
+        border: 2px solid transparent;
+        background-image: var(--gradient);
+        background-origin: border-box;
+        box-shadow: 2px 1000px 1px #0f172a inset;
+        color: white;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover, .btn-outline-gradient:hover {
+        transform: translateY(-2px);
+        color: white;
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.5); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Modal Styling */
+    .modal-content {
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 8px;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        box-shadow: none;
+    }
+</style>
+
+<script>
+document.getElementById('webinarRegistrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Registration successful! You will receive a confirmation email shortly.');
+    bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+});
+</script>
+
+<%- include('layouts/footer'); -%> 

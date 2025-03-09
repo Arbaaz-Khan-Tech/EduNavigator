@@ -1,120 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('layouts/header'); -%>
-  <body>
-    
-    <%- include('layouts/navbar'); -%>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom styles for the table */
+    .neomorphic-table {
+      background: #e0e5ec;
+      border-radius: 20px;
+      box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px #ffffff;
+    }
 
-    <section class="cet_rec">
-      <h1 class="text-center mb-4">College Recommendations</h1>
+    .neomorphic-table th,
+    .neomorphic-table td {
+      padding: 12px;
+      text-align: center;
+    }
 
-      <!-- Dropdown for selecting the year -->
-      <div class="text-center mb-4">
-        <select id="yearDropdown" class="form-select" onchange="filterResults()">
+    .neomorphic-table th {
+      background-color: #005070;
+      color: white;
+      font-weight: 600;
+    }
+
+    .neomorphic-table tr:hover {
+      background-color: #f0f4f8;
+    }
+
+    .neomorphic-select {
+      background: #e0e5ec;
+      border-radius: 10px;
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+      border: none;
+      padding: 8px 16px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .neomorphic-select:focus {
+      outline: none;
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+    }
+
+    .neomorphic-btn {
+      background: #e0e5ec;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #005070;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .neomorphic-btn:hover {
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+      color: #00c08b;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  <%- include('layouts/navbar'); -%>
+
+  <!-- Main Content -->
+  <section class="flex-grow flex items-center justify-center p-4">
+    <div class="w-full max-w-6xl">
+      <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">College Recommendations</h1>
+
+      <!-- Dropdowns for Year and Round -->
+      <div class="flex justify-center gap-4 mb-8">
+        <select id="yearDropdown" class="neomorphic-select" onchange="filterResults()">
           <option value="2019">2019</option>
           <option value="2020">2020</option>
           <option value="2021">2021</option>
           <option value="2022">2022</option>
           <option value="2023">2023</option>
-          <!-- Add more years as needed -->
         </select>
-      </div>
 
-      <!-- Dropdown for selecting the round -->
-      <div class="text-center mb-4">
-        <select id="roundDropdown" class="form-select" onchange="filterResults()">
+        <select id="roundDropdown" class="neomorphic-select" onchange="filterResults()">
           <option value="1">Round 1</option>
           <option value="2">Round 2</option>
           <option value="3">Round 3</option>
         </select>
       </div>
 
+      <!-- Results Table -->
       <% if (colleges.length > 0) { %>
-      <div class="table-responsive">
-        <table id="resultsTable" class="table table-striped table-bordered table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th>College Name</th>
-              <th>University</th>
-              <th>Location</th>
-              <th>Branch</th>
-              <th>Category</th>
-              <th class="round-col" data-round="1">Round 1 Cutoff</th>
-              <th class="round-col" data-round="2">Round 2 Cutoff</th>
-              <th class="round-col" data-round="3">Round 3 Cutoff</th>
-              <th>Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% colleges.forEach(college => { %>
-              <% college.branches.forEach(br => { %>
-                <% if (br.name === branch) { %>
-                  <% let roundCutoffs = {}; %>
-                  <% br.cutoffs.forEach(cutoff => { %>
-                    <% if (!roundCutoffs[cutoff.round]) { %>
-                      <% roundCutoffs[cutoff.round] = cutoff.cetScore; %>
-                    <% } %>
-                  <% }); %>
-                  <tr data-year="<%= br.cutoffs[0]?.year %>">
-                    <td><%= college.name %></td>
-                    <td><%= college.university %></td>
-                    <td><%= college.location %></td>
-                    <td><%= br.name %></td>
-                    <td><%= category %></td>
-                    <td class="round-col" data-round="1"><%= roundCutoffs[1] || 'N/A' %></td>
-                    <td class="round-col" data-round="2"><%= roundCutoffs[2] || 'N/A' %></td>
-                    <td class="round-col" data-round="3"><%= roundCutoffs[3] || 'N/A' %></td>
-                    <td><%= br.cutoffs[0]?.year %></td>
-                  </tr>
-                <% } %>
+        <div class="neomorphic-table overflow-hidden">
+          <table id="resultsTable" class="w-full">
+            <thead>
+              <tr>
+                <th>College Name</th>
+                <th>University</th>
+                <th>Location</th>
+                <th>Branch</th>
+                <th>Category</th>
+                <th class="round-col" data-round="1">Round 1 Cutoff</th>
+                <th class="round-col" data-round="2">Round 2 Cutoff</th>
+                <th class="round-col" data-round="3">Round 3 Cutoff</th>
+                <th>Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% colleges.forEach(college => { %>
+                <% college.branches.forEach(br => { %>
+                  <% if (br.name === branch) { %>
+                    <% let roundCutoffs = {}; %>
+                    <% br.cutoffs.forEach(cutoff => { %>
+                      <% if (!roundCutoffs[cutoff.round]) { %>
+                        <% roundCutoffs[cutoff.round] = cutoff.cetScore; %>
+                      <% } %>
+                    <% }); %>
+                    <tr data-year="<%= br.cutoffs[0]?.year %>">
+                      <td><%= college.name %></td>
+                      <td><%= college.university %></td>
+                      <td><%= college.location %></td>
+                      <td><%= br.name %></td>
+                      <td><%= category %></td>
+                      <td class="round-col" data-round="1"><%= roundCutoffs[1] || 'N/A' %></td>
+                      <td class="round-col" data-round="2"><%= roundCutoffs[2] || 'N/A' %></td>
+                      <td class="round-col" data-round="3"><%= roundCutoffs[3] || 'N/A' %></td>
+                      <td><%= br.cutoffs[0]?.year %></td>
+                    </tr>
+                  <% } %>
+                <% }) %>
               <% }) %>
-            <% }) %>
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
       <% } else { %>
-      <p class="alert alert-warning text-center">No colleges found matching your criteria.</p>
+        <p class="text-center text-gray-600 py-4">No colleges found matching your criteria.</p>
       <% } %>
 
-      <div class="text-center mt-4">
-        <a href="/" class="btn btn-primary">Search Again</a>
+      <!-- Search Again Button -->
+      <div class="text-center mt-8">
+        <a href="/" class="neomorphic-btn">Search Again</a>
       </div>
+    </div>
+  </section>
 
-    </section>
-    
-    <%- include('layouts/footer'); -%>
+  <%- include('layouts/footer'); -%>
 
-    <script>
-      function filterResults() {
-        const selectedYear = document.getElementById('yearDropdown').value;
-        const selectedRound = document.getElementById('roundDropdown').value;
-        const rows = document.querySelectorAll('#resultsTable tbody tr');
+  <script>
+    function filterResults() {
+      const selectedYear = document.getElementById('yearDropdown').value;
+      const selectedRound = document.getElementById('roundDropdown').value;
+      const rows = document.querySelectorAll('#resultsTable tbody tr');
 
-        // Show or hide the relevant cutoff columns based on selected round
-        document.querySelectorAll('.round-col').forEach(col => {
-          if (col.getAttribute('data-round') === selectedRound) {
-            col.style.display = '';
-          } else {
-            col.style.display = 'none';
-          }
-        });
+      // Show or hide the relevant cutoff columns based on selected round
+      document.querySelectorAll('.round-col').forEach(col => {
+        if (col.getAttribute('data-round') === selectedRound) {
+          col.style.display = '';
+        } else {
+          col.style.display = 'none';
+        }
+      });
 
-        // Filter rows by year
-        rows.forEach(row => {
-          const yearMatch = row.getAttribute('data-year') === selectedYear;
-          if (yearMatch) {
-            row.style.display = '';
-          } else {
-            row.style.display = 'none';
-          }
-        });
-      }
+      // Filter rows by year
+      rows.forEach(row => {
+        const yearMatch = row.getAttribute('data-year') === selectedYear;
+        if (yearMatch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
 
-      // Initially hide the other round columns
-      window.onload = function() {
-        filterResults();  // Call filterResults to hide columns initially
-      };
-    </script>
-
-  </body>
+    // Initially hide the other round columns
+    window.onload = function () {
+      filterResults(); // Call filterResults to hide columns initially
+    };
+  </script>
+</body>
 </html>
